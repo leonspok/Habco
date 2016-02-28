@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		E30E65351C83360D001E431B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65341C83360D001E431B /* main.m */; };
 		E30E65381C83360D001E431B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65371C83360D001E431B /* AppDelegate.m */; };
-		E30E653B1C83360D001E431B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E653A1C83360D001E431B /* ViewController.m */; };
-		E30E653E1C83360E001E431B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30E653C1C83360E001E431B /* Main.storyboard */; };
 		E30E65401C83360E001E431B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E30E653F1C83360E001E431B /* Assets.xcassets */; };
 		E30E65431C83360E001E431B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E30E65411C83360E001E431B /* LaunchScreen.storyboard */; };
+		E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E654B1C833664001E431B /* PCWebViewWrapperViewController.m */; };
+		E30E654E1C833664001E431B /* PCWebViewWrapperViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E30E654C1C833664001E431B /* PCWebViewWrapperViewController.xib */; };
+		E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +21,14 @@
 		E30E65341C83360D001E431B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E30E65361C83360D001E431B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E30E65371C83360D001E431B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E30E65391C83360D001E431B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E30E653A1C83360D001E431B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		E30E653D1C83360E001E431B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E30E653F1C83360E001E431B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E30E65421C83360E001E431B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E30E65441C83360E001E431B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E30E654A1C833664001E431B /* PCWebViewWrapperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCWebViewWrapperViewController.h; sourceTree = "<group>"; };
+		E30E654B1C833664001E431B /* PCWebViewWrapperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCWebViewWrapperViewController.m; sourceTree = "<group>"; };
+		E30E654C1C833664001E431B /* PCWebViewWrapperViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PCWebViewWrapperViewController.xib; sourceTree = "<group>"; };
+		E30E654F1C8336C3001E431B /* LPPrototypeCaptureRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPrototypeCaptureRecorder.h; sourceTree = "<group>"; };
+		E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPrototypeCaptureRecorder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +61,13 @@
 		E30E65321C83360D001E431B /* PrototypeCapture */ = {
 			isa = PBXGroup;
 			children = (
+				E30E654F1C8336C3001E431B /* LPPrototypeCaptureRecorder.h */,
+				E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */,
+				E30E654A1C833664001E431B /* PCWebViewWrapperViewController.h */,
+				E30E654B1C833664001E431B /* PCWebViewWrapperViewController.m */,
+				E30E654C1C833664001E431B /* PCWebViewWrapperViewController.xib */,
 				E30E65361C83360D001E431B /* AppDelegate.h */,
 				E30E65371C83360D001E431B /* AppDelegate.m */,
-				E30E65391C83360D001E431B /* ViewController.h */,
-				E30E653A1C83360D001E431B /* ViewController.m */,
-				E30E653C1C83360E001E431B /* Main.storyboard */,
 				E30E653F1C83360E001E431B /* Assets.xcassets */,
 				E30E65411C83360E001E431B /* LaunchScreen.storyboard */,
 				E30E65441C83360E001E431B /* Info.plist */,
@@ -137,8 +142,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E30E65431C83360E001E431B /* LaunchScreen.storyboard in Resources */,
+				E30E654E1C833664001E431B /* PCWebViewWrapperViewController.xib in Resources */,
 				E30E65401C83360E001E431B /* Assets.xcassets in Resources */,
-				E30E653E1C83360E001E431B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,23 +154,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E30E653B1C83360D001E431B /* ViewController.m in Sources */,
+				E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */,
 				E30E65381C83360D001E431B /* AppDelegate.m in Sources */,
 				E30E65351C83360D001E431B /* main.m in Sources */,
+				E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E30E653C1C83360E001E431B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E30E653D1C83360E001E431B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E30E65411C83360E001E431B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -267,6 +265,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leonspok.ios..PrototypeCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -278,6 +277,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leonspok.ios..PrototypeCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

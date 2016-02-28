@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  PCWebViewWrapperViewController.h
 //  PrototypeCapture
 //
 //  Created by Игорь Савельев on 28/02/16.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface PCWebViewWrapperViewController : UIViewController
 
 @end
-
