@@ -30,15 +30,19 @@
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#airbnb-navigation.framer"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://share.framerjs.com/o2o8qjfx73gi/"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://share.framerjs.com/85ec7i6zjtaq/"]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#shazam-track-page.framer"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://share.framerjs.com/47o9uv5kemjf/"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#apple-tv-icon.framer"]]];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#human-clubs.framer"]]];
+    //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#human-clubs.framer"]]];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *pathToDocumentsFolder = [paths objectAtIndex:0];
     NSLog(@"%@", pathToDocumentsFolder);
     
     self.recorder = [[LPPrototypeCaptureRecorder alloc] initWithTargetView:self.webView baseFolder:pathToDocumentsFolder];
+    self.recorder.withTouches = YES;
+    self.recorder.downscale = 2.0f;
+    self.recorder.fps = 24;
 }
 
 - (IBAction)toggleRecording:(id)sender {

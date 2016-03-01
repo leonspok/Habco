@@ -14,6 +14,8 @@
 		E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E654B1C833664001E431B /* PCWebViewWrapperViewController.m */; };
 		E30E654E1C833664001E431B /* PCWebViewWrapperViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E30E654C1C833664001E431B /* PCWebViewWrapperViewController.xib */; };
 		E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */; };
+		E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */; };
+		E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FF1C8634A20015CA23 /* LPViewTouch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,10 @@
 		E30E654C1C833664001E431B /* PCWebViewWrapperViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PCWebViewWrapperViewController.xib; sourceTree = "<group>"; };
 		E30E654F1C8336C3001E431B /* LPPrototypeCaptureRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPrototypeCaptureRecorder.h; sourceTree = "<group>"; };
 		E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPrototypeCaptureRecorder.m; sourceTree = "<group>"; };
+		E33878FB1C8630C90015CA23 /* LPViewTouchesRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouchesRecognizer.h; sourceTree = "<group>"; };
+		E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouchesRecognizer.m; sourceTree = "<group>"; };
+		E33878FE1C8634A20015CA23 /* LPViewTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouch.h; sourceTree = "<group>"; };
+		E33878FF1C8634A20015CA23 /* LPViewTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,10 @@
 			children = (
 				E30E654F1C8336C3001E431B /* LPPrototypeCaptureRecorder.h */,
 				E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */,
+				E33878FB1C8630C90015CA23 /* LPViewTouchesRecognizer.h */,
+				E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */,
+				E33878FE1C8634A20015CA23 /* LPViewTouch.h */,
+				E33878FF1C8634A20015CA23 /* LPViewTouch.m */,
 				E30E654A1C833664001E431B /* PCWebViewWrapperViewController.h */,
 				E30E654B1C833664001E431B /* PCWebViewWrapperViewController.m */,
 				E30E654C1C833664001E431B /* PCWebViewWrapperViewController.xib */,
@@ -156,7 +166,9 @@
 			files = (
 				E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */,
 				E30E65381C83360D001E431B /* AppDelegate.m in Sources */,
+				E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */,
 				E30E65351C83360D001E431B /* main.m in Sources */,
+				E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */,
 				E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,7 +275,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PrototypeCapture/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.leonspok.ios..PrototypeCapture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.leonspok.ios.PrototypeCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -275,7 +287,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PrototypeCapture/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.leonspok.ios..PrototypeCapture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.leonspok.ios.PrototypeCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -300,6 +312,7 @@
 				E30E65491C83360E001E431B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

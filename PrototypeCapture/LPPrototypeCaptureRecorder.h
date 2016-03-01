@@ -16,6 +16,7 @@
 @property (nonatomic, strong, readonly) UIView *targetView;
 @property (nonatomic) NSUInteger fps;
 @property (nonatomic) CGFloat downscale;
+@property (nonatomic) BOOL withTouches;
 @property (nonatomic, getter=isRecording) BOOL recording;
 @property (nonatomic, getter=isReadyToRecord) BOOL readyToRecord;
 
