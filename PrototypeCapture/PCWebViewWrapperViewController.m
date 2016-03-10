@@ -30,8 +30,8 @@
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#airbnb-navigation.framer"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://share.framerjs.com/o2o8qjfx73gi/"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://share.framerjs.com/85ec7i6zjtaq/"]]];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#shazam-track-page.framer"]]];
-    //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://share.framerjs.com/47o9uv5kemjf/"]]];
+    //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#shazam-track-page.framer"]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://share.framerjs.com/47o9uv5kemjf/"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#apple-tv-icon.framer"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#human-clubs.framer"]]];
     
@@ -42,18 +42,20 @@
     self.recorder = [[LPPrototypeCaptureRecorder alloc] initWithTargetView:self.webView baseFolder:pathToDocumentsFolder];
     self.recorder.withTouches = YES;
     self.recorder.downscale = 2.0f;
-    self.recorder.fps = 24;
+    self.recorder.withFrontCamera = YES;
+    self.recorder.fps = 15;
 }
 
 - (IBAction)toggleRecording:(id)sender {
-    if ([self.recorder isRecording]) {
-        [self.recorder stopRecording];
-        [sender setSelected:NO];
-    } else {
-        [self.recorder prepareForRecording];
-        [self.recorder startRecording];
-        [sender setSelected:YES];
-    }
+    [self.recorder render];
+//    if ([self.recorder isRecording]) {
+//        [self.recorder stopRecording];
+//        [sender setSelected:NO];
+//    } else {
+//        [self.recorder prepareForRecording];
+//        [self.recorder startRecording];
+//        [sender setSelected:YES];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {

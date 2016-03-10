@@ -16,6 +16,7 @@
 		E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */; };
 		E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */; };
 		E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FF1C8634A20015CA23 /* LPViewTouch.m */; };
+		E34553EF1C90B6D90097C555 /* LPCaptureRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E34553EE1C90B6D90097C555 /* LPCaptureRecord.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouchesRecognizer.m; sourceTree = "<group>"; };
 		E33878FE1C8634A20015CA23 /* LPViewTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouch.h; sourceTree = "<group>"; };
 		E33878FF1C8634A20015CA23 /* LPViewTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouch.m; sourceTree = "<group>"; };
+		E34553ED1C90B6D90097C555 /* LPCaptureRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCaptureRecord.h; sourceTree = "<group>"; };
+		E34553EE1C90B6D90097C555 /* LPCaptureRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCaptureRecord.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,8 @@
 			children = (
 				E30E654F1C8336C3001E431B /* LPPrototypeCaptureRecorder.h */,
 				E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */,
+				E34553ED1C90B6D90097C555 /* LPCaptureRecord.h */,
+				E34553EE1C90B6D90097C555 /* LPCaptureRecord.m */,
 				E33878FB1C8630C90015CA23 /* LPViewTouchesRecognizer.h */,
 				E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */,
 				E33878FE1C8634A20015CA23 /* LPViewTouch.h */,
@@ -167,6 +172,7 @@
 				E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */,
 				E30E65381C83360D001E431B /* AppDelegate.m in Sources */,
 				E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */,
+				E34553EF1C90B6D90097C555 /* LPCaptureRecord.m in Sources */,
 				E30E65351C83360D001E431B /* main.m in Sources */,
 				E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */,
 				E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */,

@@ -11,7 +11,7 @@
 
 @import AVFoundation;
 
-@interface LPPrototypeCaptureRecorder() <UIGestureRecognizerDelegate>
+@interface LPPrototypeCaptureRecorder() <UIGestureRecognizerDelegate, AVCaptureFileOutputRecordingDelegate>
 @property (nonatomic, strong) NSString *currentRecordFolder;
 //@property (nonatomic, strong) CADisplayLink *recordingDisplayLink;
 @property (nonatomic, strong) NSTimer *captureTargetViewTimer;
@@ -22,6 +22,9 @@
 @property (nonatomic, strong) AVAssetWriterInputPixelBufferAdaptor *pixelBufferAdaptor;
 @property (nonatomic, strong) UIImage *targetViewSnapshot;
 @property (nonatomic, strong) LPViewTouchesRecognizer *touchesRecognizer;
+@property (nonatomic, strong) AVCaptureDevice *frontCameraDevice;
+@property (nonatomic, strong) AVCaptureDevice *audioDevice;
+@property (strong, nonatomic) AVCaptureSession *frontCameraCaptureSession;
 
 @end
 
@@ -193,13 +196,13 @@
     NSParameterAssert(self.videoWriter);
     
     NSDictionary *videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:AVVideoCodecH264, AVVideoCodecKey, @(capturingFrame.size.width), AVVideoWidthKey, @(capturingFrame.size.height), AVVideoHeightKey, nil];
-    AVAssetWriterInput* writerInput = [AVAssetWriterInput                                  assetWriterInputWithMediaType:AVMediaTypeVideo                                        outputSettings:videoSettings];
+    AVAssetWriterInput* writerInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:videoSettings];
     NSParameterAssert(writerInput);
     NSParameterAssert([self.videoWriter canAddInput:writerInput]);
     self.videoWriterInput.expectsMediaDataInRealTime = YES;
     [self.videoWriter addInput:writerInput];
     
-    self.pixelBufferAdaptor = [AVAssetWriterInputPixelBufferAdaptor                                                  assetWriterInputPixelBufferAdaptorWithAssetWriterInput:writerInput sourcePixelBufferAttributes:nil];
+    self.pixelBufferAdaptor = [AVAssetWriterInputPixelBufferAdaptor assetWriterInputPixelBufferAdaptorWithAssetWriterInput:writerInput sourcePixelBufferAttributes:nil];
     
     //Touches
     if (!self.withTouches || self.touchesRecognizer) {
@@ -225,6 +228,38 @@
         CGContextConcatCTM(touchesDrawingContext, flipVertical);
     }
     
+    //Camera
+    
+    if (self.frontCameraCaptureSession.outputs.count > 0) {
+        AVCaptureMovieFileOutput *fileOutput = ((AVCaptureMovieFileOutput *)[self.frontCameraCaptureSession.outputs firstObject]);
+        [fileOutput stopRecording];
+    }
+    if (self.frontCameraCaptureSession) {
+        [self.frontCameraCaptureSession stopRunning];
+        self.frontCameraCaptureSession = nil;
+    }
+    
+    if (self.withFrontCamera) {
+        NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+        for(AVCaptureDevice *device in devices) {
+            if([device position] == AVCaptureDevicePositionFront) {
+                self.frontCameraDevice = device;
+            }
+        }
+        self.audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+        
+        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:self.frontCameraDevice error:nil];
+        AVCaptureDeviceInput *audioInput = [AVCaptureDeviceInput deviceInputWithDevice:self.audioDevice error:nil];
+        self.frontCameraCaptureSession = [[AVCaptureSession alloc] init];
+        [self.frontCameraCaptureSession beginConfiguration];
+        [self.frontCameraCaptureSession addInput:input];
+        [self.frontCameraCaptureSession addInput:audioInput];
+        AVCaptureMovieFileOutput *movieOutput = [[AVCaptureMovieFileOutput alloc] init];
+        [self.frontCameraCaptureSession addOutput:movieOutput];
+        [self.frontCameraCaptureSession setSessionPreset:AVCaptureSessionPresetMedium];
+        [self.frontCameraCaptureSession commitConfiguration];
+    }
+    
     _readyToRecord = YES;
 }
 
@@ -241,6 +276,14 @@
     
     [self.videoWriter startWriting];
     [self.videoWriter startSessionAtSourceTime:kCMTimeZero];
+    
+    if (self.withFrontCamera) {
+        [self.frontCameraCaptureSession startRunning];
+        if (self.frontCameraCaptureSession.outputs.count > 0) {
+            AVCaptureMovieFileOutput *fileOutput = ((AVCaptureMovieFileOutput *)[self.frontCameraCaptureSession.outputs firstObject]);
+            [fileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:[self.currentRecordFolder stringByAppendingPathComponent:@"camera.mov"]] recordingDelegate:self];
+        }
+    }
     
     frameCounter = 0;
     
@@ -264,6 +307,18 @@
         [self.touchesRecognizer.view removeGestureRecognizer:self.touchesRecognizer];
         self.touchesRecognizer = nil;
     }
+    
+    if (self.withFrontCamera) {
+        if (self.frontCameraCaptureSession.outputs.count > 0) {
+            AVCaptureMovieFileOutput *fileOutput = ((AVCaptureMovieFileOutput *)[self.frontCameraCaptureSession.outputs firstObject]);
+            [fileOutput stopRecording];
+        }
+        if (self.frontCameraCaptureSession) {
+            [self.frontCameraCaptureSession stopRunning];
+            self.frontCameraCaptureSession = nil;
+        }
+    }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (!self.recording && touchesDrawingContext != NULL) {
             CGContextRelease(touchesDrawingContext);
@@ -273,6 +328,72 @@
     
     _recording = NO;
     _readyToRecord = NO;
+}
+
+- (void)render {
+    NSString *currentRecordFolder = [self.baseFolder stringByAppendingPathComponent:@"2016-03-10 11.55.21"];
+    NSString *path = [currentRecordFolder stringByAppendingPathComponent:@"rendered.mov"];
+    
+    AVURLAsset *screenCaptureAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:[currentRecordFolder stringByAppendingPathComponent:@"video.mp4"]] options:@{AVURLAssetPreferPreciseDurationAndTimingKey: @YES}];
+    AVAssetTrack *screenCaptureTrack = [[screenCaptureAsset tracksWithMediaType:AVMediaTypeVideo] firstObject];
+    AVURLAsset *frontCameraCaptureAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:[currentRecordFolder stringByAppendingPathComponent:@"camera.mov"]] options:@{AVURLAssetPreferPreciseDurationAndTimingKey: @YES}];
+    AVAssetTrack *frontCameraCaptureTrack = [[frontCameraCaptureAsset tracksWithMediaType:AVMediaTypeVideo] firstObject];
+//    AVAssetTrack *audioTrack = [[frontCameraCaptureAsset tracksWithMediaType:AVMediaTypeAudio] firstObject];
+    
+    AVMutableComposition *mixComposition = [AVMutableComposition composition];
+    
+    NSError *error;
+    AVMutableCompositionTrack *screenCaptureCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    [screenCaptureCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, screenCaptureTrack.asset.duration) ofTrack:screenCaptureTrack atTime:kCMTimeZero error:&error];
+    if (error) {
+        NSLog(@"Screen capture: %@\n%@\n%@", error.debugDescription, screenCaptureTrack, screenCaptureCompositionTrack);
+    }
+    
+    AVMutableCompositionTrack *frontCameraCaptureCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    [frontCameraCaptureCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, frontCameraCaptureTrack.asset.duration) ofTrack:frontCameraCaptureTrack atTime:kCMTimeZero error:&error];
+    if (error) {
+        NSLog(@"Front camera: %@\n%@\n%@", error.debugDescription, frontCameraCaptureTrack, frontCameraCaptureCompositionTrack);
+    }
+    
+//    AVMutableCompositionTrack *audioCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+//    [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.asset.duration) ofTrack:audioTrack atTime:kCMTimeZero error:&error];
+//    if (error) {
+//        NSLog(@"Audio: %@\n%@\n%@", error.debugDescription, audioTrack.description, audioCompositionTrack);
+//    }
+    
+    AVMutableVideoCompositionInstruction *mainInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+    mainInstruction.timeRange = CMTimeRangeMake(kCMTimeZero, screenCaptureAsset.duration);
+
+    AVMutableVideoCompositionLayerInstruction *screenCaptureLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:screenCaptureCompositionTrack];
+    CGAffineTransform screenCaptureLayerMove = CGAffineTransformMakeTranslation(160.0f-screenCaptureTrack.naturalSize.width/2.0f, (240.0f-screenCaptureTrack.naturalSize.height/2.0f));
+    [screenCaptureLayerInstruction setTransform:screenCaptureLayerMove atTime:kCMTimeZero];
+    
+    AVMutableVideoCompositionLayerInstruction *frontCameraCaptureLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:frontCameraCaptureCompositionTrack];
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(480.0f-frontCameraCaptureTrack.naturalSize.width/2.0f, (240.0f-frontCameraCaptureTrack.naturalSize.height/2.0f));
+    [frontCameraCaptureLayerInstruction setTransform:CGAffineTransformConcat(transform, frontCameraCaptureTrack.preferredTransform) atTime:kCMTimeZero];
+    
+    [mainInstruction setLayerInstructions:@[screenCaptureLayerInstruction, frontCameraCaptureLayerInstruction]];
+    
+    AVMutableVideoComposition *videoComposition = [AVMutableVideoComposition videoComposition];
+    [videoComposition setInstructions:@[mainInstruction]];
+    [videoComposition setFrameDuration:CMTimeMake(1, 30)];
+    [videoComposition setRenderSize:CGSizeMake(640, 480)];
+    [videoComposition setRenderScale:1.0f];
+    
+    if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    }
+    NSURL *url = [NSURL fileURLWithPath:path];
+    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+    [exporter setOutputURL:url];
+    [exporter setOutputFileType:AVFileTypeQuickTimeMovie];
+    [exporter setVideoComposition:videoComposition];
+    [exporter exportAsynchronouslyWithCompletionHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Exporting: %@", exporter.error.debugDescription);
+            NSLog(@"DONE!");
+        });
+    }];
 }
 
 #pragma mark UIGestureRecognizerDelegate
@@ -288,5 +409,11 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
-
+        
+#pragma mark AVCaptureFileOutputRecordingDelegate
+        
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
+    
+}
+        
 @end

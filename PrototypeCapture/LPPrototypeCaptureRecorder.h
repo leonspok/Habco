@@ -17,6 +17,7 @@
 @property (nonatomic) NSUInteger fps;
 @property (nonatomic) CGFloat downscale;
 @property (nonatomic) BOOL withTouches;
+@property (nonatomic) BOOL withFrontCamera;
 @property (nonatomic, getter=isRecording) BOOL recording;
 @property (nonatomic, getter=isReadyToRecord) BOOL readyToRecord;
 
@@ -24,5 +25,6 @@
 - (void)prepareForRecording;
 - (void)startRecording;
 - (void)stopRecording;
+- (void)render;
 
 @end

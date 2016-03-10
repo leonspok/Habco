@@ -17,15 +17,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FRb-hr-hpH">
-                    <rect key="frame" x="30" y="-180" width="540" height="960"/>
+                    <rect key="frame" x="140" y="16" width="320" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="960" id="elP-ea-NYT"/>
-                        <constraint firstAttribute="width" constant="540" id="vmt-qe-Qn4"/>
+                        <constraint firstAttribute="height" constant="568" id="elP-ea-NYT"/>
+                        <constraint firstAttribute="width" constant="320" id="vmt-qe-Qn4"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbS-dQ-Sok">
-                    <rect key="frame" x="248" y="800" width="104" height="30"/>
+                    <rect key="frame" x="248" y="604" width="104" height="30"/>
                     <state key="normal" title="Start recording"/>
                     <state key="selected" title="Stop recording"/>
                     <connections>
