@@ -34,28 +34,30 @@
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://share.framerjs.com/47o9uv5kemjf/"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#apple-tv-icon.framer"]]];
     //[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://framerjs.com/examples/preview/#human-clubs.framer"]]];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *pathToDocumentsFolder = [paths objectAtIndex:0];
-    NSLog(@"%@", pathToDocumentsFolder);
-    
-    self.recorder = [[LPPrototypeCaptureRecorder alloc] initWithTargetView:self.webView baseFolder:pathToDocumentsFolder];
-    self.recorder.withTouches = YES;
-    self.recorder.downscale = 2.0f;
-    self.recorder.withFrontCamera = YES;
-    self.recorder.fps = 15;
 }
 
 - (IBAction)toggleRecording:(id)sender {
+    if ([self.recorder isRecording]) {
+        [self.recorder stopRecording];
+        [sender setSelected:NO];
+    } else {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *pathToDocumentsFolder = [paths objectAtIndex:0];
+        
+        self.recorder = [[LPPrototypeCaptureRecorder alloc] initWithTargetView:self.webView baseFolder:pathToDocumentsFolder];
+        self.recorder.withTouches = YES;
+        self.recorder.downscale = 2.0f;
+        self.recorder.withFrontCamera = YES;
+        self.recorder.fps = 15;
+        
+        [self.recorder prepareForRecording];
+        [self.recorder startRecording];
+        [sender setSelected:YES];
+    }
+}
+
+- (IBAction)render:(id)sender {
     [self.recorder render];
-//    if ([self.recorder isRecording]) {
-//        [self.recorder stopRecording];
-//        [sender setSelected:NO];
-//    } else {
-//        [self.recorder prepareForRecording];
-//        [self.recorder startRecording];
-//        [sender setSelected:YES];
-//    }
 }
 
 - (void)didReceiveMemoryWarning {

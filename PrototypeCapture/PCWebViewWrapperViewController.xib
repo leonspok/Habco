@@ -16,6 +16,14 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJJ-Ae-jAd">
+                    <rect key="frame" x="248" y="-34" width="104" height="30"/>
+                    <state key="normal" title="Render"/>
+                    <state key="selected" title="Stop recording"/>
+                    <connections>
+                        <action selector="render:" destination="-1" eventType="touchUpInside" id="9Ui-1N-kAz"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FRb-hr-hpH">
                     <rect key="frame" x="140" y="16" width="320" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,10 +43,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="vJJ-Ae-jAd" firstAttribute="centerX" secondItem="FRb-hr-hpH" secondAttribute="centerX" id="4yl-wF-gIC"/>
                 <constraint firstItem="FRb-hr-hpH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Jps-5r-yeV"/>
                 <constraint firstItem="EbS-dQ-Sok" firstAttribute="centerX" secondItem="FRb-hr-hpH" secondAttribute="centerX" id="Ukp-ex-GdO"/>
                 <constraint firstItem="EbS-dQ-Sok" firstAttribute="top" secondItem="FRb-hr-hpH" secondAttribute="bottom" constant="20" id="gqy-X4-pRf"/>
                 <constraint firstItem="FRb-hr-hpH" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="jO3-bj-R1T"/>
+                <constraint firstItem="vJJ-Ae-jAd" firstAttribute="bottom" secondItem="FRb-hr-hpH" secondAttribute="top" constant="-20" id="nMl-Gt-ZKq"/>
             </constraints>
             <point key="canvasLocation" x="280" y="368"/>
         </view>

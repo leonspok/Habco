@@ -17,6 +17,7 @@
 		E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */; };
 		E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FF1C8634A20015CA23 /* LPViewTouch.m */; };
 		E34553EF1C90B6D90097C555 /* LPCaptureRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E34553EE1C90B6D90097C555 /* LPCaptureRecord.m */; };
+		E3D581871C92069D002971C6 /* test.mov in Resources */ = {isa = PBXBuildFile; fileRef = E3D581861C92069D002971C6 /* test.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		E33878FF1C8634A20015CA23 /* LPViewTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouch.m; sourceTree = "<group>"; };
 		E34553ED1C90B6D90097C555 /* LPCaptureRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCaptureRecord.h; sourceTree = "<group>"; };
 		E34553EE1C90B6D90097C555 /* LPCaptureRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCaptureRecord.m; sourceTree = "<group>"; };
+		E3D581861C92069D002971C6 /* test.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = test.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 		E30E65321C83360D001E431B /* PrototypeCapture */ = {
 			isa = PBXGroup;
 			children = (
+				E3D581861C92069D002971C6 /* test.mov */,
 				E30E654F1C8336C3001E431B /* LPPrototypeCaptureRecorder.h */,
 				E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */,
 				E34553ED1C90B6D90097C555 /* LPCaptureRecord.h */,
@@ -156,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3D581871C92069D002971C6 /* test.mov in Resources */,
 				E30E65431C83360E001E431B /* LaunchScreen.storyboard in Resources */,
 				E30E654E1C833664001E431B /* PCWebViewWrapperViewController.xib in Resources */,
 				E30E65401C83360E001E431B /* Assets.xcassets in Resources */,
