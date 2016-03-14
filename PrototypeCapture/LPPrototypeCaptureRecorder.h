@@ -10,18 +10,34 @@
 
 @import UIKit;
 
+typedef enum {
+    LPPrototypeCaptureRecorderStatusConfiguring,
+    LPPrototypeCaptureRecorderStatusReadyToRecord,
+    LPPrototypeCaptureRecorderStatusRecording,
+    LPPrototypeCaptureRecorderStatusRecorded,
+    LPPrototypeCaptureRecorderStatusRendering,
+    LPPrototypeCaptureRecorderStatusRendered
+} LPPrototypeCaptureRecorderStatus;
+
 @interface LPPrototypeCaptureRecorder : NSObject
 
-@property (nonatomic, strong, readonly) NSString *baseFolder;
+@property (nonatomic, strong, readonly) NSString *folder;
 @property (nonatomic, strong, readonly) UIView *targetView;
 @property (nonatomic) NSUInteger fps;
 @property (nonatomic) CGFloat downscale;
 @property (nonatomic) BOOL withTouches;
 @property (nonatomic) BOOL withFrontCamera;
-@property (nonatomic, getter=isRecording) BOOL recording;
-@property (nonatomic, getter=isReadyToRecord) BOOL readyToRecord;
 
-- (id)initWithTargetView:(UIView *)view baseFolder:(NSString *)baseFolder;
+@property (nonatomic, readonly) LPPrototypeCaptureRecorderStatus status;
+
+@property (nonatomic, strong, readonly) NSString *pathToCameraCaptureVideo;
+@property (nonatomic, strong, readonly) NSString *pathToScreenCaptureVideo;
+@property (nonatomic, strong, readonly) NSString *pathToRenderedVideo;
+
+@property (nonatomic, strong) void (^renderingProgressBlock)(float progress);
+
+- (id)initWithTargetView:(UIView *)view folder:(NSString *)folder;
+
 - (void)prepareForRecording;
 - (void)startRecording;
 - (void)stopRecording;

@@ -37,14 +37,14 @@
 }
 
 - (IBAction)toggleRecording:(id)sender {
-    if ([self.recorder isRecording]) {
+    if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecording) {
         [self.recorder stopRecording];
         [sender setSelected:NO];
-    } else {
+    } else if (!self.recorder || self.recorder.status == LPPrototypeCaptureRecorderStatusRecorded || self.recorder.status == LPPrototypeCaptureRecorderStatusRendered) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *pathToDocumentsFolder = [paths objectAtIndex:0];
         
-        self.recorder = [[LPPrototypeCaptureRecorder alloc] initWithTargetView:self.webView baseFolder:pathToDocumentsFolder];
+        self.recorder = [[LPPrototypeCaptureRecorder alloc] initWithTargetView:self.webView folder:[pathToDocumentsFolder stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [[NSDate date] description]]]];
         self.recorder.withTouches = YES;
         self.recorder.downscale = 2.0f;
         self.recorder.withFrontCamera = YES;
@@ -57,7 +57,9 @@
 }
 
 - (IBAction)render:(id)sender {
-    [self.recorder render];
+    if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecorded) {
+        [self.recorder render];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
