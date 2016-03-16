@@ -180,7 +180,7 @@
 
 - (void)recordSnapshot:(UIImage *)snapshot timestamp:(NSTimeInterval)timestamp {
     dispatch_async(writeQueue, ^{
-        if (!self.shouldWriteFrame) {
+        if (!self.shouldWriteFrame || !snapshot) {
             return;
         }
         while(!self.pixelBufferAdaptor.assetWriterInput.readyForMoreMediaData) {}
@@ -192,10 +192,13 @@
         BOOL appended = YES;
         if (pixelBuffer != NULL) {
             appended = [self.pixelBufferAdaptor appendPixelBuffer:pixelBuffer withPresentationTime:CMTimeMake((int64_t)frameCounter, (int32_t)self.fps)];
-            NSLog(@"%@", [NSString stringWithFormat:@"Frame #%ld %@", (long)frameCounter, appended? @"appended" : @"not appended"]);
+            //NSLog(@"%@", [NSString stringWithFormat:@"Frame #%ld %@", (long)frameCounter, appended? @"appended" : @"not appended"]);
             CVPixelBufferRelease(pixelBuffer);
             if (appended) {
                 frameCounter++;
+            } else {
+                _status = LPPrototypeCaptureRecorderStatusRecordingError;
+                _recordingError = [NSError errorWithDomain:NSStringFromClass(self.class) code:1 userInfo:@{@"message":@"Can't append frame"}];
             }
         }
     });
@@ -220,12 +223,9 @@
 - (void)prepareForRecording {
     NSAssert(self.status == LPPrototypeCaptureRecorderStatusConfiguring, @"Can't prepare for recording. Status should be LPPrototypeCaptureRecorderStatusConfiguring");
     
-    //Init folder
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH.mm.ss"];
-    NSString *folderName = [formatter stringFromDate:[NSDate date]];
-    NSString *newRecordingFolder = [self.folder stringByAppendingPathComponent:folderName];
-    [[NSFileManager defaultManager] createDirectoryAtPath:newRecordingFolder withIntermediateDirectories:NO attributes:nil error:nil];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:self.folder]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:self.folder withIntermediateDirectories:YES attributes:nil error:nil];
+    }
     
     capturingFrame = (CGRect){CGPointZero, CGSizeMake(floor(self.targetView.bounds.size.width/self.downscale), floor(self.targetView.bounds.size.height/self.downscale))};
     
@@ -294,7 +294,7 @@
         [self.frontCameraCaptureSession addInput:audioInput];
         AVCaptureMovieFileOutput *movieOutput = [[AVCaptureMovieFileOutput alloc] init];
         [self.frontCameraCaptureSession addOutput:movieOutput];
-        [self.frontCameraCaptureSession setSessionPreset:AVCaptureSessionPresetHigh];
+        [self.frontCameraCaptureSession setSessionPreset:AVCaptureSessionPreset352x288];
         [self.frontCameraCaptureSession commitConfiguration];
     }
     
@@ -372,8 +372,9 @@
 }
 
 - (void)render {
-    NSAssert(self.status == LPPrototypeCaptureRecorderStatusRecorded, @"Can't start rendering. Status should be LPPrototypeCaptureRecorderStatusRecorded");
+    NSAssert(self.status == LPPrototypeCaptureRecorderStatusRecorded || self.status == LPPrototypeCaptureRecorderStatusRenderingError, @"Can't start rendering. Status should be LPPrototypeCaptureRecorderStatusRecorded");
     _status = LPPrototypeCaptureRecorderStatusRendering;
+    _renderingError = nil;
     
     NSString *path = self.pathToRenderedVideo;
     
@@ -384,8 +385,11 @@
     AVAssetTrack *audioTrack = [[frontCameraCaptureAsset tracksWithMediaType:AVMediaTypeAudio] firstObject];
     
     CGSize outputSize;
-    outputSize.width = 30.0f+screenCaptureTrack.naturalSize.width+frontCameraCaptureTrack.naturalSize.width;
-    outputSize.height = 20.0f+MAX(screenCaptureTrack.naturalSize.height, frontCameraCaptureTrack.naturalSize.height);
+    CGSize frontCameraCaptureSize = CGSizeApplyAffineTransform(frontCameraCaptureTrack.naturalSize, frontCameraCaptureTrack.preferredTransform);
+    frontCameraCaptureSize.width = ABS(frontCameraCaptureSize.width);
+    frontCameraCaptureSize.height = ABS(frontCameraCaptureSize.height);
+    outputSize.width = 30.0f+screenCaptureTrack.naturalSize.width+frontCameraCaptureSize.width;
+    outputSize.height = 20.0f+MAX(screenCaptureTrack.naturalSize.height, frontCameraCaptureSize.height);
     
     AVMutableComposition *mixComposition = [AVMutableComposition composition];
     
@@ -402,10 +406,12 @@
         NSLog(@"Front camera: %@\n%@\n%@", error.debugDescription, frontCameraCaptureTrack, frontCameraCaptureCompositionTrack);
     }
     
-    AVMutableCompositionTrack *audioCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
-    [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.asset.duration) ofTrack:audioTrack atTime:kCMTimeZero error:&error];
-    if (error) {
-        NSLog(@"Audio: %@\n%@\n%@", error.debugDescription, audioTrack.description, audioCompositionTrack);
+    if (audioTrack) {
+        AVMutableCompositionTrack *audioCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.asset.duration) ofTrack:audioTrack atTime:kCMTimeZero error:&error];
+        if (error) {
+            NSLog(@"Audio: %@\n%@\n%@", error.debugDescription, audioTrack.description, audioCompositionTrack);
+        }
     }
     
     AVMutableVideoCompositionInstruction *mainInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
@@ -431,9 +437,6 @@
     CGAffineTransform transform;
     {
         CGFloat verticalOffset = 10.0f;
-        if (outputSize.height > screenCaptureTrack.naturalSize.height+20.0f) {
-            verticalOffset = roundf((outputSize.height-screenCaptureTrack.naturalSize.height)/2.0f);
-        }
         CGFloat horizontalOffset = screenCaptureTrack.naturalSize.width+20.0f;
         transform = CGAffineTransformMakeTranslation(horizontalOffset, verticalOffset);
     }
@@ -451,7 +454,7 @@
         [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     }
     NSURL *url = [NSURL fileURLWithPath:path];
-    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetMediumQuality];
+    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
     [exporter setOutputURL:url];
     [exporter setShouldOptimizeForNetworkUse:YES];
     [exporter setOutputFileType:AVFileTypeMPEG4];
@@ -460,10 +463,12 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (exporter.status == AVAssetExportSessionStatusCompleted) {
                 NSLog(@"DONE!");
+                _status = LPPrototypeCaptureRecorderStatusRendered;
             } else {
                 NSLog(@"Exporting: %@", exporter.error.debugDescription);
+                _status = LPPrototypeCaptureRecorderStatusRenderingError;
+                _renderingError = exporter.error;
             }
-            _status = LPPrototypeCaptureRecorderStatusRendered;
         });
     }];
     

@@ -14,9 +14,11 @@ typedef enum {
     LPPrototypeCaptureRecorderStatusConfiguring,
     LPPrototypeCaptureRecorderStatusReadyToRecord,
     LPPrototypeCaptureRecorderStatusRecording,
+    LPPrototypeCaptureRecorderStatusRecordingError,
     LPPrototypeCaptureRecorderStatusRecorded,
     LPPrototypeCaptureRecorderStatusRendering,
-    LPPrototypeCaptureRecorderStatusRendered
+    LPPrototypeCaptureRecorderStatusRenderingError,
+    LPPrototypeCaptureRecorderStatusRendered,
 } LPPrototypeCaptureRecorderStatus;
 
 @interface LPPrototypeCaptureRecorder : NSObject
@@ -29,6 +31,8 @@ typedef enum {
 @property (nonatomic) BOOL withFrontCamera;
 
 @property (nonatomic, readonly) LPPrototypeCaptureRecorderStatus status;
+@property (nonatomic, strong, readonly) NSError *recordingError;
+@property (nonatomic, strong, readonly) NSError *renderingError;
 
 @property (nonatomic, strong, readonly) NSString *pathToCameraCaptureVideo;
 @property (nonatomic, strong, readonly) NSString *pathToScreenCaptureVideo;
