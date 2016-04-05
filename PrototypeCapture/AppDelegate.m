@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PCWebViewWrapperViewController.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface AppDelegate ()
 
@@ -17,9 +18,17 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"Habco"];
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelError];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [[PCWebViewWrapperViewController alloc] initWithNibName:NSStringFromClass(PCWebViewWrapperViewController.class) bundle:nil];
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

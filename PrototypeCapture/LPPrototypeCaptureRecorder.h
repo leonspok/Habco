@@ -15,10 +15,10 @@ typedef enum {
     LPPrototypeCaptureRecorderStatusReadyToRecord,
     LPPrototypeCaptureRecorderStatusRecording,
     LPPrototypeCaptureRecorderStatusRecordingError,
-    LPPrototypeCaptureRecorderStatusRecorded,
+    LPPrototypeCaptureRecorderReadyToRender,
     LPPrototypeCaptureRecorderStatusRendering,
     LPPrototypeCaptureRecorderStatusRenderingError,
-    LPPrototypeCaptureRecorderStatusRendered,
+    LPPrototypeCaptureRecorderStatusFinished
 } LPPrototypeCaptureRecorderStatus;
 
 @interface LPPrototypeCaptureRecorder : NSObject
@@ -37,6 +37,7 @@ typedef enum {
 @property (nonatomic, strong, readonly) NSString *pathToCameraCaptureVideo;
 @property (nonatomic, strong, readonly) NSString *pathToScreenCaptureVideo;
 @property (nonatomic, strong, readonly) NSString *pathToRenderedVideo;
+@property (nonatomic, strong, readonly) NSString *pathToResultVideo;
 
 @property (nonatomic, strong) void (^renderingProgressBlock)(float progress);
 

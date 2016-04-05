@@ -1,0 +1,15 @@
+//
+//  PrefixHeader.pch
+//  Habco
+//
+//  Created by Игорь Савельев on 06/04/16.
+//  Copyright © 2016 Leonspok. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "CocoaLumberjack.h"
+static const int ddLogLevel = DDLogLevelVerbose;
+
+#endif /* PrefixHeader_pch */

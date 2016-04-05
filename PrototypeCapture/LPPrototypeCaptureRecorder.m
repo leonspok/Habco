@@ -25,6 +25,8 @@
 @property (nonatomic, strong) AVCaptureDevice *audioDevice;
 @property (strong, nonatomic) AVCaptureSession *frontCameraCaptureSession;
 
+@property (nonatomic, readwrite) LPPrototypeCaptureRecorderStatus status;
+
 @end
 
 @implementation LPPrototypeCaptureRecorder {
@@ -67,6 +69,14 @@
     return [self.folder stringByAppendingPathComponent:@"rendered.mp4"];
 }
 
+- (NSString *)pathToResultVideo {
+    if (self.withFrontCamera) {
+        return self.pathToRenderedVideo;
+    } else {
+        return self.pathToScreenCaptureVideo;
+    }
+}
+
 #pragma mark Setters
 
 - (void)setFps:(NSUInteger)fps {
@@ -87,6 +97,12 @@
 - (void)setWithTouches:(BOOL)withTouches {
     NSAssert(self.status == LPPrototypeCaptureRecorderStatusConfiguring, @"Can't change parameter. Status should be LPPrototypeCaptureRecorderStatusConfiguring");
     _withTouches = withTouches;
+}
+
+- (void)setStatus:(LPPrototypeCaptureRecorderStatus)status {
+    [self willChangeValueForKey:@"status"];
+    _status = status;
+    [self didChangeValueForKey:@"status"];
 }
 
 #pragma mark Recording
@@ -192,12 +208,12 @@
         BOOL appended = YES;
         if (pixelBuffer != NULL) {
             appended = [self.pixelBufferAdaptor appendPixelBuffer:pixelBuffer withPresentationTime:CMTimeMake((int64_t)frameCounter, (int32_t)self.fps)];
-            //NSLog(@"%@", [NSString stringWithFormat:@"Frame #%ld %@", (long)frameCounter, appended? @"appended" : @"not appended"]);
+            DDLogVerbose(@"%@", [NSString stringWithFormat:@"Frame #%ld %@", (long)frameCounter, appended? @"appended" : @"not appended"]);
             CVPixelBufferRelease(pixelBuffer);
             if (appended) {
                 frameCounter++;
             } else {
-                _status = LPPrototypeCaptureRecorderStatusRecordingError;
+                self.status = LPPrototypeCaptureRecorderStatusRecordingError;
                 _recordingError = [NSError errorWithDomain:NSStringFromClass(self.class) code:1 userInfo:@{@"message":@"Can't append frame"}];
             }
         }
@@ -298,7 +314,7 @@
         [self.frontCameraCaptureSession commitConfiguration];
     }
     
-    _status = LPPrototypeCaptureRecorderStatusReadyToRecord;
+    self.status = LPPrototypeCaptureRecorderStatusReadyToRecord;
 }
 
 - (void)startRecording {
@@ -322,7 +338,7 @@
     
     frameCounter = 0;
     
-    _status = LPPrototypeCaptureRecorderStatusRecording;
+    self.status = LPPrototypeCaptureRecorderStatusRecording;
     self.shouldWriteFrame = YES;
     [self captureFrame];
     [self recordFrame];
@@ -366,14 +382,18 @@
                 }
             });
             
-            _status = LPPrototypeCaptureRecorderStatusRecorded;
+            if (self.withFrontCamera) {
+                self.status = LPPrototypeCaptureRecorderReadyToRender;
+            } else {
+                self.status = LPPrototypeCaptureRecorderStatusFinished;
+            }
         }];
     });
 }
 
 - (void)render {
-    NSAssert(self.status == LPPrototypeCaptureRecorderStatusRecorded || self.status == LPPrototypeCaptureRecorderStatusRenderingError, @"Can't start rendering. Status should be LPPrototypeCaptureRecorderStatusRecorded");
-    _status = LPPrototypeCaptureRecorderStatusRendering;
+    NSAssert(self.status == LPPrototypeCaptureRecorderReadyToRender || self.status == LPPrototypeCaptureRecorderStatusRenderingError, @"Can't start rendering. Status should be LPPrototypeCaptureRecorderStatusRecorded");
+    self.status = LPPrototypeCaptureRecorderStatusRendering;
     _renderingError = nil;
     
     NSString *path = self.pathToRenderedVideo;
@@ -397,20 +417,20 @@
     AVMutableCompositionTrack *screenCaptureCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     [screenCaptureCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, screenCaptureTrack.asset.duration) ofTrack:screenCaptureTrack atTime:kCMTimeZero error:&error];
     if (error) {
-        NSLog(@"Screen capture: %@\n%@\n%@", error.debugDescription, screenCaptureTrack, screenCaptureCompositionTrack);
+        DDLogError(@"Screen capture: %@\n%@\n%@", error.debugDescription, screenCaptureTrack, screenCaptureCompositionTrack);
     }
     
     AVMutableCompositionTrack *frontCameraCaptureCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     [frontCameraCaptureCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, frontCameraCaptureTrack.asset.duration) ofTrack:frontCameraCaptureTrack atTime:kCMTimeZero error:&error];
     if (error) {
-        NSLog(@"Front camera: %@\n%@\n%@", error.debugDescription, frontCameraCaptureTrack, frontCameraCaptureCompositionTrack);
+        DDLogError(@"Front camera: %@\n%@\n%@", error.debugDescription, frontCameraCaptureTrack, frontCameraCaptureCompositionTrack);
     }
     
     if (audioTrack) {
         AVMutableCompositionTrack *audioCompositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
         [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.asset.duration) ofTrack:audioTrack atTime:kCMTimeZero error:&error];
         if (error) {
-            NSLog(@"Audio: %@\n%@\n%@", error.debugDescription, audioTrack.description, audioCompositionTrack);
+            DDLogError(@"Audio: %@\n%@\n%@", error.debugDescription, audioTrack.description, audioCompositionTrack);
         }
     }
     
@@ -462,11 +482,11 @@
     [exporter exportAsynchronouslyWithCompletionHandler:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             if (exporter.status == AVAssetExportSessionStatusCompleted) {
-                NSLog(@"DONE!");
-                _status = LPPrototypeCaptureRecorderStatusRendered;
+                DDLogVerbose(@"DONE!");
+                self.status = LPPrototypeCaptureRecorderStatusFinished;
             } else {
-                NSLog(@"Exporting: %@", exporter.error.debugDescription);
-                _status = LPPrototypeCaptureRecorderStatusRenderingError;
+                DDLogError(@"Exporting: %@", exporter.error.debugDescription);
+                self.status = LPPrototypeCaptureRecorderStatusRenderingError;
                 _renderingError = exporter.error;
             }
         });
