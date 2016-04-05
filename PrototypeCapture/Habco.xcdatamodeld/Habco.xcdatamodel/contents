@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="HBCPrototype" representedClassName="HBCPrototype" syncable="YES">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="lastDateRecorded" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="prototypeDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="recordingSettings" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="HBCRecordingSettings" inverseName="prototype" inverseEntity="HBCRecordingSettings" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HBCPrototypeUser" inverseName="prototype" inverseEntity="HBCPrototypeUser" syncable="YES"/>
+    </entity>
+    <entity name="HBCPrototypeRecord" representedClassName="HBCPrototypeRecord" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="pathToVideo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HBCPrototypeUser" inverseName="records" inverseEntity="HBCPrototypeUser" syncable="YES"/>
+    </entity>
+    <entity name="HBCPrototypeUser" representedClassName="HBCPrototypeUser" syncable="YES">
+        <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateAdded" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="lastRecordingDate" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="prototype" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HBCPrototype" inverseName="users" inverseEntity="HBCPrototype" syncable="YES"/>
+        <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HBCPrototypeRecord" inverseName="user" inverseEntity="HBCPrototypeRecord" syncable="YES"/>
+    </entity>
+    <entity name="HBCRecordingSettings" representedClassName="HBCRecordingSettings" syncable="YES">
+        <attribute name="downscale" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="maxFPS" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="withFrontCamera" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="withTouches" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="prototype" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HBCPrototype" inverseName="recordingSettings" inverseEntity="HBCPrototype" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="HBCPrototype" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="HBCRecordingSettings" positionX="-54" positionY="36" width="128" height="120"/>
+        <element name="HBCPrototypeUser" positionX="-36" positionY="63" width="128" height="150"/>
+        <element name="HBCPrototypeRecord" positionX="-18" positionY="90" width="128" height="105"/>
+    </elements>
+</model>

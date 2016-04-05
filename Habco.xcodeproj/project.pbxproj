@@ -15,6 +15,19 @@
 		E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E654B1C833664001E431B /* PCWebViewWrapperViewController.m */; };
 		E30E654E1C833664001E431B /* PCWebViewWrapperViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E30E654C1C833664001E431B /* PCWebViewWrapperViewController.xib */; };
 		E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */; };
+		E30E94D71CB462C4000DBE35 /* Habco.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E30E94D51CB462C4000DBE35 /* Habco.xcdatamodeld */; };
+		E30E94EC1CB46579000DBE35 /* HBCPrototypeRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */; };
+		E30E94EF1CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94E81CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */; };
+		E30E94F01CB46579000DBE35 /* HBCPrototypeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94EA1CB46579000DBE35 /* HBCPrototypeUser.m */; };
+		E30E94F31CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */; };
+		E30E94FA1CB465D6000DBE35 /* HBPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94F91CB465D6000DBE35 /* HBPrototype.m */; };
+		E30E94FD1CB465E9000DBE35 /* HBPrototypeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94FC1CB465E9000DBE35 /* HBPrototypeUser.m */; };
+		E30E95001CB465FC000DBE35 /* HBRecordingSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94FF1CB465FC000DBE35 /* HBRecordingSettings.m */; };
+		E30E95031CB46614000DBE35 /* HBPrototypeRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95021CB46614000DBE35 /* HBPrototypeRecord.m */; };
+		E30E95121CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E950B1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m */; };
+		E30E95131CB46759000DBE35 /* HBCPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E950D1CB46759000DBE35 /* HBCPrototype.m */; };
+		E30E95141CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */; };
+		E30E95151CB46759000DBE35 /* HBCRecordingSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */; };
 		E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */; };
 		E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FF1C8634A20015CA23 /* LPViewTouch.m */; };
 		E34553EF1C90B6D90097C555 /* LPCaptureRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E34553EE1C90B6D90097C555 /* LPCaptureRecord.m */; };
@@ -37,6 +50,31 @@
 		E30E654F1C8336C3001E431B /* LPPrototypeCaptureRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPrototypeCaptureRecorder.h; sourceTree = "<group>"; };
 		E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPrototypeCaptureRecorder.m; sourceTree = "<group>"; };
 		E30E94D41CB460C9000DBE35 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		E30E94D61CB462C4000DBE35 /* Habco.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Habco.xcdatamodel; sourceTree = "<group>"; };
+		E30E94E11CB46579000DBE35 /* HBCPrototypeRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototypeRecord.h; sourceTree = "<group>"; };
+		E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototypeRecord.m; sourceTree = "<group>"; };
+		E30E94E71CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototypeUser+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E30E94E81CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototypeUser+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E30E94E91CB46579000DBE35 /* HBCPrototypeUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototypeUser.h; sourceTree = "<group>"; };
+		E30E94EA1CB46579000DBE35 /* HBCPrototypeUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototypeUser.m; sourceTree = "<group>"; };
+		E30E94F11CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototypeRecord+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototypeRecord+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E30E94F81CB465D6000DBE35 /* HBPrototype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPrototype.h; sourceTree = "<group>"; };
+		E30E94F91CB465D6000DBE35 /* HBPrototype.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPrototype.m; sourceTree = "<group>"; };
+		E30E94FB1CB465E9000DBE35 /* HBPrototypeUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPrototypeUser.h; sourceTree = "<group>"; };
+		E30E94FC1CB465E9000DBE35 /* HBPrototypeUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPrototypeUser.m; sourceTree = "<group>"; };
+		E30E94FE1CB465FC000DBE35 /* HBRecordingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecordingSettings.h; sourceTree = "<group>"; };
+		E30E94FF1CB465FC000DBE35 /* HBRecordingSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecordingSettings.m; sourceTree = "<group>"; };
+		E30E95011CB46614000DBE35 /* HBPrototypeRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPrototypeRecord.h; sourceTree = "<group>"; };
+		E30E95021CB46614000DBE35 /* HBPrototypeRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPrototypeRecord.m; sourceTree = "<group>"; };
+		E30E950A1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototype+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E30E950B1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototype+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E30E950C1CB46759000DBE35 /* HBCPrototype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototype.h; sourceTree = "<group>"; };
+		E30E950D1CB46759000DBE35 /* HBCPrototype.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototype.m; sourceTree = "<group>"; };
+		E30E950E1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCRecordingSettings+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCRecordingSettings+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E30E95101CB46759000DBE35 /* HBCRecordingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCRecordingSettings.h; sourceTree = "<group>"; };
+		E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCRecordingSettings.m; sourceTree = "<group>"; };
 		E33878FB1C8630C90015CA23 /* LPViewTouchesRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouchesRecognizer.h; sourceTree = "<group>"; };
 		E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouchesRecognizer.m; sourceTree = "<group>"; };
 		E33878FE1C8634A20015CA23 /* LPViewTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouch.h; sourceTree = "<group>"; };
@@ -137,8 +175,49 @@
 		E30E94D31CB46082000DBE35 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				E30E94F41CB465AB000DBE35 /* CoreData Converters */,
+				E30E94D81CB46547000DBE35 /* CoreData */,
+				E30E94F81CB465D6000DBE35 /* HBPrototype.h */,
+				E30E94F91CB465D6000DBE35 /* HBPrototype.m */,
+				E30E94FB1CB465E9000DBE35 /* HBPrototypeUser.h */,
+				E30E94FC1CB465E9000DBE35 /* HBPrototypeUser.m */,
+				E30E94FE1CB465FC000DBE35 /* HBRecordingSettings.h */,
+				E30E94FF1CB465FC000DBE35 /* HBRecordingSettings.m */,
+				E30E95011CB46614000DBE35 /* HBPrototypeRecord.h */,
+				E30E95021CB46614000DBE35 /* HBPrototypeRecord.m */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		E30E94D81CB46547000DBE35 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E30E94D51CB462C4000DBE35 /* Habco.xcdatamodeld */,
+				E30E94F11CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.h */,
+				E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */,
+				E30E94E11CB46579000DBE35 /* HBCPrototypeRecord.h */,
+				E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */,
+				E30E94E71CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.h */,
+				E30E94E81CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */,
+				E30E94E91CB46579000DBE35 /* HBCPrototypeUser.h */,
+				E30E94EA1CB46579000DBE35 /* HBCPrototypeUser.m */,
+				E30E950A1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.h */,
+				E30E950B1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m */,
+				E30E950C1CB46759000DBE35 /* HBCPrototype.h */,
+				E30E950D1CB46759000DBE35 /* HBCPrototype.m */,
+				E30E950E1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.h */,
+				E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */,
+				E30E95101CB46759000DBE35 /* HBCRecordingSettings.h */,
+				E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		E30E94F41CB465AB000DBE35 /* CoreData Converters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CoreData Converters";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,12 +342,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */,
+				E30E94EC1CB46579000DBE35 /* HBCPrototypeRecord.m in Sources */,
 				E30E65381C83360D001E431B /* AppDelegate.m in Sources */,
+				E30E94FD1CB465E9000DBE35 /* HBPrototypeUser.m in Sources */,
+				E30E95131CB46759000DBE35 /* HBCPrototype.m in Sources */,
 				E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */,
 				E34553EF1C90B6D90097C555 /* LPCaptureRecord.m in Sources */,
 				E30E65351C83360D001E431B /* main.m in Sources */,
+				E30E95141CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m in Sources */,
+				E30E95121CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m in Sources */,
 				E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */,
+				E30E94EF1CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m in Sources */,
 				E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */,
+				E30E94D71CB462C4000DBE35 /* Habco.xcdatamodeld in Sources */,
+				E30E94F01CB46579000DBE35 /* HBCPrototypeUser.m in Sources */,
+				E30E95001CB465FC000DBE35 /* HBRecordingSettings.m in Sources */,
+				E30E95151CB46759000DBE35 /* HBCRecordingSettings.m in Sources */,
+				E30E95031CB46614000DBE35 /* HBPrototypeRecord.m in Sources */,
+				E30E94F31CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m in Sources */,
+				E30E94FA1CB465D6000DBE35 /* HBPrototype.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +510,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E30E94D51CB462C4000DBE35 /* Habco.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E30E94D61CB462C4000DBE35 /* Habco.xcdatamodel */,
+			);
+			currentVersion = E30E94D61CB462C4000DBE35 /* Habco.xcdatamodel */;
+			path = Habco.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E30E65281C83360D001E431B /* Project object */;
 }
