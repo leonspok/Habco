@@ -13,12 +13,12 @@
 
 @implementation HBCPrototype (CoreDataProperties)
 
-@dynamic uid;
-@dynamic name;
-@dynamic url;
 @dynamic dateCreated;
-@dynamic lastDateRecorded;
+@dynamic name;
 @dynamic prototypeDescription;
+@dynamic uid;
+@dynamic url;
+@dynamic lastRecordingDate;
 @dynamic recordingSettings;
 @dynamic users;
 

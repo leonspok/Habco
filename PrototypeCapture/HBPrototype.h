@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSString *prototypeDescription;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSDate *dateCreated;
-@property (nonatomic, strong) NSDate *lastDateRecorded;
+@property (nonatomic, strong) NSDate *lastRecordingDate;
 @property (nonatomic, strong) HBRecordingSettings *recordingSettings;
 
 @property (nonatomic, strong) NSOrderedSet<HBPrototypeUser *> *users;

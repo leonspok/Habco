@@ -10,4 +10,15 @@
 
 @implementation HBRecordingSettings
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.withTouches = YES;
+        self.withFrontCamera = YES;
+        self.maxFPS = 15;
+        self.downscale = 1.5f;
+    }
+    return self;
+}
+
 @end

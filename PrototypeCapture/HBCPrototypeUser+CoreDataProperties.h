@@ -13,15 +13,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class HBCPrototypeRecord, HBCPrototype;
+@class HBCPrototype, HBCPrototypeRecord;
 
 @interface HBCPrototypeUser (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *uid;
-@property (nullable, nonatomic, retain) NSString *name;
-@property (nullable, nonatomic, retain) NSDate *dateAdded;
-@property (nullable, nonatomic, retain) NSDate *lastRecordingDate;
 @property (nullable, nonatomic, retain) NSString *bio;
+@property (nullable, nonatomic, retain) NSDate *dateAdded;
+@property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSString *uid;
+@property (nullable, nonatomic, retain) NSDate *lastRecordingDate;
 @property (nullable, nonatomic, retain) HBCPrototype *prototype;
 @property (nullable, nonatomic, retain) NSSet<HBCPrototypeRecord *> *records;
 

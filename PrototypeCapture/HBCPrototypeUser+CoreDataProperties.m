@@ -13,11 +13,11 @@
 
 @implementation HBCPrototypeUser (CoreDataProperties)
 
-@dynamic uid;
-@dynamic name;
-@dynamic dateAdded;
-@dynamic lastRecordingDate;
 @dynamic bio;
+@dynamic dateAdded;
+@dynamic name;
+@dynamic uid;
+@dynamic lastRecordingDate;
 @dynamic prototype;
 @dynamic records;
 

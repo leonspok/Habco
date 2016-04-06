@@ -17,17 +17,29 @@
 		E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65501C8336C3001E431B /* LPPrototypeCaptureRecorder.m */; };
 		E30E94D71CB462C4000DBE35 /* Habco.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E30E94D51CB462C4000DBE35 /* Habco.xcdatamodeld */; };
 		E30E94EC1CB46579000DBE35 /* HBCPrototypeRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */; };
-		E30E94EF1CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94E81CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */; };
-		E30E94F01CB46579000DBE35 /* HBCPrototypeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94EA1CB46579000DBE35 /* HBCPrototypeUser.m */; };
 		E30E94F31CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */; };
 		E30E94FA1CB465D6000DBE35 /* HBPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94F91CB465D6000DBE35 /* HBPrototype.m */; };
 		E30E94FD1CB465E9000DBE35 /* HBPrototypeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94FC1CB465E9000DBE35 /* HBPrototypeUser.m */; };
 		E30E95001CB465FC000DBE35 /* HBRecordingSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94FF1CB465FC000DBE35 /* HBRecordingSettings.m */; };
 		E30E95031CB46614000DBE35 /* HBPrototypeRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95021CB46614000DBE35 /* HBPrototypeRecord.m */; };
-		E30E95121CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E950B1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m */; };
-		E30E95131CB46759000DBE35 /* HBCPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E950D1CB46759000DBE35 /* HBCPrototype.m */; };
 		E30E95141CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */; };
 		E30E95151CB46759000DBE35 /* HBCRecordingSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */; };
+		E30E95181CB5070C000DBE35 /* HBCPrototype+Converting.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95171CB5070C000DBE35 /* HBCPrototype+Converting.m */; };
+		E30E951B1CB50719000DBE35 /* HBCPrototypeUser+Converting.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E951A1CB50719000DBE35 /* HBCPrototypeUser+Converting.m */; };
+		E30E951E1CB50729000DBE35 /* HBCPrototypeRecord+Converting.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E951D1CB50729000DBE35 /* HBCPrototypeRecord+Converting.m */; };
+		E30E95211CB50738000DBE35 /* HBCRecordingSettings+Converting.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95201CB50738000DBE35 /* HBCRecordingSettings+Converting.m */; };
+		E30E95311CB510A5000DBE35 /* NSArray+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95261CB510A5000DBE35 /* NSArray+Utilities.m */; };
+		E30E95321CB510A5000DBE35 /* NSDictionary+NSURL.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95281CB510A5000DBE35 /* NSDictionary+NSURL.m */; };
+		E30E95331CB510A5000DBE35 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E952A1CB510A5000DBE35 /* NSMutableArray+Shuffle.m */; };
+		E30E95341CB510A5000DBE35 /* NSSet+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E952C1CB510A5000DBE35 /* NSSet+Utilities.m */; };
+		E30E95351CB510A5000DBE35 /* NSString+IDString.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E952E1CB510A5000DBE35 /* NSString+IDString.m */; };
+		E30E95361CB510A5000DBE35 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95301CB510A5000DBE35 /* NSString+MD5.m */; };
+		E30E953A1CB510FA000DBE35 /* NSOrderedSet+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95391CB510FA000DBE35 /* NSOrderedSet+Utilities.m */; };
+		E30E954A1CB518E2000DBE35 /* HBPrototypesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95491CB518E2000DBE35 /* HBPrototypesManager.m */; };
+		E30E95531CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E954C1CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */; };
+		E30E95541CB51DF0000DBE35 /* HBCPrototypeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E954E1CB51DF0000DBE35 /* HBCPrototypeUser.m */; };
+		E30E95551CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95501CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m */; };
+		E30E95561CB51DF0000DBE35 /* HBCPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95521CB51DF0000DBE35 /* HBCPrototype.m */; };
 		E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */; };
 		E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FF1C8634A20015CA23 /* LPViewTouch.m */; };
 		E34553EF1C90B6D90097C555 /* LPCaptureRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E34553EE1C90B6D90097C555 /* LPCaptureRecord.m */; };
@@ -53,10 +65,6 @@
 		E30E94D61CB462C4000DBE35 /* Habco.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Habco.xcdatamodel; sourceTree = "<group>"; };
 		E30E94E11CB46579000DBE35 /* HBCPrototypeRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototypeRecord.h; sourceTree = "<group>"; };
 		E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototypeRecord.m; sourceTree = "<group>"; };
-		E30E94E71CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototypeUser+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E30E94E81CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototypeUser+CoreDataProperties.m"; sourceTree = "<group>"; };
-		E30E94E91CB46579000DBE35 /* HBCPrototypeUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototypeUser.h; sourceTree = "<group>"; };
-		E30E94EA1CB46579000DBE35 /* HBCPrototypeUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototypeUser.m; sourceTree = "<group>"; };
 		E30E94F11CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototypeRecord+CoreDataProperties.h"; sourceTree = "<group>"; };
 		E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototypeRecord+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E30E94F81CB465D6000DBE35 /* HBPrototype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPrototype.h; sourceTree = "<group>"; };
@@ -67,14 +75,42 @@
 		E30E94FF1CB465FC000DBE35 /* HBRecordingSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecordingSettings.m; sourceTree = "<group>"; };
 		E30E95011CB46614000DBE35 /* HBPrototypeRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPrototypeRecord.h; sourceTree = "<group>"; };
 		E30E95021CB46614000DBE35 /* HBPrototypeRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPrototypeRecord.m; sourceTree = "<group>"; };
-		E30E950A1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototype+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E30E950B1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototype+CoreDataProperties.m"; sourceTree = "<group>"; };
-		E30E950C1CB46759000DBE35 /* HBCPrototype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototype.h; sourceTree = "<group>"; };
-		E30E950D1CB46759000DBE35 /* HBCPrototype.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototype.m; sourceTree = "<group>"; };
 		E30E950E1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCRecordingSettings+CoreDataProperties.h"; sourceTree = "<group>"; };
 		E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCRecordingSettings+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E30E95101CB46759000DBE35 /* HBCRecordingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCRecordingSettings.h; sourceTree = "<group>"; };
 		E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCRecordingSettings.m; sourceTree = "<group>"; };
+		E30E95161CB5070C000DBE35 /* HBCPrototype+Converting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototype+Converting.h"; sourceTree = "<group>"; };
+		E30E95171CB5070C000DBE35 /* HBCPrototype+Converting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototype+Converting.m"; sourceTree = "<group>"; };
+		E30E95191CB50719000DBE35 /* HBCPrototypeUser+Converting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototypeUser+Converting.h"; sourceTree = "<group>"; };
+		E30E951A1CB50719000DBE35 /* HBCPrototypeUser+Converting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototypeUser+Converting.m"; sourceTree = "<group>"; };
+		E30E951C1CB50729000DBE35 /* HBCPrototypeRecord+Converting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototypeRecord+Converting.h"; sourceTree = "<group>"; };
+		E30E951D1CB50729000DBE35 /* HBCPrototypeRecord+Converting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototypeRecord+Converting.m"; sourceTree = "<group>"; };
+		E30E951F1CB50738000DBE35 /* HBCRecordingSettings+Converting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCRecordingSettings+Converting.h"; sourceTree = "<group>"; };
+		E30E95201CB50738000DBE35 /* HBCRecordingSettings+Converting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCRecordingSettings+Converting.m"; sourceTree = "<group>"; };
+		E30E95251CB510A5000DBE35 /* NSArray+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utilities.h"; sourceTree = "<group>"; };
+		E30E95261CB510A5000DBE35 /* NSArray+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utilities.m"; sourceTree = "<group>"; };
+		E30E95271CB510A5000DBE35 /* NSDictionary+NSURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NSURL.h"; sourceTree = "<group>"; };
+		E30E95281CB510A5000DBE35 /* NSDictionary+NSURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NSURL.m"; sourceTree = "<group>"; };
+		E30E95291CB510A5000DBE35 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
+		E30E952A1CB510A5000DBE35 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
+		E30E952B1CB510A5000DBE35 /* NSSet+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSet+Utilities.h"; sourceTree = "<group>"; };
+		E30E952C1CB510A5000DBE35 /* NSSet+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSet+Utilities.m"; sourceTree = "<group>"; };
+		E30E952D1CB510A5000DBE35 /* NSString+IDString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IDString.h"; sourceTree = "<group>"; };
+		E30E952E1CB510A5000DBE35 /* NSString+IDString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IDString.m"; sourceTree = "<group>"; };
+		E30E952F1CB510A5000DBE35 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		E30E95301CB510A5000DBE35 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		E30E95381CB510FA000DBE35 /* NSOrderedSet+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+Utilities.h"; sourceTree = "<group>"; };
+		E30E95391CB510FA000DBE35 /* NSOrderedSet+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+Utilities.m"; sourceTree = "<group>"; };
+		E30E95481CB518E2000DBE35 /* HBPrototypesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPrototypesManager.h; sourceTree = "<group>"; };
+		E30E95491CB518E2000DBE35 /* HBPrototypesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPrototypesManager.m; sourceTree = "<group>"; };
+		E30E954B1CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototypeUser+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E30E954C1CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototypeUser+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E30E954D1CB51DF0000DBE35 /* HBCPrototypeUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototypeUser.h; sourceTree = "<group>"; };
+		E30E954E1CB51DF0000DBE35 /* HBCPrototypeUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototypeUser.m; sourceTree = "<group>"; };
+		E30E954F1CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototype+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E30E95501CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototype+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E30E95511CB51DF0000DBE35 /* HBCPrototype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototype.h; sourceTree = "<group>"; };
+		E30E95521CB51DF0000DBE35 /* HBCPrototype.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototype.m; sourceTree = "<group>"; };
 		E33878FB1C8630C90015CA23 /* LPViewTouchesRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouchesRecognizer.h; sourceTree = "<group>"; };
 		E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouchesRecognizer.m; sourceTree = "<group>"; };
 		E33878FE1C8634A20015CA23 /* LPViewTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouch.h; sourceTree = "<group>"; };
@@ -133,6 +169,8 @@
 		E30E65321C83360D001E431B /* PrototypeCapture */ = {
 			isa = PBXGroup;
 			children = (
+				E30E95471CB518C9000DBE35 /* Logic */,
+				E30E95371CB510A9000DBE35 /* Utils */,
 				E30E94D31CB46082000DBE35 /* Data */,
 				E30E94D21CB4607C000DBE35 /* Recorder */,
 				E30E654A1C833664001E431B /* PCWebViewWrapperViewController.h */,
@@ -175,7 +213,6 @@
 		E30E94D31CB46082000DBE35 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E30E94F41CB465AB000DBE35 /* CoreData Converters */,
 				E30E94D81CB46547000DBE35 /* CoreData */,
 				E30E94F81CB465D6000DBE35 /* HBPrototype.h */,
 				E30E94F91CB465D6000DBE35 /* HBPrototype.m */,
@@ -185,6 +222,14 @@
 				E30E94FF1CB465FC000DBE35 /* HBRecordingSettings.m */,
 				E30E95011CB46614000DBE35 /* HBPrototypeRecord.h */,
 				E30E95021CB46614000DBE35 /* HBPrototypeRecord.m */,
+				E30E95161CB5070C000DBE35 /* HBCPrototype+Converting.h */,
+				E30E95171CB5070C000DBE35 /* HBCPrototype+Converting.m */,
+				E30E95191CB50719000DBE35 /* HBCPrototypeUser+Converting.h */,
+				E30E951A1CB50719000DBE35 /* HBCPrototypeUser+Converting.m */,
+				E30E951C1CB50729000DBE35 /* HBCPrototypeRecord+Converting.h */,
+				E30E951D1CB50729000DBE35 /* HBCPrototypeRecord+Converting.m */,
+				E30E951F1CB50738000DBE35 /* HBCRecordingSettings+Converting.h */,
+				E30E95201CB50738000DBE35 /* HBCRecordingSettings+Converting.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -197,27 +242,50 @@
 				E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */,
 				E30E94E11CB46579000DBE35 /* HBCPrototypeRecord.h */,
 				E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */,
-				E30E94E71CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.h */,
-				E30E94E81CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */,
-				E30E94E91CB46579000DBE35 /* HBCPrototypeUser.h */,
-				E30E94EA1CB46579000DBE35 /* HBCPrototypeUser.m */,
-				E30E950A1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.h */,
-				E30E950B1CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m */,
-				E30E950C1CB46759000DBE35 /* HBCPrototype.h */,
-				E30E950D1CB46759000DBE35 /* HBCPrototype.m */,
 				E30E950E1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.h */,
 				E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */,
 				E30E95101CB46759000DBE35 /* HBCRecordingSettings.h */,
 				E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */,
+				E30E954B1CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.h */,
+				E30E954C1CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */,
+				E30E954D1CB51DF0000DBE35 /* HBCPrototypeUser.h */,
+				E30E954E1CB51DF0000DBE35 /* HBCPrototypeUser.m */,
+				E30E954F1CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.h */,
+				E30E95501CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m */,
+				E30E95511CB51DF0000DBE35 /* HBCPrototype.h */,
+				E30E95521CB51DF0000DBE35 /* HBCPrototype.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
 		};
-		E30E94F41CB465AB000DBE35 /* CoreData Converters */ = {
+		E30E95371CB510A9000DBE35 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E30E95251CB510A5000DBE35 /* NSArray+Utilities.h */,
+				E30E95261CB510A5000DBE35 /* NSArray+Utilities.m */,
+				E30E95271CB510A5000DBE35 /* NSDictionary+NSURL.h */,
+				E30E95281CB510A5000DBE35 /* NSDictionary+NSURL.m */,
+				E30E95291CB510A5000DBE35 /* NSMutableArray+Shuffle.h */,
+				E30E952A1CB510A5000DBE35 /* NSMutableArray+Shuffle.m */,
+				E30E952B1CB510A5000DBE35 /* NSSet+Utilities.h */,
+				E30E952C1CB510A5000DBE35 /* NSSet+Utilities.m */,
+				E30E952D1CB510A5000DBE35 /* NSString+IDString.h */,
+				E30E952E1CB510A5000DBE35 /* NSString+IDString.m */,
+				E30E952F1CB510A5000DBE35 /* NSString+MD5.h */,
+				E30E95301CB510A5000DBE35 /* NSString+MD5.m */,
+				E30E95381CB510FA000DBE35 /* NSOrderedSet+Utilities.h */,
+				E30E95391CB510FA000DBE35 /* NSOrderedSet+Utilities.m */,
 			);
-			name = "CoreData Converters";
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		E30E95471CB518C9000DBE35 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				E30E95481CB518E2000DBE35 /* HBPrototypesManager.h */,
+				E30E95491CB518E2000DBE35 /* HBPrototypesManager.m */,
+			);
+			name = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,25 +410,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */,
+				E30E953A1CB510FA000DBE35 /* NSOrderedSet+Utilities.m in Sources */,
 				E30E94EC1CB46579000DBE35 /* HBCPrototypeRecord.m in Sources */,
+				E30E95311CB510A5000DBE35 /* NSArray+Utilities.m in Sources */,
 				E30E65381C83360D001E431B /* AppDelegate.m in Sources */,
 				E30E94FD1CB465E9000DBE35 /* HBPrototypeUser.m in Sources */,
-				E30E95131CB46759000DBE35 /* HBCPrototype.m in Sources */,
+				E30E95331CB510A5000DBE35 /* NSMutableArray+Shuffle.m in Sources */,
+				E30E95321CB510A5000DBE35 /* NSDictionary+NSURL.m in Sources */,
+				E30E95351CB510A5000DBE35 /* NSString+IDString.m in Sources */,
 				E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */,
 				E34553EF1C90B6D90097C555 /* LPCaptureRecord.m in Sources */,
 				E30E65351C83360D001E431B /* main.m in Sources */,
+				E30E95561CB51DF0000DBE35 /* HBCPrototype.m in Sources */,
+				E30E95361CB510A5000DBE35 /* NSString+MD5.m in Sources */,
+				E30E951E1CB50729000DBE35 /* HBCPrototypeRecord+Converting.m in Sources */,
+				E30E95531CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.m in Sources */,
+				E30E95341CB510A5000DBE35 /* NSSet+Utilities.m in Sources */,
 				E30E95141CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m in Sources */,
-				E30E95121CB46759000DBE35 /* HBCPrototype+CoreDataProperties.m in Sources */,
+				E30E95211CB50738000DBE35 /* HBCRecordingSettings+Converting.m in Sources */,
 				E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */,
-				E30E94EF1CB46579000DBE35 /* HBCPrototypeUser+CoreDataProperties.m in Sources */,
 				E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */,
 				E30E94D71CB462C4000DBE35 /* Habco.xcdatamodeld in Sources */,
-				E30E94F01CB46579000DBE35 /* HBCPrototypeUser.m in Sources */,
+				E30E951B1CB50719000DBE35 /* HBCPrototypeUser+Converting.m in Sources */,
 				E30E95001CB465FC000DBE35 /* HBRecordingSettings.m in Sources */,
 				E30E95151CB46759000DBE35 /* HBCRecordingSettings.m in Sources */,
 				E30E95031CB46614000DBE35 /* HBPrototypeRecord.m in Sources */,
+				E30E95541CB51DF0000DBE35 /* HBCPrototypeUser.m in Sources */,
 				E30E94F31CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m in Sources */,
 				E30E94FA1CB465D6000DBE35 /* HBPrototype.m in Sources */,
+				E30E954A1CB518E2000DBE35 /* HBPrototypesManager.m in Sources */,
+				E30E95551CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m in Sources */,
+				E30E95181CB5070C000DBE35 /* HBCPrototype+Converting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
