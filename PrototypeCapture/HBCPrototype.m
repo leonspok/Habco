@@ -12,6 +12,24 @@
 
 @implementation HBCPrototype
 
-// Insert code here to add functionality to your managed object subclass
+- (NSDictionary *)jsonRepresentation {
+    NSMutableDictionary *jsonRep = [NSMutableDictionary dictionary];
+    if (self.uid) {
+        [jsonRep setObject:self.uid forKey:@"uid"];
+    }
+    if (self.name) {
+        [jsonRep setObject:self.name forKey:@"name"];
+    }
+    if (self.prototypeDescription) {
+        [jsonRep setObject:self.prototypeDescription forKey:@"bio"];
+    }
+    if (self.dateCreated) {
+        [jsonRep setObject:self.dateCreated forKey:@"date_created"];
+    }
+    if (self.url) {
+        [jsonRep setObject:self.url forKey:@"url"];
+    }
+    return jsonRep;
+}
 
 @end

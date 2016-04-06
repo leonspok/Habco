@@ -10,6 +10,18 @@
 
 @implementation HBCPrototypeRecord
 
-// Insert code here to add functionality to your managed object subclass
+- (NSDictionary *)jsonRepresentation {
+    NSMutableDictionary *jsonRep = [NSMutableDictionary dictionary];
+    if (self.uid) {
+        [jsonRep setObject:self.uid forKey:@"uid"];
+    }
+    if (self.date) {
+        [jsonRep setObject:self.date forKey:@"date"];
+    }
+    if (self.pathToVideo) {
+        [jsonRep setObject:[self.pathToVideo lastPathComponent] forKey:@"video_filename"];
+    }
+    return jsonRep;
+}
 
 @end

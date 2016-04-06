@@ -15,14 +15,19 @@
 + (instancetype)sharedManager;
 
 - (NSArray<HBCPrototype *> *)allPrototypes;
-- (HBCPrototype *)createPrototypeWithName:(NSString *)name
-                                      url:(NSURL *)url;
+
+- (HBCPrototype *)createPrototype;
+- (NSString *)pathToFolderForPrototype:(HBCPrototype *)prototype;
 - (void)saveChangesInPrototype:(HBCPrototype *)prototype;
 - (void)removePrototype:(HBCPrototype *)prototype;
+
 - (HBCPrototypeUser *)createUserForPrototype:(HBCPrototype *)prototype;
+- (NSString *)pathToFolderForUser:(HBCPrototypeUser *)user;
 - (void)saveChangesInUser:(HBCPrototypeUser *)prototypeUser;
 - (void)removeUser:(HBCPrototypeUser *)user;
-- (HBCPrototypeRecord *)createRecordForUser:(HBCPrototypeRecord *)record;
+
+- (HBCPrototypeRecord *)createRecordForUser:(HBCPrototypeUser *)user;
+- (NSString *)pathToFolderForRecord:(HBCPrototypeRecord *)record;
 - (void)saveChangedToRecord:(HBCPrototypeRecord *)record;
 - (void)removeRecord:(HBCPrototypeRecord *)record;
 
