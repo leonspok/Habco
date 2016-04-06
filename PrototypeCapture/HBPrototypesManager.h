@@ -15,6 +15,7 @@
 + (instancetype)sharedManager;
 
 - (NSArray<HBCPrototype *> *)allPrototypes;
+- (NSArray<HBCPrototypeRecord *> *)allRecordsFor:(HBCPrototype *)prototype;
 
 - (HBCPrototype *)createPrototype;
 - (NSString *)pathToFolderForPrototype:(HBCPrototype *)prototype;
@@ -28,7 +29,7 @@
 
 - (HBCPrototypeRecord *)createRecordForUser:(HBCPrototypeUser *)user;
 - (NSString *)pathToFolderForRecord:(HBCPrototypeRecord *)record;
-- (void)saveChangedToRecord:(HBCPrototypeRecord *)record;
+- (void)saveChangedInRecord:(HBCPrototypeRecord *)record;
 - (void)removeRecord:(HBCPrototypeRecord *)record;
 
 @end

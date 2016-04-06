@@ -42,6 +42,15 @@
     return prototypes;
 }
 
+- (NSArray<HBCPrototypeRecord *> *)allRecordsFor:(HBCPrototype *)prototype {
+    NSMutableArray *records = [NSMutableArray array];
+    for (HBCPrototypeUser *user in prototype.users) {
+        [records addObjectsFromArray:[user.records allObjects]];
+    }
+    [records sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
+    return records;
+}
+
 - (HBCPrototype *)createPrototype {
     __block NSString *uid;
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
@@ -194,7 +203,7 @@
     return [[self pathToFolderForUser:record.user] stringByAppendingPathComponent:record.uid];
 }
 
-- (void)saveChangedToRecord:(HBCPrototypeRecord *)record {
+- (void)saveChangedInRecord:(HBCPrototypeRecord *)record {
     
     NSString *pathToPlist = [[self pathToFolderForRecord:record] stringByAppendingPathComponent:@"info.plist"];
     [[record jsonRepresentation] writeToFile:pathToPlist atomically:YES];
@@ -202,6 +211,8 @@
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
         HBCPrototypeRecord *localRecord = [record MR_inContext:localContext];
         localRecord.date = record.date;
+        localRecord.user.lastRecordingDate = localRecord.date;
+        localRecord.user.prototype.lastRecordingDate = localRecord.date;
         localRecord.pathToVideo = record.pathToVideo;
     }];
 }
