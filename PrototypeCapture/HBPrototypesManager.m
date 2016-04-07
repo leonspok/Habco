@@ -57,6 +57,7 @@
         HBCPrototype *prototype = [HBCPrototype MR_createEntityInContext:localContext];
         uid = [[NSUUID UUID] UUIDString];
         prototype.uid = uid;
+        prototype.dateCreated = [NSDate date];
         
         prototype.recordingSettings = [HBCRecordingSettings MR_createEntityInContext:localContext];
         prototype.recordingSettings.withTouches = @YES;
@@ -123,6 +124,7 @@
         HBCPrototypeUser *user = [HBCPrototypeUser MR_createEntityInContext:localContext];
         uid = [[NSUUID UUID] UUIDString];
         user.uid = uid;
+        user.dateAdded = [NSDate date];
         user.prototype = [prototype MR_inContext:localContext];
     }];
     
@@ -179,7 +181,9 @@
         HBCPrototypeRecord *record = [HBCPrototypeRecord MR_createEntityInContext:localContext];
         uid = [[NSUUID UUID] UUIDString];
         record.uid = uid;
-        record.user = user;
+        record.user = [user MR_inContext:localContext];
+        record.user.lastRecordingDate = record.date;
+        record.user.prototype.lastRecordingDate = record.date;
     }];
     
     HBCPrototypeRecord *record = [HBCPrototypeRecord MR_findFirstByAttribute:@"uid" withValue:uid];
@@ -211,8 +215,6 @@
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
         HBCPrototypeRecord *localRecord = [record MR_inContext:localContext];
         localRecord.date = record.date;
-        localRecord.user.lastRecordingDate = localRecord.date;
-        localRecord.user.prototype.lastRecordingDate = localRecord.date;
         localRecord.pathToVideo = record.pathToVideo;
     }];
 }
