@@ -6,14 +6,15 @@
 //  Copyright © 2016 Leonspok. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HBViewController.h"
 
 @class HBCPrototype, HBCPrototypeUser;
 
-@interface HBEditUserViewController : UIViewController
+@interface HBEditUserViewController : HBViewController
 
 @property (nonatomic, strong) HBCPrototypeUser *user;
 @property (nonatomic, strong) void (^saveBlock)();
+@property (nonatomic, strong) void (^cancelBlock)();
 
 - (id)initWithPrototype:(HBCPrototype *)prototype title:(NSString *)title saveButtonTitle:(NSString *)saveButtonTitle;
 

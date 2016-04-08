@@ -1,21 +1,33 @@
 //
-//  LPNavigationController.m
+//  HBNavigationController.m
 //  Habco
 //
 //  Created by Игорь Савельев on 08/04/16.
 //  Copyright © 2016 Leonspok. All rights reserved.
 //
 
-#import "LPNavigationController.h"
+#import "HBNavigationController.h"
+#import "UIColor+Pallete.h"
 
-@interface LPNavigationController ()
+@interface HBNavigationController ()
 
 @end
 
-@implementation LPNavigationController
+@implementation HBNavigationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationBar setTranslucent:NO];
+    [self.navigationBar setBarTintColor:[UIColor backgroundColor]];
+    [self.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [self.navigationBar setShadowImage:[UIImage new]];
+    
+    UIView *navigationBarBottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationBar.frame.size.height-1.0f, self.navigationBar.frame.size.width, 1.0f)];
+    [navigationBarBottomBorder setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.3f]];
+    [navigationBarBottomBorder setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
+    [self.navigationBar addSubview:navigationBarBottomBorder];
 }
 
 - (void)didReceiveMemoryWarning {

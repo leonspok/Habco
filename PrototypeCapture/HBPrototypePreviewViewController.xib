@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
                     <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </progressView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cix-OE-3kw">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cix-OE-3kw">
                     <rect key="frame" x="266" y="10" width="44" height="44"/>
                     <state key="normal" image="floatingHideButton"/>
                     <connections>

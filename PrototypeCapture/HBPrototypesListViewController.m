@@ -8,12 +8,14 @@
 
 #import "HBPrototypesListViewController.h"
 #import "HBEditPrototypeViewController.h"
+#import "HBNavigationController.h"
 #import "HBPrototypeTableViewCell.h"
 #import "HBPrototypesManager.h"
 #import "HBCPrototype.h"
 
 //TODO: remove
 #import "HBEditUserViewController.h"
+#import "HBUsersListViewController.h"
 
 static NSString *const kPrototypeCell = @"kPrototypeCell";
 
@@ -48,24 +50,6 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
     self.filteredPrototypes = [NSMutableArray array];
     self.prototypes = [NSMutableArray array];
     
-    [self.searchBar setBackgroundImage:[UIImage new]];
-    
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(100, 30), NO, 1.0f);
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 100, 30) cornerRadius:5.0f];
-    CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), [UIColor colorWithWhite:1 alpha:0.1f].CGColor);
-    CGContextBeginPath(UIGraphicsGetCurrentContext());
-    CGContextAddPath(UIGraphicsGetCurrentContext(), path.CGPath);
-    CGContextFillPath(UIGraphicsGetCurrentContext());
-    UIImage *searchFieldBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
-    searchFieldBackgroundImage = [searchFieldBackgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    UIGraphicsEndImageContext();
-    
-    [self.searchBar setSearchFieldBackgroundImage:searchFieldBackgroundImage forState:UIControlStateNormal];
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[UISearchBar.class]] setDefaultTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont systemFontOfSize:14.0f]}];
-    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[UISearchBar.class]] setFont:[UIFont systemFontOfSize:14.0f]];
-    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[UISearchBar.class]] setTextColor:[UIColor colorWithWhite:1 alpha:0.3f]];
-    [[UIImageView appearanceWhenContainedInInstancesOfClasses:@[UISearchBar.class]] setTintColor:[UIColor colorWithWhite:1 alpha:0.3f]];
-    
     self.tableView.contentInset = UIEdgeInsetsMake(-self.tableView.tableHeaderView.frame.size.height, 0, 0, 0);
     
     [self reloadPrototypes];
@@ -97,11 +81,14 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
 - (IBAction)addPrototype:(id)sender {
     HBEditPrototypeViewController *newVC = [[HBEditPrototypeViewController alloc] initWithPrototype:nil title:NSLocalizedString(@"Create new", nil) saveButtonTitle:NSLocalizedString(@"Save", nil)];
     [newVC setSaveBlock:^{
-        [self.navigationController popToViewController:self animated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
         [self.searchBar setText:@""];
         [self reloadPrototypes];
     }];
-    [self.navigationController pushViewController:newVC animated:YES];
+    [newVC setCancelBlock:^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [self presentViewController:[[HBNavigationController alloc] initWithRootViewController:newVC] animated:YES completion:nil];
 }
 
 #pragma mark UIScrollViewDelegate
@@ -143,12 +130,11 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //TODO: go to prototype details
-    HBEditUserViewController *editVC = [[HBEditUserViewController alloc] initWithPrototype:[self.filteredPrototypes objectAtIndex:indexPath.row] title:NSLocalizedString(@"Add user", nil) saveButtonTitle:NSLocalizedString(@"Save", nil)];
-    [editVC setSaveBlock:^{
-        [self.navigationController popToViewController:self animated:YES];
-        [self reloadPrototypes];
+    HBUsersListViewController *usersListViewController = [[HBUsersListViewController alloc] initWithPrototype:[self.filteredPrototypes objectAtIndex:indexPath.row]];
+    [usersListViewController setUserWasSelectedBlock:^(HBCPrototypeUser *user) {
+        [self.navigationController popViewControllerAnimated:YES];
     }];
-    [self.navigationController pushViewController:editVC animated:YES];
+    [self.navigationController pushViewController:usersListViewController animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

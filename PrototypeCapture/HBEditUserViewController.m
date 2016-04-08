@@ -63,6 +63,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.saveItem;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
     
     if (self.user) {
         [self.nameTextField setText:self.user.name];
@@ -125,6 +126,12 @@
 }
 
 #pragma mark UIActions
+
+- (IBAction)cancel:(id)sender {
+    if (self.cancelBlock) {
+        self.cancelBlock();
+    }
+}
 
 - (IBAction)save:(id)sender {
     if (!self.user) {

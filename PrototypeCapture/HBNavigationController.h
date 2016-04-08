@@ -1,5 +1,5 @@
 //
-//  LPNavigationController.h
+//  HBNavigationController.h
 //  Habco
 //
 //  Created by Игорь Савельев on 08/04/16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LPNavigationController : UINavigationController
+@interface HBNavigationController : UINavigationController
 
 @end

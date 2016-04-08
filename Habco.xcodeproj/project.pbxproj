@@ -48,11 +48,17 @@
 		E3716C741CB702BA00AF553C /* HBPrototypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3716C721CB702BA00AF553C /* HBPrototypeTableViewCell.m */; };
 		E3716C751CB702BA00AF553C /* HBPrototypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3716C731CB702BA00AF553C /* HBPrototypeTableViewCell.xib */; };
 		E3716C791CB79DF000AF553C /* UIColor+Pallete.m in Sources */ = {isa = PBXBuildFile; fileRef = E3716C781CB79DF000AF553C /* UIColor+Pallete.m */; };
-		E3716C7C1CB7A1B000AF553C /* LPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3716C7B1CB7A1B000AF553C /* LPNavigationController.m */; };
 		E386EC711CB7B4600002F186 /* HBPrototypePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC6F1CB7B4600002F186 /* HBPrototypePreviewViewController.m */; };
 		E386EC721CB7B4600002F186 /* HBPrototypePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E386EC701CB7B4600002F186 /* HBPrototypePreviewViewController.xib */; };
 		E386EC761CB7C7000002F186 /* HBEditUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC741CB7C7000002F186 /* HBEditUserViewController.m */; };
 		E386EC771CB7C7000002F186 /* HBEditUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E386EC751CB7C7000002F186 /* HBEditUserViewController.xib */; };
+		E386EC7B1CB7EB050002F186 /* HBUsersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC791CB7EB050002F186 /* HBUsersListViewController.m */; };
+		E386EC7C1CB7EB050002F186 /* HBUsersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E386EC7A1CB7EB050002F186 /* HBUsersListViewController.xib */; };
+		E386EC7F1CB7EB1E0002F186 /* HBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC7E1CB7EB1E0002F186 /* HBViewController.m */; };
+		E386EC821CB7EBC00002F186 /* HBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC811CB7EBC00002F186 /* HBSearchBar.m */; };
+		E386EC861CB7EEC10002F186 /* HBUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC841CB7EEC10002F186 /* HBUserTableViewCell.m */; };
+		E386EC871CB7EEC10002F186 /* HBUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E386EC851CB7EEC10002F186 /* HBUserTableViewCell.xib */; };
+		E386EC8A1CB7F7FE0002F186 /* HBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC891CB7F7FE0002F186 /* HBNavigationController.m */; };
 		E393A3ED1CB663E9003CCD46 /* HBEditPrototypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E393A3EB1CB663E9003CCD46 /* HBEditPrototypeViewController.m */; };
 		E393A3EE1CB663E9003CCD46 /* HBEditPrototypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E393A3EC1CB663E9003CCD46 /* HBEditPrototypeViewController.xib */; };
 		E393A3F91CB66560003CCD46 /* LPResizingLayersView.m in Sources */ = {isa = PBXBuildFile; fileRef = E393A3F41CB66560003CCD46 /* LPResizingLayersView.m */; };
@@ -141,14 +147,24 @@
 		E3716C731CB702BA00AF553C /* HBPrototypeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBPrototypeTableViewCell.xib; sourceTree = "<group>"; };
 		E3716C771CB79DF000AF553C /* UIColor+Pallete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Pallete.h"; sourceTree = "<group>"; };
 		E3716C781CB79DF000AF553C /* UIColor+Pallete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Pallete.m"; sourceTree = "<group>"; };
-		E3716C7A1CB7A1B000AF553C /* LPNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPNavigationController.h; sourceTree = "<group>"; };
-		E3716C7B1CB7A1B000AF553C /* LPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPNavigationController.m; sourceTree = "<group>"; };
 		E386EC6E1CB7B4600002F186 /* HBPrototypePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPrototypePreviewViewController.h; sourceTree = "<group>"; };
 		E386EC6F1CB7B4600002F186 /* HBPrototypePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPrototypePreviewViewController.m; sourceTree = "<group>"; };
 		E386EC701CB7B4600002F186 /* HBPrototypePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBPrototypePreviewViewController.xib; sourceTree = "<group>"; };
 		E386EC731CB7C7000002F186 /* HBEditUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBEditUserViewController.h; sourceTree = "<group>"; };
 		E386EC741CB7C7000002F186 /* HBEditUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBEditUserViewController.m; sourceTree = "<group>"; };
 		E386EC751CB7C7000002F186 /* HBEditUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBEditUserViewController.xib; sourceTree = "<group>"; };
+		E386EC781CB7EB050002F186 /* HBUsersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBUsersListViewController.h; sourceTree = "<group>"; };
+		E386EC791CB7EB050002F186 /* HBUsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBUsersListViewController.m; sourceTree = "<group>"; };
+		E386EC7A1CB7EB050002F186 /* HBUsersListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBUsersListViewController.xib; sourceTree = "<group>"; };
+		E386EC7D1CB7EB1E0002F186 /* HBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBViewController.h; sourceTree = "<group>"; };
+		E386EC7E1CB7EB1E0002F186 /* HBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBViewController.m; sourceTree = "<group>"; };
+		E386EC801CB7EBC00002F186 /* HBSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBSearchBar.h; sourceTree = "<group>"; };
+		E386EC811CB7EBC00002F186 /* HBSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBSearchBar.m; sourceTree = "<group>"; };
+		E386EC831CB7EEC10002F186 /* HBUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBUserTableViewCell.h; sourceTree = "<group>"; };
+		E386EC841CB7EEC10002F186 /* HBUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBUserTableViewCell.m; sourceTree = "<group>"; };
+		E386EC851CB7EEC10002F186 /* HBUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBUserTableViewCell.xib; sourceTree = "<group>"; };
+		E386EC881CB7F7FE0002F186 /* HBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBNavigationController.h; sourceTree = "<group>"; };
+		E386EC891CB7F7FE0002F186 /* HBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBNavigationController.m; sourceTree = "<group>"; };
 		E393A3EA1CB663E9003CCD46 /* HBEditPrototypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBEditPrototypeViewController.h; sourceTree = "<group>"; };
 		E393A3EB1CB663E9003CCD46 /* HBEditPrototypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBEditPrototypeViewController.m; sourceTree = "<group>"; };
 		E393A3EC1CB663E9003CCD46 /* HBEditPrototypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBEditPrototypeViewController.xib; sourceTree = "<group>"; };
@@ -338,6 +354,9 @@
 				E3716C711CB702BA00AF553C /* HBPrototypeTableViewCell.h */,
 				E3716C721CB702BA00AF553C /* HBPrototypeTableViewCell.m */,
 				E3716C731CB702BA00AF553C /* HBPrototypeTableViewCell.xib */,
+				E386EC831CB7EEC10002F186 /* HBUserTableViewCell.h */,
+				E386EC841CB7EEC10002F186 /* HBUserTableViewCell.m */,
+				E386EC851CB7EEC10002F186 /* HBUserTableViewCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -364,6 +383,8 @@
 		E393A3E91CB663C0003CCD46 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E386EC7D1CB7EB1E0002F186 /* HBViewController.h */,
+				E386EC7E1CB7EB1E0002F186 /* HBViewController.m */,
 				E393A3EA1CB663E9003CCD46 /* HBEditPrototypeViewController.h */,
 				E393A3EB1CB663E9003CCD46 /* HBEditPrototypeViewController.m */,
 				E393A3EC1CB663E9003CCD46 /* HBEditPrototypeViewController.xib */,
@@ -376,6 +397,9 @@
 				E386EC731CB7C7000002F186 /* HBEditUserViewController.h */,
 				E386EC741CB7C7000002F186 /* HBEditUserViewController.m */,
 				E386EC751CB7C7000002F186 /* HBEditUserViewController.xib */,
+				E386EC781CB7EB050002F186 /* HBUsersListViewController.h */,
+				E386EC791CB7EB050002F186 /* HBUsersListViewController.m */,
+				E386EC7A1CB7EB050002F186 /* HBUsersListViewController.xib */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -392,8 +416,10 @@
 				E393A3F61CB66560003CCD46 /* LPRoundRectButton.m */,
 				E393A3F71CB66560003CCD46 /* UIImageView+Transitions.h */,
 				E393A3F81CB66560003CCD46 /* UIImageView+Transitions.m */,
-				E3716C7A1CB7A1B000AF553C /* LPNavigationController.h */,
-				E3716C7B1CB7A1B000AF553C /* LPNavigationController.m */,
+				E386EC801CB7EBC00002F186 /* HBSearchBar.h */,
+				E386EC811CB7EBC00002F186 /* HBSearchBar.m */,
+				E386EC881CB7F7FE0002F186 /* HBNavigationController.h */,
+				E386EC891CB7F7FE0002F186 /* HBNavigationController.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -460,11 +486,13 @@
 			files = (
 				E30E65431C83360E001E431B /* LaunchScreen.storyboard in Resources */,
 				E3716C6F1CB7029000AF553C /* HBPrototypesListViewController.xib in Resources */,
+				E386EC7C1CB7EB050002F186 /* HBUsersListViewController.xib in Resources */,
 				E3716C751CB702BA00AF553C /* HBPrototypeTableViewCell.xib in Resources */,
 				E386EC771CB7C7000002F186 /* HBEditUserViewController.xib in Resources */,
 				E393A3EE1CB663E9003CCD46 /* HBEditPrototypeViewController.xib in Resources */,
 				E30E654E1C833664001E431B /* PCWebViewWrapperViewController.xib in Resources */,
 				E386EC721CB7B4600002F186 /* HBPrototypePreviewViewController.xib in Resources */,
+				E386EC871CB7EEC10002F186 /* HBUserTableViewCell.xib in Resources */,
 				E30E65401C83360E001E431B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,6 +552,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E386EC7F1CB7EB1E0002F186 /* HBViewController.m in Sources */,
 				E30E654D1C833664001E431B /* PCWebViewWrapperViewController.m in Sources */,
 				E30E953A1CB510FA000DBE35 /* NSOrderedSet+Utilities.m in Sources */,
 				E30E94EC1CB46579000DBE35 /* HBCPrototypeRecord.m in Sources */,
@@ -533,13 +562,14 @@
 				E30E95331CB510A5000DBE35 /* NSMutableArray+Shuffle.m in Sources */,
 				E393A3FA1CB66560003CCD46 /* LPRoundRectButton.m in Sources */,
 				E30E95321CB510A5000DBE35 /* NSDictionary+NSURL.m in Sources */,
+				E386EC7B1CB7EB050002F186 /* HBUsersListViewController.m in Sources */,
 				E30E95351CB510A5000DBE35 /* NSString+IDString.m in Sources */,
 				E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */,
 				E34553EF1C90B6D90097C555 /* LPCaptureRecord.m in Sources */,
 				E30E65351C83360D001E431B /* main.m in Sources */,
 				E30E95561CB51DF0000DBE35 /* HBCPrototype.m in Sources */,
 				E393A3ED1CB663E9003CCD46 /* HBEditPrototypeViewController.m in Sources */,
-				E3716C7C1CB7A1B000AF553C /* LPNavigationController.m in Sources */,
+				E386EC821CB7EBC00002F186 /* HBSearchBar.m in Sources */,
 				E393A3F91CB66560003CCD46 /* LPResizingLayersView.m in Sources */,
 				E3716C741CB702BA00AF553C /* HBPrototypeTableViewCell.m in Sources */,
 				E30E95361CB510A5000DBE35 /* NSString+MD5.m in Sources */,
@@ -554,6 +584,7 @@
 				E30E95141CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m in Sources */,
 				E30E95211CB50738000DBE35 /* HBCRecordingSettings+Converting.m in Sources */,
 				E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */,
+				E386EC8A1CB7F7FE0002F186 /* HBNavigationController.m in Sources */,
 				E393A3FB1CB66560003CCD46 /* UIImageView+Transitions.m in Sources */,
 				E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */,
 				E30E94D71CB462C4000DBE35 /* Habco.xcdatamodeld in Sources */,
@@ -561,6 +592,7 @@
 				E30E95001CB465FC000DBE35 /* HBRecordingSettings.m in Sources */,
 				E30E95151CB46759000DBE35 /* HBCRecordingSettings.m in Sources */,
 				E30E95031CB46614000DBE35 /* HBPrototypeRecord.m in Sources */,
+				E386EC861CB7EEC10002F186 /* HBUserTableViewCell.m in Sources */,
 				E30E95541CB51DF0000DBE35 /* HBCPrototypeUser.m in Sources */,
 				E30E94F31CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m in Sources */,
 				E30E94FA1CB465D6000DBE35 /* HBPrototype.m in Sources */,
