@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
@@ -24,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" barStyle="black" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="PNY-DC-NQi">
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="PNY-DC-NQi">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="barTintColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -40,6 +39,10 @@
                             <constraint firstItem="PNY-DC-NQi" firstAttribute="leading" secondItem="U7l-Nr-I4D" secondAttribute="leading" id="m3I-YA-Dfj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="k7c-Fk-beb"/>
+                        <outlet property="delegate" destination="-1" id="Cbc-mV-EkM"/>
+                    </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -50,7 +53,7 @@
                 <constraint firstItem="6Rq-zk-bef" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cnw-AS-Ut4"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-            <point key="canvasLocation" x="234" y="508"/>
+            <point key="canvasLocation" x="15" y="469"/>
         </view>
     </objects>
 </document>

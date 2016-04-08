@@ -58,6 +58,11 @@
     [self.layer setBorderWidth:borderWidth];
 }
 
+- (void)setDefaultBorderColor:(UIColor *)defaultBorderColor {
+    _defaultBorderColor = defaultBorderColor;
+    [self setBorderColor:defaultBorderColor forState:UIControlStateNormal];
+}
+
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state {
     [backgroundColors setObject:backgroundColor forKey:@(state)];
     [self makeChangesForState:self.state];

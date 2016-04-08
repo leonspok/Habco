@@ -383,7 +383,7 @@
             });
             
             if (self.withFrontCamera) {
-                self.status = LPPrototypeCaptureRecorderReadyToRender;
+                self.status = LPPrototypeCaptureRecorderStatusReadyToRender;
             } else {
                 self.status = LPPrototypeCaptureRecorderStatusFinished;
             }
@@ -392,7 +392,7 @@
 }
 
 - (void)render {
-    NSAssert(self.status == LPPrototypeCaptureRecorderReadyToRender || self.status == LPPrototypeCaptureRecorderStatusRenderingError, @"Can't start rendering. Status should be LPPrototypeCaptureRecorderStatusRecorded");
+    NSAssert(self.status == LPPrototypeCaptureRecorderStatusReadyToRender || self.status == LPPrototypeCaptureRecorderStatusRenderingError, @"Can't start rendering. Status should be LPPrototypeCaptureRecorderStatusRecorded");
     self.status = LPPrototypeCaptureRecorderStatusRendering;
     _renderingError = nil;
     

@@ -1,27 +1,26 @@
 //
-//  HBEditPrototypeViewController.m
+//  HBEditUserViewController.m
 //  Habco
 //
-//  Created by Игорь Савельев on 07/04/16.
+//  Created by Игорь Савельев on 08/04/16.
 //  Copyright © 2016 Leonspok. All rights reserved.
 //
 
-#import "HBEditPrototypeViewController.h"
+#import "HBEditUserViewController.h"
 #import "HBPrototypesManager.h"
 #import "HBCPrototype.h"
-#import "LPRoundRectButton.h"
-#import "HBPrototypePreviewViewController.h"
+#import "HBCPrototypeUser.h"
 
-@interface HBEditPrototypeViewController () <UITextViewDelegate, UITextFieldDelegate>
+@interface HBEditUserViewController ()<UITextViewDelegate, UITextFieldDelegate>
+
+@property (nonatomic, strong) HBCPrototype *prototype;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property (weak, nonatomic) IBOutlet UITextField *urlTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionTextViewPlaceholderLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionHeightConstraint;
-@property (weak, nonatomic) IBOutlet LPRoundRectButton *previewButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewButtonWrapperHeightConstraint;
 
 @property (nonatomic, strong) UIBarButtonItem *saveItem;
 
@@ -31,12 +30,22 @@
 
 @end
 
-@implementation HBEditPrototypeViewController
+@implementation HBEditUserViewController
 
 - (id)initWithPrototype:(HBCPrototype *)prototype title:(NSString *)title saveButtonTitle:(NSString *)saveButtonTitle {
     self = [self initWithNibName:NSStringFromClass(self.class) bundle:nil];
     if (self) {
         self.prototype = prototype;
+        self.title = title;
+        self.saveItem = [[UIBarButtonItem alloc] initWithTitle:saveButtonTitle style:UIBarButtonItemStyleDone target:self action:@selector(save:)];
+    }
+    return self;
+}
+
+- (id)initWithUser:(HBCPrototypeUser *)user title:(NSString *)title saveButtonTitle:(NSString *)saveButtonTitle {
+    self = [self initWithNibName:NSStringFromClass(self.class) bundle:nil];
+    if (self) {
+        self.user = user;
         self.title = title;
         self.saveItem = [[UIBarButtonItem alloc] initWithTitle:saveButtonTitle style:UIBarButtonItemStyleDone target:self action:@selector(save:)];
     }
@@ -55,11 +64,10 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.saveItem;
     
-    if (self.prototype) {
-        [self.urlTextField setText:self.prototype.url];
-        [self.nameTextField setText:self.prototype.name];
-        [self.descriptionTextView setText:self.prototype.prototypeDescription];
-        [self textFieldEditingChanged:self.descriptionTextView];        
+    if (self.user) {
+        [self.nameTextField setText:self.user.name];
+        [self.descriptionTextView setText:self.user.bio];
+        [self textFieldEditingChanged:self.descriptionTextView];
     }
     [self.saveItem setEnabled:NO];
     
@@ -68,7 +76,6 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentLeft;
     
-    [self.urlTextField setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:self.urlTextField.placeholder attributes:@{NSFontAttributeName: self.urlTextField.font, NSForegroundColorAttributeName: [UIColor colorWithWhite:1 alpha:0.3f], NSParagraphStyleAttributeName: paragraphStyle}]];
     [self.nameTextField setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:self.nameTextField.placeholder attributes:@{NSFontAttributeName: self.nameTextField.font, NSForegroundColorAttributeName: [UIColor colorWithWhite:1 alpha:0.3f], NSParagraphStyleAttributeName: paragraphStyle}]];
 }
 
@@ -120,22 +127,20 @@
 #pragma mark UIActions
 
 - (IBAction)save:(id)sender {
-    if (!self.prototype) {
-        self.prototype = [[HBPrototypesManager sharedManager] createPrototype];
+    if (!self.user) {
+        if (!self.prototype) {
+            return;
+        }
+        
+        self.user = [[HBPrototypesManager sharedManager] createUserForPrototype:self.prototype];
     }
-    self.prototype.name = self.nameTextField.text;
-    self.prototype.url = self.urlTextField.text;
+    self.user.name = self.nameTextField.text;
     self.prototype.prototypeDescription = self.descriptionTextView.text;
-    [[HBPrototypesManager sharedManager] saveChangesInPrototype:self.prototype];
+    [[HBPrototypesManager sharedManager] saveChangesInUser:self.user];
     
     if (self.saveBlock) {
         self.saveBlock();
     }
-}
-
-- (IBAction)previewPrototype:(id)sender {
-    HBPrototypePreviewViewController *pvc = [[HBPrototypePreviewViewController alloc] initWithURL:[NSURL URLWithString:self.urlTextField.text]];
-    [self presentViewController:pvc animated:YES completion:nil];
 }
 
 - (IBAction)backgroundTap:(id)sender {
@@ -147,23 +152,7 @@
 }
 
 - (IBAction)textFieldEditingChanged:(id)sender {
-    if ([NSURL URLWithString:self.urlTextField.text].host.length > 0 && self.urlTextField.text.length > 0) {
-        self.previewButtonWrapperHeightConstraint.constant = 34.0f;
-        [self.previewButton.superview setNeedsLayout];
-        [UIView animateWithDuration:0.2f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.1f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
-            [self.previewButton setAlpha:1.0f];
-            [self.previewButton.superview layoutIfNeeded];
-        } completion:nil];
-    } else {
-        self.previewButtonWrapperHeightConstraint.constant = 0.0f;
-        [self.previewButton.superview setNeedsLayout];
-        [UIView animateWithDuration:0.2f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.1f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
-            [self.previewButton setAlpha:0.0f];
-            [self.previewButton.superview layoutIfNeeded];
-        } completion:nil];
-    }
-    
-    if ([NSURL URLWithString:self.urlTextField.text].host.length > 0 && self.nameTextField.text.length > 0) {
+    if (self.nameTextField.text.length > 0) {
         [self.saveItem setEnabled:YES];
     } else {
         [self.saveItem setEnabled:NO];
@@ -203,9 +192,7 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (self.activeResponder == self.urlTextField) {
-        [self.nameTextField becomeFirstResponder];
-    } else if (self.activeResponder == self.nameTextField) {
+    if (self.activeResponder == self.nameTextField) {
         [self.descriptionTextView becomeFirstResponder];
     }
     return YES;

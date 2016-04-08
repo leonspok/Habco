@@ -40,7 +40,7 @@
     if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecording) {
         [self.recorder stopRecording];
         [sender setSelected:NO];
-    } else if (!self.recorder || self.recorder.status == LPPrototypeCaptureRecorderStatusRecorded || self.recorder.status == LPPrototypeCaptureRecorderStatusRendered) {
+    } else if (!self.recorder || self.recorder.status == LPPrototypeCaptureRecorderStatusFinished) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *pathToDocumentsFolder = [paths objectAtIndex:0];
         
@@ -57,7 +57,7 @@
 }
 
 - (IBAction)render:(id)sender {
-    if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecorded) {
+    if (self.recorder.status == LPPrototypeCaptureRecorderStatusReadyToRender) {
         [self.recorder render];
     }
 }

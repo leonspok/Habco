@@ -17,6 +17,7 @@
     [super awakeFromNib];
     [self setBackgroundColor:[UIColor clearColor]];
     [self.contentView setBackgroundColor:[UIColor clearColor]];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -44,7 +45,7 @@
     } else if (prototype.users.count > 0) {
         usersPart = [NSString stringWithFormat:@"%ld %@", (long)prototype.users.count, NSLocalizedString(@"users", nil)];
     } else {
-        usersPart = @"";
+        usersPart = NSLocalizedString(@"No recordings yet", nil);
     }
     
     NSUInteger recordsCount = 0;

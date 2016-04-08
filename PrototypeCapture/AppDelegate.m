@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "LPNavigationController.h"
+#import "HBPrototypesListViewController.h"
+#import "UIColor+Pallete.h"
 #import "PCWebViewWrapperViewController.h"
 #import <MagicalRecord/MagicalRecord.h>
 
@@ -25,8 +28,20 @@
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Habco"];
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelError];
     
+    UINavigationController *nc = [[LPNavigationController alloc] initWithRootViewController:[[HBPrototypesListViewController alloc] initWithNibName:NSStringFromClass(HBPrototypesListViewController.class) bundle:nil]];
+    [nc.navigationBar setTranslucent:NO];
+    [nc.navigationBar setBarTintColor:[UIColor backgroundColor]];
+    [nc.navigationBar setTintColor:[UIColor whiteColor]];
+    [nc.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [nc.navigationBar setShadowImage:[UIImage new]];
+    
+    UIView *navigationBarBottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, nc.navigationBar.frame.size.height-1.0f, nc.navigationBar.frame.size.width, 1.0f)];
+    [navigationBarBottomBorder setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.3f]];
+    [navigationBarBottomBorder setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
+    [nc.navigationBar addSubview:navigationBarBottomBorder];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[PCWebViewWrapperViewController alloc] initWithNibName:NSStringFromClass(PCWebViewWrapperViewController.class) bundle:nil];
+    self.window.rootViewController = nc;
     [self.window makeKeyAndVisible];
     
     return YES;

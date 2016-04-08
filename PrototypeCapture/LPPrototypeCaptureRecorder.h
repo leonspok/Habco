@@ -15,7 +15,7 @@ typedef enum {
     LPPrototypeCaptureRecorderStatusReadyToRecord,
     LPPrototypeCaptureRecorderStatusRecording,
     LPPrototypeCaptureRecorderStatusRecordingError,
-    LPPrototypeCaptureRecorderReadyToRender,
+    LPPrototypeCaptureRecorderStatusReadyToRender,
     LPPrototypeCaptureRecorderStatusRendering,
     LPPrototypeCaptureRecorderStatusRenderingError,
     LPPrototypeCaptureRecorderStatusFinished
