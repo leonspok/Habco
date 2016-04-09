@@ -77,6 +77,13 @@
     }
 }
 
+- (NSTimeInterval)recordingDuration {
+    if (self.currentRecordStartTime) {
+        return [[NSDate date] timeIntervalSinceDate:self.currentRecordStartTime];
+    }
+    return 0.0f;
+}
+
 #pragma mark Setters
 
 - (void)setFps:(NSUInteger)fps {
@@ -102,6 +109,16 @@
 - (void)setStatus:(LPPrototypeCaptureRecorderStatus)status {
     [self willChangeValueForKey:@"status"];
     _status = status;
+    if (status == LPPrototypeCaptureRecorderStatusRecording) {
+        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    } else if ([UIApplication sharedApplication].idleTimerDisabled &&
+               (status == LPPrototypeCaptureRecorderStatusFinished  ||
+                status == LPPrototypeCaptureRecorderStatusRecordingError ||
+                status == LPPrototypeCaptureRecorderStatusRenderingError)) {
+        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    } else {
+        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    }
     [self didChangeValueForKey:@"status"];
 }
 
@@ -196,7 +213,7 @@
 
 - (void)recordSnapshot:(UIImage *)snapshot timestamp:(NSTimeInterval)timestamp {
     dispatch_async(writeQueue, ^{
-        if (!self.shouldWriteFrame || !snapshot) {
+        if (!self.shouldWriteFrame || !snapshot || self.status != LPPrototypeCaptureRecorderStatusRecording) {
             return;
         }
         while(!self.pixelBufferAdaptor.assetWriterInput.readyForMoreMediaData) {}

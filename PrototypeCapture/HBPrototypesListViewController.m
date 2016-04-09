@@ -16,6 +16,7 @@
 //TODO: remove
 #import "HBEditUserViewController.h"
 #import "HBUsersListViewController.h"
+#import "HBRecordViewController.h"
 
 static NSString *const kPrototypeCell = @"kPrototypeCell";
 
@@ -53,6 +54,11 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
     self.tableView.contentInset = UIEdgeInsetsMake(-self.tableView.tableHeaderView.frame.size.height, 0, 0, 0);
     
     [self reloadPrototypes];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -132,7 +138,8 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
     //TODO: go to prototype details
     HBUsersListViewController *usersListViewController = [[HBUsersListViewController alloc] initWithPrototype:[self.filteredPrototypes objectAtIndex:indexPath.row]];
     [usersListViewController setUserWasSelectedBlock:^(HBCPrototypeUser *user) {
-        [self.navigationController popViewControllerAnimated:YES];
+        HBRecordViewController *vc = [[HBRecordViewController alloc] initWithUser:user];
+        [self.navigationController pushViewController:vc animated:YES];
     }];
     [self.navigationController pushViewController:usersListViewController animated:YES];
     

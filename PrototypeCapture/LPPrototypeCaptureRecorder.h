@@ -33,6 +33,7 @@ typedef enum {
 @property (nonatomic, readonly) LPPrototypeCaptureRecorderStatus status;
 @property (nonatomic, strong, readonly) NSError *recordingError;
 @property (nonatomic, strong, readonly) NSError *renderingError;
+@property (nonatomic, readonly) NSTimeInterval recordingDuration;
 
 @property (nonatomic, strong, readonly) NSString *pathToCameraCaptureVideo;
 @property (nonatomic, strong, readonly) NSString *pathToScreenCaptureVideo;

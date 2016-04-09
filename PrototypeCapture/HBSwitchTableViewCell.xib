@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="HBSwitchTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Draw touches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFA-hb-zco">
+                        <rect key="frame" x="10" y="16" width="244" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5LX-8b-K6F">
+                        <rect key="frame" x="264" y="0.0" width="46" height="49"/>
+                        <state key="normal" image="switchOff"/>
+                        <state key="selected" image="switchOn"/>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dq-A1-q66">
+                        <rect key="frame" x="0.0" y="48" width="320" height="1"/>
+                        <color key="backgroundColor" white="0.44" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Xlt-q1-oPZ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="3dq-A1-q66" secondAttribute="bottom" id="9M2-ug-Epw"/>
+                    <constraint firstItem="3dq-A1-q66" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ElN-j2-NWg"/>
+                    <constraint firstItem="5LX-8b-K6F" firstAttribute="leading" secondItem="kFA-hb-zco" secondAttribute="trailing" constant="10" id="Gm7-r9-9UV"/>
+                    <constraint firstAttribute="bottom" secondItem="5LX-8b-K6F" secondAttribute="bottom" id="Imx-Il-PVG"/>
+                    <constraint firstItem="kFA-hb-zco" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Nvr-zk-oL9"/>
+                    <constraint firstAttribute="trailing" secondItem="5LX-8b-K6F" secondAttribute="trailing" constant="10" id="UhU-Zf-ClE"/>
+                    <constraint firstItem="kFA-hb-zco" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="V3f-5J-100"/>
+                    <constraint firstAttribute="trailing" secondItem="3dq-A1-q66" secondAttribute="trailing" id="ckR-D4-1La"/>
+                    <constraint firstItem="5LX-8b-K6F" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fNj-i3-w9N"/>
+                    <constraint firstItem="5LX-8b-K6F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="wAf-JS-Ksj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="separator" destination="3dq-A1-q66" id="UQR-zj-QAe"/>
+                <outlet property="switchButton" destination="5LX-8b-K6F" id="HEu-c4-tOi"/>
+                <outlet property="titleLabel" destination="kFA-hb-zco" id="jTD-5a-4gc"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="switchOff" width="46" height="20"/>
+        <image name="switchOn" width="46" height="20"/>
+    </resources>
+</document>
