@@ -60,7 +60,7 @@
         [self.urlTextField setText:self.prototype.url];
         [self.nameTextField setText:self.prototype.name];
         [self.descriptionTextView setText:self.prototype.prototypeDescription];
-        [self textFieldEditingChanged:self.descriptionTextView];        
+        [self textViewDidChange:self.descriptionTextView];
     }
     [self.saveItem setEnabled:NO];
     
@@ -83,6 +83,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
+    
+    [self.urlTextField becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -237,6 +239,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
+    [self.descriptionTextViewPlaceholderLabel setHidden:(textView.text.length > 0 || [textView isFirstResponder])];
     self.descriptionHeightConstraint.constant = [self.descriptionTextView sizeThatFits:CGSizeMake(textView.frame.size.width, HUGE_VALF)].height;
     [self.descriptionTextView setNeedsLayout];
     [self.descriptionTextView layoutIfNeeded];

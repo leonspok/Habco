@@ -17,6 +17,8 @@
 #import "HBRecordViewController.h"
 #import "HBEditPrototypeViewController.h"
 #import "HBEditUserViewController.h"
+#import "LPRoundRectButton.h"
+#import "HBNavigationController.h"
 
 static NSString *const kUserCell = @"kUserCell";
 
@@ -27,7 +29,7 @@ static NSString *const kUserCell = @"kUserCell";
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UIButton *urlButton;
+@property (weak, nonatomic) IBOutlet LPRoundRectButton *urlButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionTextViewHeightConstraint;
 
@@ -63,6 +65,9 @@ static NSString *const kUserCell = @"kUserCell";
     
     UINib *nib = [UINib nibWithNibName:NSStringFromClass(HBUserTableViewCell.class) bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:kUserCell];
+    
+    [self.urlButton setBorderColor:[UIColor colorWithWhite:1 alpha:0.2f] forState:UIControlStateSelected];
+    [self.urlButton setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.05f] forState:UIControlStateSelected];
     
     self.users = [NSMutableArray array];
 }
@@ -121,22 +126,23 @@ static NSString *const kUserCell = @"kUserCell";
     
     [self.urlButton setTitle:self.prototype.url forState:UIControlStateNormal];
     
-    self.descriptionTextViewHeightConstraint.constant = [self.descriptionTextView sizeThatFits:CGSizeMake(self.descriptionTextView.frame.size.width, HUGE_VALF)].height;
+    NSString *desc = self.prototype.prototypeDescription? : @"";
+    [self.descriptionTextView setText:desc];
+    //CGSize descriptionSize = [desc boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width-20.0f, HUGE_VALF) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.descriptionTextView.font} context:nil].size;
+    CGSize descriptionSize = [self.descriptionTextView sizeThatFits:CGSizeMake(self.descriptionTextView.frame.size.width, HUGE_VALF)];
+    //descriptionSize.height += 8.0f;
+    self.descriptionTextViewHeightConstraint.constant = descriptionSize.height;
     [self.descriptionTextView setNeedsLayout];
     [self.descriptionTextView layoutIfNeeded];
-    if (self.prototype.prototypeDescription.length > 0) {
-        [self.descriptionTextView setText:self.prototype.prototypeDescription];
-        CGRect frame = self.tableHeader.frame;
-        frame.size.height = 122.0f+16.0f+self.descriptionTextViewHeightConstraint.constant;
-        [self.tableHeader setFrame:frame];
-        [self.tableView setTableHeaderView:self.tableHeader];
+    
+    CGRect frame = self.tableHeader.frame;
+    if (desc.length > 0) {
+        frame.size.height = 122.0f+10.0f+self.descriptionTextViewHeightConstraint.constant;
     } else {
-        [self.descriptionTextView setText:self.prototype.prototypeDescription];
-        CGRect frame = self.tableHeader.frame;
-        frame.size.height = 116.0f;
-        [self.tableHeader setFrame:frame];
-        [self.tableView setTableHeaderView:self.tableHeader];
+        frame.size.height = 132.0f;
     }
+    [self.tableHeader setFrame:frame];
+    [self.tableView setTableHeaderView:self.tableHeader];
 }
 
 - (void)reloadPrototypeUsers {
@@ -165,12 +171,26 @@ static NSString *const kUserCell = @"kUserCell";
 }
 
 - (IBAction)addNewRecord:(id)sender {
-    HBUsersListViewController *uvc = [[HBUsersListViewController alloc] initWithPrototype:self.prototype];
-    [uvc setUserWasSelectedBlock:^(HBCPrototypeUser *user) {
-        HBRecordViewController *vc = [[HBRecordViewController alloc] initWithUser:user];
-        [self.navigationController pushViewController:vc animated:YES];
-    }];
-    [self.navigationController pushViewController:uvc animated:YES];
+    if (self.users.count == 0) {
+        HBEditUserViewController *evc = [[HBEditUserViewController alloc] initWithPrototype:self.prototype title:NSLocalizedString(@"Add user", nil) saveButtonTitle:NSLocalizedString(@"Save", nil)];
+        HBEditUserViewController * __weak evcWeak = evc;
+        [evc setSaveBlock:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+            HBRecordViewController *vc = [[HBRecordViewController alloc] initWithUser:evcWeak.user];
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
+        [evc setCancelBlock:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [self presentViewController:[[HBNavigationController alloc] initWithRootViewController:evc] animated:YES completion:nil];
+    } else {
+        HBUsersListViewController *uvc = [[HBUsersListViewController alloc] initWithPrototype:self.prototype];
+        [uvc setUserWasSelectedBlock:^(HBCPrototypeUser *user) {
+            HBRecordViewController *vc = [[HBRecordViewController alloc] initWithUser:user];
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
+        [self.navigationController pushViewController:uvc animated:YES];
+    }
 }
 
 - (IBAction)showOptions:(id)sender {
@@ -187,7 +207,7 @@ static NSString *const kUserCell = @"kUserCell";
         [evc setCancelBlock:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         }];
-        [self presentViewController:evc animated:YES completion:nil];
+        [self presentViewController:[[HBNavigationController alloc] initWithRootViewController:evc] animated:YES completion:nil];
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add user", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         HBEditUserViewController *evc = [[HBEditUserViewController alloc] initWithPrototype:self.prototype title:NSLocalizedString(@"Add user", nil) saveButtonTitle:NSLocalizedString(@"Save", nil)];
@@ -197,7 +217,7 @@ static NSString *const kUserCell = @"kUserCell";
         [evc setCancelBlock:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         }];
-        [self presentViewController:evc animated:YES completion:nil];
+        [self presentViewController:[[HBNavigationController alloc] initWithRootViewController:evc] animated:YES completion:nil];
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[HBPrototypesManager sharedManager] removePrototype:self.prototype];

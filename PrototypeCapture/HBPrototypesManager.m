@@ -33,6 +33,15 @@
     if (self) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         self.pathToFolder = [paths firstObject];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
+                NSArray *emptyPrototypes = [HBCPrototypeRecord MR_findByAttribute:@"pathToVideo" withValue:[NSNull null] inContext:localContext];
+                for (HBCPrototypeRecord *record in emptyPrototypes) {
+                    [record MR_deleteEntityInContext:localContext];
+                }
+            }];
+        });
     }
     return self;
 }

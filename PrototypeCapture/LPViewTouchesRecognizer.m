@@ -21,34 +21,32 @@
 }
 
 - (void)recordTouches:(NSSet<UITouch *> *)touches {
-    NSMutableArray *allTouches = [NSMutableArray arrayWithArray:touches.allObjects];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        @synchronized(self) {
-            [allTouches addObjectsFromArray:self.touchObjects];
-            NSMutableArray *finalTouches = [NSMutableArray array];
-            NSMutableArray *newTouches = [NSMutableArray array];
-            for (UITouch *touch in allTouches) {
-                if (touch.phase == UITouchPhaseEnded || touch.phase == UITouchPhaseCancelled) {
-                    continue;
-                }
-                [finalTouches addObject:touch];
-                
-                LPViewTouch *viewTouch = [[LPViewTouch alloc] initWithTouch:touch fromView:self.view];
-                BOOL intersects = NO;
-                for (LPViewTouch *newTouch in newTouches) {
-                    if ([newTouch intersectsWith:viewTouch]) {
-                        intersects = YES;
-                        break;
-                    }
-                }
-                if (!intersects) {
-                    [newTouches addObject:viewTouch];
+    @synchronized (self) {
+        NSMutableArray *allTouches = [NSMutableArray arrayWithArray:touches.allObjects];
+        [allTouches addObjectsFromArray:self.touchObjects];
+        NSMutableArray *finalTouches = [NSMutableArray array];
+        NSMutableArray *newTouches = [NSMutableArray array];
+        for (UITouch *touch in allTouches) {
+            if (touch.phase == UITouchPhaseEnded || touch.phase == UITouchPhaseCancelled) {
+                continue;
+            }
+            [finalTouches addObject:touch];
+            
+            LPViewTouch *viewTouch = [[LPViewTouch alloc] initWithTouch:touch fromView:self.view];
+            BOOL intersects = NO;
+            for (LPViewTouch *newTouch in newTouches) {
+                if ([newTouch intersectsWith:viewTouch]) {
+                    intersects = YES;
+                    break;
                 }
             }
-            self.currentTouches = newTouches;
-            self.touchObjects = finalTouches;
+            if (!intersects) {
+                [newTouches addObject:viewTouch];
+            }
         }
-    });
+        self.currentTouches = newTouches;
+        self.touchObjects = finalTouches;
+    }
 }
 
 - (void)reset {

@@ -103,6 +103,7 @@ static NSString *const kSliderCell = @"kSliderCell";
     conf.allowsAirPlayForMediaPlayback = NO;
     conf.allowsPictureInPictureMediaPlayback = NO;
     self.webView = [[WKWebView alloc] initWithFrame:self.recordingWrapper.bounds configuration:conf];
+    self.webView.customUserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1";
     [self.webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [self.recordingWrapper insertSubview:self.webView atIndex:0];
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:&kHBRecordViewControllerKVOContext];

@@ -68,7 +68,7 @@
     if (self.user) {
         [self.nameTextField setText:self.user.name];
         [self.descriptionTextView setText:self.user.bio];
-        [self textFieldEditingChanged:self.descriptionTextView];
+        [self textViewDidChange:self.descriptionTextView];
     }
     [self.saveItem setEnabled:NO];
     
@@ -90,6 +90,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
+    
+    [self.nameTextField becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -224,6 +226,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
+    [self.descriptionTextViewPlaceholderLabel setHidden:(textView.text.length > 0 || [textView isFirstResponder])];
     self.descriptionHeightConstraint.constant = [self.descriptionTextView sizeThatFits:CGSizeMake(textView.frame.size.width, HUGE_VALF)].height;
     [self.descriptionTextView setNeedsLayout];
     [self.descriptionTextView layoutIfNeeded];
