@@ -13,6 +13,9 @@
 #import "HBCPrototypeUser.h"
 #import "HBCPrototypeRecord.h"
 
+static NSString *const kCustomUserAgentKey = @"CustomUserAgent";
+static NSString *const kShouldRequestUserAgentAfterKey = @"ShouldRequestUserAgentAfterKey";
+
 @interface HBPrototypesManager()
 @property (nonatomic, strong) NSString *pathToFolder;
 @end
@@ -44,6 +47,37 @@
         });
     }
     return self;
+}
+
+- (NSString *)customUserAgent {
+    NSString *customUserAgent = [[NSUserDefaults standardUserDefaults] objectForKey:kCustomUserAgentKey];
+    if (!customUserAgent) {
+        return @"Mozilla/5.0 (iPhone; CPU iPhone OS like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1";
+    } else {
+        return customUserAgent;
+    }
+}
+
+- (void)setCustomUserAgent:(NSString *)customUserAgent {
+    if (customUserAgent) {
+        [[NSUserDefaults standardUserDefaults] setObject:customUserAgent forKey:kCustomUserAgentKey];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:customUserAgent];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)shouldRequestCustomUserAgent {
+    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:kShouldRequestUserAgentAfterKey];
+    if ([number intValue] == 0) {
+        [[NSUserDefaults standardUserDefaults] setObject:@20 forKey:kShouldRequestUserAgentAfterKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return YES;
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:@(number.intValue-1) forKey:kShouldRequestUserAgentAfterKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return NO;
+    }
 }
 
 - (NSArray<HBCPrototype *> *)allPrototypes {

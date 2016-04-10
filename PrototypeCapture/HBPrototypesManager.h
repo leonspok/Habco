@@ -15,6 +15,8 @@
 + (instancetype)sharedManager;
 
 @property (nonatomic, readonly) NSString *pathToFolder;
+@property (nonatomic, strong) NSString *customUserAgent;
+@property (nonatomic, readonly) BOOL shouldRequestCustomUserAgent;
 
 - (NSArray<HBCPrototype *> *)allPrototypes;
 - (NSArray<HBCPrototypeRecord *> *)allRecordsFor:(HBCPrototype *)prototype;

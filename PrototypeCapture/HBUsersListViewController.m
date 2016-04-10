@@ -100,10 +100,15 @@ static NSString *const kUserCell = @"kUserCell";
 
 - (IBAction)addUser:(id)sender {
     HBEditUserViewController *newVC = [[HBEditUserViewController alloc] initWithPrototype:self.prototype title:NSLocalizedString(@"Add user", nil) saveButtonTitle:NSLocalizedString(@"Save", nil)];
+    HBEditUserViewController * __weak weakNewVC = newVC;
     [newVC setSaveBlock:^{
+        HBCPrototypeUser *user = weakNewVC.user;
         [self dismissViewControllerAnimated:YES completion:nil];
         [self.searchBar setText:@""];
         [self reloadUsers];
+        if (self.userWasSelectedBlock) {
+            self.userWasSelectedBlock(user);
+        }
     }];
     [newVC setCancelBlock:^{
         [self dismissViewControllerAnimated:YES completion:nil];

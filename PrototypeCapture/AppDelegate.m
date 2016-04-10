@@ -8,12 +8,16 @@
 
 #import "AppDelegate.h"
 #import "HBPrototypesListViewController.h"
+#import "HBPrototypesManager.h"
 #import "HBNavigationController.h"
 #import "PCWebViewWrapperViewController.h"
+#import "NSDictionary+NSURL.h"
 #import <MagicalRecord/MagicalRecord.h>
 
-@interface AppDelegate ()
+@import SafariServices;
 
+@interface AppDelegate ()
+@property (nonatomic, strong) SFSafariViewController *safariViewController;
 @end
 
 @implementation AppDelegate
@@ -33,6 +37,47 @@
     self.window.rootViewController = nc;
     [self.window makeKeyAndVisible];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([[HBPrototypesManager sharedManager] shouldRequestCustomUserAgent]) {
+            [self openSafariViewController];
+        }
+    });
+    
+    return YES;
+}
+
+- (void)openSafariViewController {
+    NSString *scriptletString = @"http://leonspok.tumblr.com/habco_get_user_agent";
+    SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:scriptletString]];
+    [svc.view setFrame:CGRectMake(0, 0, 100, 100)];
+    [self.window.rootViewController.view insertSubview:svc.view atIndex:0];
+    [self.window.rootViewController addChildViewController:svc];
+    [svc didMoveToParentViewController:self.window.rootViewController];
+    self.safariViewController = svc;
+    [self.window.rootViewController setNeedsStatusBarAppearanceUpdate];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.safariViewController.view removeFromSuperview];
+        [self.safariViewController removeFromParentViewController];
+        self.safariViewController = nil;
+        [self.window.rootViewController setNeedsStatusBarAppearanceUpdate];
+    });
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+    NSString *urlString = [url absoluteString];
+    if ([urlString hasPrefix:@"habco://set_user_agent"]) {
+        NSDictionary *params = [NSDictionary dictionaryWithURL:url];
+        if ([params objectForKey:@"user_agent"]) {
+            [[HBPrototypesManager sharedManager] setCustomUserAgent:[params objectForKey:@"user_agent"]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.safariViewController.view removeFromSuperview];
+            [self.safariViewController removeFromParentViewController];
+            self.safariViewController = nil;
+            [self.window.rootViewController setNeedsStatusBarAppearanceUpdate];
+        });
+    }
     return YES;
 }
 

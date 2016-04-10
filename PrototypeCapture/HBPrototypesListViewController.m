@@ -24,6 +24,7 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
 @interface HBPrototypesListViewController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIView *emptyView;
 
 @property (nonatomic, strong) NSMutableArray *filteredPrototypes;
 @property (nonatomic, strong) NSMutableArray *prototypes;
@@ -72,6 +73,12 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
 - (void)reloadPrototypes {
     [self.prototypes removeAllObjects];
     [self.prototypes addObjectsFromArray:[[HBPrototypesManager sharedManager] allPrototypes]];
+    
+    if (self.prototypes.count == 0) {
+        [self.emptyView setHidden:NO];
+    } else {
+        [self.emptyView setHidden:YES];
+    }
     
     [self.filteredPrototypes removeAllObjects];
     if (self.searchBar.text.length > 0) {

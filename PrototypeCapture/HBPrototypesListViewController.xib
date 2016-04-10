@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HBPrototypesListViewController">
             <connections>
+                <outlet property="emptyView" destination="Jo9-j7-Ptc" id="lNa-gs-49R"/>
                 <outlet property="searchBar" destination="PNY-DC-NQi" id="phP-q5-bpi"/>
                 <outlet property="tableView" destination="6Rq-zk-bef" id="eIN-ba-pox"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -44,13 +45,61 @@
                         <outlet property="delegate" destination="-1" id="Cbc-mV-EkM"/>
                     </connections>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jo9-j7-Ptc">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You didn't add any prototypes to Habco yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ll-Vs-kaJ">
+                            <rect key="frame" x="60" y="164" width="200" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="N3F-fG-d0K"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKz-84-tzR" customClass="LPRoundRectButton">
+                            <rect key="frame" x="89" y="224" width="142" height="27"/>
+                            <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                            <state key="normal" title="Add first prototype">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="13.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBorderColor">
+                                    <color key="value" white="1" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="addPrototype:" destination="-1" eventType="touchUpInside" id="84N-x8-eii"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="XKz-84-tzR" firstAttribute="top" secondItem="2Ll-Vs-kaJ" secondAttribute="bottom" constant="19" id="G9L-m8-cHx"/>
+                        <constraint firstItem="XKz-84-tzR" firstAttribute="centerX" secondItem="2Ll-Vs-kaJ" secondAttribute="centerX" id="Zqw-ic-fqf"/>
+                        <constraint firstItem="2Ll-Vs-kaJ" firstAttribute="centerY" secondItem="Jo9-j7-Ptc" secondAttribute="centerY" constant="-100" id="k3D-eV-1mb"/>
+                        <constraint firstItem="2Ll-Vs-kaJ" firstAttribute="centerX" secondItem="Jo9-j7-Ptc" secondAttribute="centerX" id="mze-ZJ-jle"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="Jo9-j7-Ptc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Byd-ap-O1J"/>
                 <constraint firstAttribute="bottom" secondItem="6Rq-zk-bef" secondAttribute="bottom" id="QhN-PR-cly"/>
                 <constraint firstItem="6Rq-zk-bef" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TRv-1e-uss"/>
                 <constraint firstAttribute="trailing" secondItem="6Rq-zk-bef" secondAttribute="trailing" id="YxZ-ou-EJm"/>
                 <constraint firstItem="6Rq-zk-bef" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cnw-AS-Ut4"/>
+                <constraint firstAttribute="trailing" secondItem="Jo9-j7-Ptc" secondAttribute="trailing" id="rF4-pa-g9g"/>
+                <constraint firstItem="Jo9-j7-Ptc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uTR-1O-7MQ"/>
+                <constraint firstAttribute="bottom" secondItem="Jo9-j7-Ptc" secondAttribute="bottom" id="zI1-c2-Iqg"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
             <point key="canvasLocation" x="15" y="469"/>

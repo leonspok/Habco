@@ -461,6 +461,7 @@
 				TargetAttributes = {
 					E30E652F1C83360D001E431B = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 6KXZX3AW22;
 					};
 				};
 			};
@@ -709,6 +710,7 @@
 			baseConfigurationReference = A55CDA3274954E512FF8430F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = PrototypeCapture/PrefixHeader.pch;
 				INFOPLIST_FILE = PrototypeCapture/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -723,6 +725,7 @@
 			baseConfigurationReference = B488E9044A4AF78C8FA418A6 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = PrototypeCapture/PrefixHeader.pch;
 				INFOPLIST_FILE = PrototypeCapture/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

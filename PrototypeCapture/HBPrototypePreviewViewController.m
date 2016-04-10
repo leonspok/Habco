@@ -7,6 +7,7 @@
 //
 
 #import "HBPrototypePreviewViewController.h"
+#import "HBPrototypesManager.h"
 
 @import WebKit;
 
@@ -41,6 +42,7 @@ static int kHBPrototypePreviewViewControllerKVOContext;
     conf.allowsPictureInPictureMediaPlayback = NO;
     
     self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:conf];
+    [self.webView setCustomUserAgent:[HBPrototypesManager sharedManager].customUserAgent];
     [self.webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [self.view insertSubview:self.webView atIndex:0];
     
