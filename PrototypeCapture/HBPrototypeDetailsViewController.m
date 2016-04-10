@@ -19,6 +19,7 @@
 #import "HBEditUserViewController.h"
 #import "LPRoundRectButton.h"
 #import "HBNavigationController.h"
+#import "HBUserDetailsViewController.h"
 
 static NSString *const kUserCell = @"kUserCell";
 
@@ -128,9 +129,7 @@ static NSString *const kUserCell = @"kUserCell";
     
     NSString *desc = self.prototype.prototypeDescription? : @"";
     [self.descriptionTextView setText:desc];
-    //CGSize descriptionSize = [desc boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width-20.0f, HUGE_VALF) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.descriptionTextView.font} context:nil].size;
     CGSize descriptionSize = [self.descriptionTextView sizeThatFits:CGSizeMake(self.descriptionTextView.frame.size.width, HUGE_VALF)];
-    //descriptionSize.height += 8.0f;
     self.descriptionTextViewHeightConstraint.constant = descriptionSize.height;
     [self.descriptionTextView setNeedsLayout];
     [self.descriptionTextView layoutIfNeeded];
@@ -252,7 +251,8 @@ static NSString *const kUserCell = @"kUserCell";
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //TODO: go to user details
+    HBUserDetailsViewController *uvc = [[HBUserDetailsViewController alloc] initWithUser:[self.users objectAtIndex:indexPath.row]];
+    [self.navigationController pushViewController:uvc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

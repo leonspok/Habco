@@ -144,7 +144,7 @@
         self.user = [[HBPrototypesManager sharedManager] createUserForPrototype:self.prototype];
     }
     self.user.name = self.nameTextField.text;
-    self.prototype.prototypeDescription = self.descriptionTextView.text;
+    self.user.bio = self.descriptionTextView.text;
     [[HBPrototypesManager sharedManager] saveChangesInUser:self.user];
     
     if (self.saveBlock) {

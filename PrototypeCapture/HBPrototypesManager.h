@@ -14,6 +14,8 @@
 
 + (instancetype)sharedManager;
 
+@property (nonatomic, readonly) NSString *pathToFolder;
+
 - (NSArray<HBCPrototype *> *)allPrototypes;
 - (NSArray<HBCPrototypeRecord *> *)allRecordsFor:(HBCPrototype *)prototype;
 
@@ -29,7 +31,7 @@
 
 - (HBCPrototypeRecord *)createRecordForUser:(HBCPrototypeUser *)user;
 - (NSString *)pathToFolderForRecord:(HBCPrototypeRecord *)record;
-- (void)saveChangedInRecord:(HBCPrototypeRecord *)record;
+- (void)saveChangesInRecord:(HBCPrototypeRecord *)record;
 - (void)removeRecord:(HBCPrototypeRecord *)record;
 
 @end

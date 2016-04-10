@@ -38,7 +38,7 @@
             [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
                 NSArray *emptyPrototypes = [HBCPrototypeRecord MR_findByAttribute:@"pathToVideo" withValue:[NSNull null] inContext:localContext];
                 for (HBCPrototypeRecord *record in emptyPrototypes) {
-                    [record MR_deleteEntityInContext:localContext];
+                    [self removeRecord:record];
                 }
             }];
         });
@@ -227,7 +227,7 @@
     return [[self pathToFolderForUser:record.user] stringByAppendingPathComponent:record.uid];
 }
 
-- (void)saveChangedInRecord:(HBCPrototypeRecord *)record {
+- (void)saveChangesInRecord:(HBCPrototypeRecord *)record {
     
     NSString *pathToPlist = [[self pathToFolderForRecord:record] stringByAppendingPathComponent:@"info.plist"];
     [[record jsonRepresentation] writeToFile:pathToPlist atomically:YES];

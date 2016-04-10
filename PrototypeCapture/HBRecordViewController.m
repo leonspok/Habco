@@ -141,6 +141,7 @@ static NSString *const kSliderCell = @"kSliderCell";
         [self setRecordingWrapperPresented:NO];
         [self.settingsTableView setHidden:YES];
         [self.recordView setHidden:NO];
+        [self.renderingProgressView setHidden:YES];
         [self setThumbnailImage];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"optionsButton"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions:)];
     }
@@ -216,7 +217,7 @@ static NSString *const kSliderCell = @"kSliderCell";
         return;
     }
     
-    AVURLAsset *asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:self.record.pathToVideo]];
+    AVURLAsset *asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:[[[HBPrototypesManager sharedManager] pathToFolder] stringByAppendingString:self.record.pathToVideo]]];
     AVAssetImageGenerator *imageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:asset];
     [imageGenerator setAppliesPreferredTrackTransform:YES];
     
@@ -375,7 +376,7 @@ static NSString *const kSliderCell = @"kSliderCell";
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Options", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSArray *itemsToShare = @[[NSURL fileURLWithPath:self.record.pathToVideo]];
+        NSArray *itemsToShare = @[[NSURL fileURLWithPath:[[[HBPrototypesManager sharedManager] pathToFolder] stringByAppendingString:self.record.pathToVideo]]];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
         [self presentViewController:activityViewController animated:YES completion:nil];
     }]];
@@ -419,13 +420,13 @@ static NSString *const kSliderCell = @"kSliderCell";
                     [self.renderingProgressView setHidden:YES];
                     
                     self.record.date = [NSDate date];
-                    self.record.pathToVideo = self.recorder.pathToResultVideo;
+                    self.record.pathToVideo = [self.recorder.pathToResultVideo stringByReplacingOccurrencesOfString:[[HBPrototypesManager sharedManager] pathToFolder] withString:@""];
                     
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                     [dateFormatter setDateFormat:@"dd MMM yyyy HH:mm"];
                     self.title = [dateFormatter stringFromDate:self.record.date];
                     
-                    [[HBPrototypesManager sharedManager] saveChangedInRecord:self.record];
+                    [[HBPrototypesManager sharedManager] saveChangesInRecord:self.record];
                     [self setThumbnailImage];
                 }
                 
@@ -435,25 +436,42 @@ static NSString *const kSliderCell = @"kSliderCell";
                         [self.recorder setRenderingProgressBlock:^(float progress) {
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 NSUInteger percent = (NSUInteger)roundf(progress*100);
-                                if (percent == 100 || weakSelf.recorder.status != LPPrototypeCaptureRecorderStatusRendering) {
-                                    [weakSelf.renderingProgressView setHidden:YES];
-                                    [weakSelf.playButton setEnabled:YES];
-                                    [weakSelf.navigationItem.rightBarButtonItem setEnabled:YES];
-                                    
-                                    weakSelf.record.date = [NSDate date];
-                                    weakSelf.record.pathToVideo = weakSelf.recorder.pathToResultVideo;
-                                    [[HBPrototypesManager sharedManager] saveChangedInRecord:weakSelf.record];
-                                    
-                                    [[NSFileManager defaultManager] removeItemAtPath:weakSelf.recorder.pathToCameraCaptureVideo error:nil];
-                                    [[NSFileManager defaultManager] removeItemAtPath:weakSelf.recorder.pathToScreenCaptureVideo error:nil];
-                                    
-                                    [weakSelf setThumbnailImage];
-                                } else {
-                                    [weakSelf.renderingProgressLabel setText:[NSString stringWithFormat:@"%@ (%ld%%)", NSLocalizedString(@"Rendering", nil), (long)percent]];
-                                }
+                                [weakSelf.renderingProgressLabel setText:[NSString stringWithFormat:@"%@ (%ld%%)", NSLocalizedString(@"Rendering", nil), (long)percent]];
                             });
                         }];
+                        
                         [self.recorder render];
+                        
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                            while (self.recorder.status == LPPrototypeCaptureRecorderStatusRendering) {
+                                [NSThread sleepForTimeInterval:0.1f];
+                            }
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [weakSelf.renderingProgressView setHidden:YES];
+                                [weakSelf.playButton setEnabled:YES];
+                                [weakSelf.navigationItem.rightBarButtonItem setEnabled:YES];
+                                
+                                weakSelf.record.date = [NSDate date];
+                                weakSelf.record.pathToVideo = [weakSelf.recorder.pathToResultVideo stringByReplacingOccurrencesOfString:[[HBPrototypesManager sharedManager] pathToFolder] withString:@""];
+                                [[HBPrototypesManager sharedManager] saveChangesInRecord:weakSelf.record];
+                                
+                                weakSelf.record.user.lastRecordingDate = weakSelf.record.date;
+                                [[HBPrototypesManager sharedManager] saveChangesInUser:weakSelf.record.user];
+                                
+                                weakSelf.record.user.prototype.lastRecordingDate = weakSelf.record.date;
+                                [[HBPrototypesManager sharedManager] saveChangesInPrototype:weakSelf.record.user.prototype];
+                                
+                                [[NSFileManager defaultManager] removeItemAtPath:weakSelf.recorder.pathToCameraCaptureVideo error:nil];
+                                [[NSFileManager defaultManager] removeItemAtPath:weakSelf.recorder.pathToScreenCaptureVideo error:nil];
+                                
+                                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                                [dateFormatter setDateFormat:@"dd MMM yyyy HH:mm"];
+                                weakSelf.title = [dateFormatter stringFromDate:weakSelf.record.date];
+                                
+                                [weakSelf setThumbnailImage];
+                            });
+                        });
                     }
                 });
             });
@@ -487,11 +505,13 @@ static NSString *const kSliderCell = @"kSliderCell";
 
 - (IBAction)playVideo:(id)sender {
     AVPlayerViewController *playerVC = [[AVPlayerViewController alloc] init];
-    playerVC.player = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:self.record.pathToVideo]];
+    playerVC.player = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:[[[HBPrototypesManager sharedManager] pathToFolder] stringByAppendingString:self.record.pathToVideo]]];
     playerVC.showsPlaybackControls = YES;
     playerVC.videoGravity = AVLayerVideoGravityResizeAspect;
     playerVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:playerVC animated:YES completion:nil];
+    [self presentViewController:playerVC animated:YES completion:^{
+        [playerVC.player play];
+    }];
 }
 
 #pragma mark UITableViewDataSource

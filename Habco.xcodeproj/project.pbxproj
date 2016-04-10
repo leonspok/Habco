@@ -64,6 +64,10 @@
 		E3E59D471CB968A200D5FFCF /* HBSliderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3E59D451CB968A200D5FFCF /* HBSliderTableViewCell.xib */; };
 		E3E59D4B1CB9B87800D5FFCF /* HBPrototypeDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E59D491CB9B87800D5FFCF /* HBPrototypeDetailsViewController.m */; };
 		E3E59D4C1CB9B87800D5FFCF /* HBPrototypeDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3E59D4A1CB9B87800D5FFCF /* HBPrototypeDetailsViewController.xib */; };
+		E3EE945F1CBABC0400396A06 /* HBUserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3EE945D1CBABC0400396A06 /* HBUserDetailsViewController.m */; };
+		E3EE94601CBABC0400396A06 /* HBUserDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3EE945E1CBABC0400396A06 /* HBUserDetailsViewController.xib */; };
+		E3EE94641CBABC1800396A06 /* HBRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3EE94621CBABC1800396A06 /* HBRecordTableViewCell.m */; };
+		E3EE94651CBABC1800396A06 /* HBRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3EE94631CBABC1800396A06 /* HBRecordTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,6 +173,12 @@
 		E3E59D481CB9B87800D5FFCF /* HBPrototypeDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPrototypeDetailsViewController.h; sourceTree = "<group>"; };
 		E3E59D491CB9B87800D5FFCF /* HBPrototypeDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPrototypeDetailsViewController.m; sourceTree = "<group>"; };
 		E3E59D4A1CB9B87800D5FFCF /* HBPrototypeDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBPrototypeDetailsViewController.xib; sourceTree = "<group>"; };
+		E3EE945C1CBABC0400396A06 /* HBUserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBUserDetailsViewController.h; sourceTree = "<group>"; };
+		E3EE945D1CBABC0400396A06 /* HBUserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBUserDetailsViewController.m; sourceTree = "<group>"; };
+		E3EE945E1CBABC0400396A06 /* HBUserDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBUserDetailsViewController.xib; sourceTree = "<group>"; };
+		E3EE94611CBABC1800396A06 /* HBRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecordTableViewCell.h; sourceTree = "<group>"; };
+		E3EE94621CBABC1800396A06 /* HBRecordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecordTableViewCell.m; sourceTree = "<group>"; };
+		E3EE94631CBABC1800396A06 /* HBRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecordTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +348,9 @@
 				E3E59D431CB968A200D5FFCF /* HBSliderTableViewCell.h */,
 				E3E59D441CB968A200D5FFCF /* HBSliderTableViewCell.m */,
 				E3E59D451CB968A200D5FFCF /* HBSliderTableViewCell.xib */,
+				E3EE94611CBABC1800396A06 /* HBRecordTableViewCell.h */,
+				E3EE94621CBABC1800396A06 /* HBRecordTableViewCell.m */,
+				E3EE94631CBABC1800396A06 /* HBRecordTableViewCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -387,6 +400,9 @@
 				E3E59D481CB9B87800D5FFCF /* HBPrototypeDetailsViewController.h */,
 				E3E59D491CB9B87800D5FFCF /* HBPrototypeDetailsViewController.m */,
 				E3E59D4A1CB9B87800D5FFCF /* HBPrototypeDetailsViewController.xib */,
+				E3EE945C1CBABC0400396A06 /* HBUserDetailsViewController.h */,
+				E3EE945D1CBABC0400396A06 /* HBUserDetailsViewController.m */,
+				E3EE945E1CBABC0400396A06 /* HBUserDetailsViewController.xib */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -475,7 +491,9 @@
 				E30E65431C83360E001E431B /* LaunchScreen.storyboard in Resources */,
 				E3716C6F1CB7029000AF553C /* HBPrototypesListViewController.xib in Resources */,
 				E386EC7C1CB7EB050002F186 /* HBUsersListViewController.xib in Resources */,
+				E3EE94601CBABC0400396A06 /* HBUserDetailsViewController.xib in Resources */,
 				E3716C751CB702BA00AF553C /* HBPrototypeTableViewCell.xib in Resources */,
+				E3EE94651CBABC1800396A06 /* HBRecordTableViewCell.xib in Resources */,
 				E386EC771CB7C7000002F186 /* HBEditUserViewController.xib in Resources */,
 				E3E59D421CB9605800D5FFCF /* HBSwitchTableViewCell.xib in Resources */,
 				E393A3EE1CB663E9003CCD46 /* HBEditPrototypeViewController.xib in Resources */,
@@ -549,6 +567,7 @@
 				E30E94EC1CB46579000DBE35 /* HBCPrototypeRecord.m in Sources */,
 				E30E95311CB510A5000DBE35 /* NSArray+Utilities.m in Sources */,
 				E30E65381C83360D001E431B /* AppDelegate.m in Sources */,
+				E3EE94641CBABC1800396A06 /* HBRecordTableViewCell.m in Sources */,
 				E30E95331CB510A5000DBE35 /* NSMutableArray+Shuffle.m in Sources */,
 				E393A3FA1CB66560003CCD46 /* LPRoundRectButton.m in Sources */,
 				E30E95321CB510A5000DBE35 /* NSDictionary+NSURL.m in Sources */,
@@ -562,6 +581,7 @@
 				E393A3F91CB66560003CCD46 /* LPResizingLayersView.m in Sources */,
 				E3716C741CB702BA00AF553C /* HBPrototypeTableViewCell.m in Sources */,
 				E30E95361CB510A5000DBE35 /* NSString+MD5.m in Sources */,
+				E3EE945F1CBABC0400396A06 /* HBUserDetailsViewController.m in Sources */,
 				E3E59D3C1CB959DA00D5FFCF /* HBRecordViewController.m in Sources */,
 				E3716C791CB79DF000AF553C /* UIColor+Pallete.m in Sources */,
 				E3E59D461CB968A200D5FFCF /* HBSliderTableViewCell.m in Sources */,
