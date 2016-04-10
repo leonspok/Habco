@@ -33,7 +33,12 @@
     
     HBNavigationController *nc = [[HBNavigationController alloc] initWithRootViewController:[[HBPrototypesListViewController alloc] initWithNibName:NSStringFromClass(HBPrototypesListViewController.class) bundle:nil]];
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect windowFrame = CGRectMake(0, 0, 375, 667);
+    windowFrame.origin.x = (screenBounds.size.width-windowFrame.size.width)/2.0f;
+    windowFrame.origin.y = (screenBounds.size.height-windowFrame.size.height)/2.0f;
+    
+    self.window = [[UIWindow alloc] initWithFrame:screenBounds];
     self.window.rootViewController = nc;
     [self.window makeKeyAndVisible];
     

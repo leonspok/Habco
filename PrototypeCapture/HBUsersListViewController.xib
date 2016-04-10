@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="NnA-Fl-BKG" customClass="HBSearchBar">
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="NnA-Fl-BKG" customClass="HBSearchBar">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -32,6 +32,12 @@
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="NnA-Fl-BKG" secondAttribute="trailing" id="PAD-l0-TFg"/>
+                            <constraint firstAttribute="bottom" secondItem="NnA-Fl-BKG" secondAttribute="bottom" id="Y6Y-bb-YoP"/>
+                            <constraint firstItem="NnA-Fl-BKG" firstAttribute="leading" secondItem="2v7-Dy-rIr" secondAttribute="leading" id="YNa-tk-s7J"/>
+                            <constraint firstItem="NnA-Fl-BKG" firstAttribute="top" secondItem="2v7-Dy-rIr" secondAttribute="top" id="xLj-dK-hRy"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="UZ5-TU-CDc"/>
