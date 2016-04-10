@@ -12,6 +12,7 @@
 #import "HBPrototypeTableViewCell.h"
 #import "HBPrototypesManager.h"
 #import "HBCPrototype.h"
+#import "HBPrototypeDetailsViewController.h"
 
 //TODO: remove
 #import "HBEditUserViewController.h"
@@ -135,14 +136,8 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //TODO: go to prototype details
-    HBUsersListViewController *usersListViewController = [[HBUsersListViewController alloc] initWithPrototype:[self.filteredPrototypes objectAtIndex:indexPath.row]];
-    [usersListViewController setUserWasSelectedBlock:^(HBCPrototypeUser *user) {
-        HBRecordViewController *vc = [[HBRecordViewController alloc] initWithUser:user];
-        [self.navigationController pushViewController:vc animated:YES];
-    }];
-    [self.navigationController pushViewController:usersListViewController animated:YES];
-    
+    HBPrototypeDetailsViewController *dvc = [[HBPrototypeDetailsViewController alloc] initWithPrototype:[self.filteredPrototypes objectAtIndex:indexPath.row]];
+    [self.navigationController pushViewController:dvc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
