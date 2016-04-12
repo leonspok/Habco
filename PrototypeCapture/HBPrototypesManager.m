@@ -82,15 +82,15 @@ static NSString *const kShouldRequestUserAgentAfterKey = @"ShouldRequestUserAgen
 
 - (NSArray<HBCPrototype *> *)allPrototypes {
     NSArray<HBCPrototype *> *prototypes = [HBCPrototype MR_findAll];
-    [prototypes sortedArrayUsingComparator:^NSComparisonResult(HBCPrototype * _Nonnull obj1, HBCPrototype *  _Nonnull obj2) {
-        if (obj1.lastRecordingDate && obj2.lastRecordingDate) {
-            return [obj1.lastRecordingDate compare:obj2.lastRecordingDate];
-        } else if (!obj1.lastRecordingDate && obj2.lastRecordingDate) {
-            return [obj1.dateCreated compare:obj2.lastRecordingDate];
-        } else if (obj1.lastRecordingDate && !obj2.lastRecordingDate) {
-            return [obj1.lastRecordingDate compare:obj2.dateCreated];
+    prototypes = [prototypes sortedArrayUsingComparator:^NSComparisonResult(HBCPrototype * _Nonnull obj1, HBCPrototype *  _Nonnull obj2) {
+        if (obj2.lastRecordingDate && obj1.lastRecordingDate) {
+            return [obj2.lastRecordingDate compare:obj1.lastRecordingDate];
+        } else if (!obj2.lastRecordingDate && obj1.lastRecordingDate) {
+            return [obj2.dateCreated compare:obj1.lastRecordingDate];
+        } else if (obj2.lastRecordingDate && !obj1.lastRecordingDate) {
+            return [obj2.lastRecordingDate compare:obj1.dateCreated];
         } else {
-            return [obj1.dateCreated compare:obj2.dateCreated];
+            return [obj2.dateCreated compare:obj1.dateCreated];
         }
     }];
     return prototypes;

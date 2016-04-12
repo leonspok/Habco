@@ -60,7 +60,7 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self reloadPrototypes];
 }
 
 - (void)didReceiveMemoryWarning {

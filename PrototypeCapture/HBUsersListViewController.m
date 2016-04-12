@@ -75,14 +75,14 @@ static NSString *const kUserCell = @"kUserCell";
     [self.users removeAllObjects];
     [self.users addObjectsFromArray:self.prototype.users.allObjects];
     [self.users sortUsingComparator:^NSComparisonResult(HBCPrototypeUser * _Nonnull obj1, HBCPrototypeUser * _Nonnull obj2) {
-        if (obj1.lastRecordingDate && obj2.lastRecordingDate) {
-            return [obj1.lastRecordingDate compare:obj2.lastRecordingDate];
-        } else if (!obj1.lastRecordingDate && obj2.lastRecordingDate) {
-            return [obj1.dateAdded compare:obj2.lastRecordingDate];
-        } else if (obj1.lastRecordingDate && !obj2.lastRecordingDate) {
-            return [obj1.lastRecordingDate compare:obj2.dateAdded];
+        if (obj2.lastRecordingDate && obj1.lastRecordingDate) {
+            return [obj2.lastRecordingDate compare:obj1.lastRecordingDate];
+        } else if (!obj2.lastRecordingDate && obj1.lastRecordingDate) {
+            return [obj2.dateAdded compare:obj1.lastRecordingDate];
+        } else if (obj2.lastRecordingDate && !obj1.lastRecordingDate) {
+            return [obj2.lastRecordingDate compare:obj1.dateAdded];
         } else {
-            return [obj1.dateAdded compare:obj2.dateAdded];
+            return [obj2.dateAdded compare:obj1.dateAdded];
         }
     }];
     
