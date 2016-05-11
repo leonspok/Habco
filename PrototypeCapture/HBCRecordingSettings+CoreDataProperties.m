@@ -2,7 +2,7 @@
 //  HBCRecordingSettings+CoreDataProperties.m
 //  Habco
 //
-//  Created by Игорь Савельев on 06/04/16.
+//  Created by Игорь Савельев on 11/05/16.
 //  Copyright © 2016 Leonspok. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,10 +13,11 @@
 
 @implementation HBCRecordingSettings (CoreDataProperties)
 
-@dynamic withTouches;
-@dynamic withFrontCamera;
-@dynamic maxFPS;
 @dynamic downscale;
+@dynamic maxFPS;
+@dynamic withFrontCamera;
+@dynamic withTouches;
+@dynamic withTouchesLogging;
 @dynamic prototype;
 
 @end

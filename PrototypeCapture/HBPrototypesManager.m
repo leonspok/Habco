@@ -115,6 +115,7 @@ static NSString *const kShouldRequestUserAgentAfterKey = @"ShouldRequestUserAgen
         
         prototype.recordingSettings = [HBCRecordingSettings MR_createEntityInContext:localContext];
         prototype.recordingSettings.withTouches = @YES;
+        prototype.recordingSettings.withTouchesLogging = @YES;
         prototype.recordingSettings.withFrontCamera = @YES;
         prototype.recordingSettings.maxFPS = @(15);
         prototype.recordingSettings.downscale = @(1.5f);
@@ -154,6 +155,7 @@ static NSString *const kShouldRequestUserAgentAfterKey = @"ShouldRequestUserAgen
         localPrototype.url = prototype.url;
         localPrototype.lastRecordingDate = prototype.lastRecordingDate;
         localPrototype.recordingSettings.withTouches = prototype.recordingSettings.withTouches;
+        localPrototype.recordingSettings.withTouchesLogging = prototype.recordingSettings.withTouchesLogging;
         localPrototype.recordingSettings.withFrontCamera = prototype.recordingSettings.withFrontCamera;
         localPrototype.recordingSettings.maxFPS = prototype.recordingSettings.maxFPS;
         localPrototype.recordingSettings.downscale = prototype.recordingSettings.downscale;

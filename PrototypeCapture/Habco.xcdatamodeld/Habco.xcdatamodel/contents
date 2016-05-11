@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="HBCPrototype" representedClassName="HBCPrototype" syncable="YES">
         <attribute name="dateCreated" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="lastRecordingDate" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
@@ -30,12 +30,13 @@
         <attribute name="maxFPS" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="withFrontCamera" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="withTouches" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="withTouchesLogging" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="prototype" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HBCPrototype" inverseName="recordingSettings" inverseEntity="HBCPrototype" syncable="YES"/>
     </entity>
     <elements>
         <element name="HBCPrototype" positionX="-63" positionY="-18" width="128" height="165"/>
         <element name="HBCPrototypeRecord" positionX="-18" positionY="90" width="128" height="105"/>
         <element name="HBCPrototypeUser" positionX="-36" positionY="63" width="128" height="150"/>
-        <element name="HBCRecordingSettings" positionX="-54" positionY="36" width="128" height="120"/>
+        <element name="HBCRecordingSettings" positionX="-54" positionY="36" width="128" height="135"/>
     </elements>
 </model>

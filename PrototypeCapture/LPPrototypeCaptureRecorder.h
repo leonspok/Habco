@@ -28,6 +28,7 @@ typedef enum {
 @property (nonatomic) NSUInteger fps;
 @property (nonatomic) CGFloat downscale;
 @property (nonatomic) BOOL withTouches;
+@property (nonatomic) BOOL withTouchesLogging;
 @property (nonatomic) BOOL withFrontCamera;
 
 @property (nonatomic, readonly) LPPrototypeCaptureRecorderStatus status;
@@ -48,5 +49,9 @@ typedef enum {
 - (void)startRecording;
 - (void)stopRecording;
 - (void)render;
+
+#pragma mark Screens
+
+- (void)screenChangedTo:(NSString *)screenName;
 
 @end

@@ -18,8 +18,6 @@
 		E30E94D71CB462C4000DBE35 /* Habco.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E30E94D51CB462C4000DBE35 /* Habco.xcdatamodeld */; };
 		E30E94EC1CB46579000DBE35 /* HBCPrototypeRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */; };
 		E30E94F31CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */; };
-		E30E95141CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */; };
-		E30E95151CB46759000DBE35 /* HBCRecordingSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */; };
 		E30E95311CB510A5000DBE35 /* NSArray+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95261CB510A5000DBE35 /* NSArray+Utilities.m */; };
 		E30E95321CB510A5000DBE35 /* NSDictionary+NSURL.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95281CB510A5000DBE35 /* NSDictionary+NSURL.m */; };
 		E30E95331CB510A5000DBE35 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E952A1CB510A5000DBE35 /* NSMutableArray+Shuffle.m */; };
@@ -68,6 +66,8 @@
 		E3EE94601CBABC0400396A06 /* HBUserDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3EE945E1CBABC0400396A06 /* HBUserDetailsViewController.xib */; };
 		E3EE94641CBABC1800396A06 /* HBRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3EE94621CBABC1800396A06 /* HBRecordTableViewCell.m */; };
 		E3EE94651CBABC1800396A06 /* HBRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3EE94631CBABC1800396A06 /* HBRecordTableViewCell.xib */; };
+		E3F1E6331CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F1E6301CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.m */; };
+		E3F1E6341CE33BDE00475709 /* HBCRecordingSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F1E6321CE33BDE00475709 /* HBCRecordingSettings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,10 +92,6 @@
 		E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototypeRecord.m; sourceTree = "<group>"; };
 		E30E94F11CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCPrototypeRecord+CoreDataProperties.h"; sourceTree = "<group>"; };
 		E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototypeRecord+CoreDataProperties.m"; sourceTree = "<group>"; };
-		E30E950E1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCRecordingSettings+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCRecordingSettings+CoreDataProperties.m"; sourceTree = "<group>"; };
-		E30E95101CB46759000DBE35 /* HBCRecordingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCRecordingSettings.h; sourceTree = "<group>"; };
-		E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCRecordingSettings.m; sourceTree = "<group>"; };
 		E30E95251CB510A5000DBE35 /* NSArray+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utilities.h"; sourceTree = "<group>"; };
 		E30E95261CB510A5000DBE35 /* NSArray+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utilities.m"; sourceTree = "<group>"; };
 		E30E95271CB510A5000DBE35 /* NSDictionary+NSURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NSURL.h"; sourceTree = "<group>"; };
@@ -179,6 +175,10 @@
 		E3EE94611CBABC1800396A06 /* HBRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecordTableViewCell.h; sourceTree = "<group>"; };
 		E3EE94621CBABC1800396A06 /* HBRecordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecordTableViewCell.m; sourceTree = "<group>"; };
 		E3EE94631CBABC1800396A06 /* HBRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecordTableViewCell.xib; sourceTree = "<group>"; };
+		E3F1E62F1CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBCRecordingSettings+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E3F1E6301CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCRecordingSettings+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E3F1E6311CE33BDE00475709 /* HBCRecordingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCRecordingSettings.h; sourceTree = "<group>"; };
+		E3F1E6321CE33BDE00475709 /* HBCRecordingSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCRecordingSettings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,10 +287,6 @@
 				E30E94F21CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m */,
 				E30E94E11CB46579000DBE35 /* HBCPrototypeRecord.h */,
 				E30E94E21CB46579000DBE35 /* HBCPrototypeRecord.m */,
-				E30E950E1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.h */,
-				E30E950F1CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m */,
-				E30E95101CB46759000DBE35 /* HBCRecordingSettings.h */,
-				E30E95111CB46759000DBE35 /* HBCRecordingSettings.m */,
 				E30E954B1CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.h */,
 				E30E954C1CB51DF0000DBE35 /* HBCPrototypeUser+CoreDataProperties.m */,
 				E30E954D1CB51DF0000DBE35 /* HBCPrototypeUser.h */,
@@ -299,6 +295,10 @@
 				E30E95501CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m */,
 				E30E95511CB51DF0000DBE35 /* HBCPrototype.h */,
 				E30E95521CB51DF0000DBE35 /* HBCPrototype.m */,
+				E3F1E62F1CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.h */,
+				E3F1E6301CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.m */,
+				E3F1E6311CE33BDE00475709 /* HBCRecordingSettings.h */,
+				E3F1E6321CE33BDE00475709 /* HBCRecordingSettings.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -578,6 +578,8 @@
 				E30E65351C83360D001E431B /* main.m in Sources */,
 				E30E95561CB51DF0000DBE35 /* HBCPrototype.m in Sources */,
 				E393A3ED1CB663E9003CCD46 /* HBEditPrototypeViewController.m in Sources */,
+				E3F1E6341CE33BDE00475709 /* HBCRecordingSettings.m in Sources */,
+				E3F1E6331CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.m in Sources */,
 				E386EC821CB7EBC00002F186 /* HBSearchBar.m in Sources */,
 				E393A3F91CB66560003CCD46 /* LPResizingLayersView.m in Sources */,
 				E3716C741CB702BA00AF553C /* HBPrototypeTableViewCell.m in Sources */,
@@ -593,13 +595,11 @@
 				E3716C6E1CB7029000AF553C /* HBPrototypesListViewController.m in Sources */,
 				E386EC711CB7B4600002F186 /* HBPrototypePreviewViewController.m in Sources */,
 				E393A3FE1CB666F0003CCD46 /* LPFloatingPlaceholderTextField.m in Sources */,
-				E30E95141CB46759000DBE35 /* HBCRecordingSettings+CoreDataProperties.m in Sources */,
 				E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */,
 				E386EC8A1CB7F7FE0002F186 /* HBNavigationController.m in Sources */,
 				E393A3FB1CB66560003CCD46 /* UIImageView+Transitions.m in Sources */,
 				E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */,
 				E30E94D71CB462C4000DBE35 /* Habco.xcdatamodeld in Sources */,
-				E30E95151CB46759000DBE35 /* HBCRecordingSettings.m in Sources */,
 				E386EC861CB7EEC10002F186 /* HBUserTableViewCell.m in Sources */,
 				E30E95541CB51DF0000DBE35 /* HBCPrototypeUser.m in Sources */,
 				E30E94F31CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m in Sources */,

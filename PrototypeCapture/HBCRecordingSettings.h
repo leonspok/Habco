@@ -2,7 +2,7 @@
 //  HBCRecordingSettings.h
 //  Habco
 //
-//  Created by Игорь Савельев on 06/04/16.
+//  Created by Игорь Савельев on 11/05/16.
 //  Copyright © 2016 Leonspok. All rights reserved.
 //
 
@@ -14,6 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HBCRecordingSettings : NSManagedObject
+
+// Insert code here to declare functionality of your managed object subclass
 
 @end
 

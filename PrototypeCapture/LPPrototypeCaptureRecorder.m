@@ -20,10 +20,15 @@
 @property (atomic) BOOL shouldWriteFrame;
 @property (nonatomic, strong) AVAssetWriterInputPixelBufferAdaptor *pixelBufferAdaptor;
 @property (nonatomic, strong) UIImage *targetViewSnapshot;
+@property (nonatomic, strong) UIImage *targetViewCleanSnapshot;
 @property (nonatomic, strong) LPViewTouchesRecognizer *touchesRecognizer;
 @property (nonatomic, strong) AVCaptureDevice *frontCameraDevice;
 @property (nonatomic, strong) AVCaptureDevice *audioDevice;
 @property (strong, nonatomic) AVCaptureSession *frontCameraCaptureSession;
+
+@property (nonatomic, strong) NSString *currentScreenName;
+@property (nonatomic, strong) NSMutableString *recordedScreenNames;
+@property (nonatomic, strong) NSMutableString *currentScreenTouchesLog;
 
 @property (nonatomic, readwrite) LPPrototypeCaptureRecorderStatus status;
 
@@ -32,6 +37,7 @@
 @implementation LPPrototypeCaptureRecorder {
     dispatch_queue_t writeQueue;
     dispatch_queue_t snapshotQueue;
+    dispatch_queue_t writeTouchesQueue;
     dispatch_semaphore_t semaphore;
     CGRect capturingFrame;
     CGContextRef touchesDrawingContext;
@@ -48,6 +54,7 @@
         
         writeQueue = dispatch_queue_create("Recording Queue", DISPATCH_QUEUE_CONCURRENT);
         snapshotQueue = dispatch_queue_create("Snapshot Queue", DISPATCH_QUEUE_CONCURRENT);
+        writeTouchesQueue = dispatch_queue_create("Writing touches log Queue", DISPATCH_QUEUE_SERIAL);
         
         semaphore = dispatch_semaphore_create(1);
         touchesDrawingContext = NULL;
@@ -104,6 +111,17 @@
 - (void)setWithTouches:(BOOL)withTouches {
     NSAssert(self.status == LPPrototypeCaptureRecorderStatusConfiguring, @"Can't change parameter. Status should be LPPrototypeCaptureRecorderStatusConfiguring");
     _withTouches = withTouches;
+    if (!withTouches) {
+        [self setWithTouchesLogging:NO];
+    }
+}
+
+- (void)setWithTouchesLogging:(BOOL)withTouchesLogging {
+    NSAssert(self.status == LPPrototypeCaptureRecorderStatusConfiguring, @"Can't change parameter. Status should be LPPrototypeCaptureRecorderStatusConfiguring");
+    _withTouchesLogging = withTouchesLogging;
+    if (withTouchesLogging) {
+        [self setWithTouches:YES];
+    }
 }
 
 - (void)setStatus:(LPPrototypeCaptureRecorderStatus)status {
@@ -124,7 +142,7 @@
 
 #pragma mark Recording
 
-- (void)getSnapshotCompletion:(void (^)(UIImage *))completion {
+- (void)getSnapshotCompletion:(void (^)(UIImage *cleanImage, UIImage *processedImage))completion {
     UIGraphicsBeginImageContextWithOptions(capturingFrame.size, YES, 1.0f);
     
     if (self.withTouches) {
@@ -179,12 +197,12 @@
             CGImageRelease(cgImage);
             
             if (completion) {
-                completion(snapshotImage);
+                completion(image, snapshotImage);
             }
         });
     } else {
         if (completion) {
-            completion(image);
+            completion(image, image);
         }
     }
 }
@@ -239,9 +257,10 @@
 
 - (void)captureFrame {
     if (dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW) == 0) {
-        [self getSnapshotCompletion:^(UIImage *image) {
+        [self getSnapshotCompletion:^(UIImage *cleanImage, UIImage *processedImage) {
             dispatch_semaphore_signal(semaphore);
-            self.targetViewSnapshot = image;
+            self.targetViewSnapshot = processedImage;
+            self.targetViewCleanSnapshot = cleanImage;
         }];
     }
 }
@@ -249,6 +268,10 @@
 - (void)recordFrame {
     NSTimeInterval timestamp = [[NSDate date] timeIntervalSinceDate:self.currentRecordStartTime];
     [self recordSnapshot:self.targetViewSnapshot timestamp:timestamp];
+    if (self.withTouchesLogging) {
+        NSArray<LPViewTouch *> *touches = [self.touchesRecognizer currentTouches];
+        [self writeTouches:touches];
+    }
 }
 
 #pragma mark Managing
@@ -404,6 +427,11 @@
             } else {
                 self.status = LPPrototypeCaptureRecorderStatusFinished;
             }
+            
+            [self stopWritingTouchesLog];
+            
+            self.targetViewSnapshot = nil;
+            self.targetViewCleanSnapshot = nil;
         }];
     });
 }
@@ -541,6 +569,134 @@
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
     
+}
+
+#pragma mark Heatmap
+
+- (void)screenChangedTo:(NSString *)screenName {
+    if (screenName.length == 0 || !self.withTouchesLogging) {
+        return;
+    }
+    
+    dispatch_async(writeTouchesQueue, ^{
+        NSString *screensFolderPath = [self.folder stringByAppendingPathComponent:@"screens"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:screensFolderPath]) {
+            NSError *error;
+            [[NSFileManager defaultManager] createDirectoryAtPath:screensFolderPath withIntermediateDirectories:YES attributes:nil error:&error];
+            if (error) {
+                DDLogError(@"Creating screens folder: %@", error);
+            }
+        }
+        
+        if (self.currentScreenTouchesLog && self.currentScreenName) {
+            if (![self.recordedScreenNames containsString:self.currentScreenName]) {
+                [self.recordedScreenNames appendFormat:@"%@\n", self.currentScreenName];
+            }
+            
+            NSString *name = [NSString stringWithFormat:@"%@.touches", self.currentScreenName];
+            NSString *path = [screensFolderPath stringByAppendingPathComponent:name];
+            NSError *error;
+            [self.currentScreenTouchesLog writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+            if (error) {
+                DDLogError(@"Writing touches log to file: %@", error);
+            }
+        }
+        
+        self.currentScreenName = screenName;
+        
+        NSString *name = [NSString stringWithFormat:@"%@.touches", self.currentScreenName];
+        NSString *path = [screensFolderPath stringByAppendingPathComponent:name];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            NSError *error;
+            self.currentScreenTouchesLog = [[NSMutableString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+            if (error) {
+                DDLogError(@"Read previous log: %@", error);
+            }
+        } else {
+            self.currentScreenTouchesLog = [NSMutableString stringWithFormat:@"SIZE:%f;%f\n", capturingFrame.size.width, capturingFrame.size.height];
+        }
+        
+        if (self.recordedScreenNames.length == 0) {
+            self.recordedScreenNames = [NSMutableString string];
+        }
+        
+        [self copyScreenShotForCurrentScreenIfNeeded];
+    });
+}
+
+- (void)copyScreenShotForCurrentScreenIfNeeded {
+    NSString *screensFolderPath = [self.folder stringByAppendingPathComponent:@"screens"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:screensFolderPath] || !self.currentScreenTouchesLog) {
+        return;
+    }
+    
+    NSString *imageName = [NSString stringWithFormat:@"%@_screenshot.png", self.currentScreenName];
+    NSString *imagePath = [screensFolderPath stringByAppendingPathComponent:imageName];
+    if (self.targetViewCleanSnapshot && ![[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+        UIGraphicsBeginImageContextWithOptions(capturingFrame.size, YES, 1.0f);
+        CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, capturingFrame.size.height);
+        CGContextConcatCTM(UIGraphicsGetCurrentContext(), flipVertical);
+        [self.targetViewCleanSnapshot drawInRect:capturingFrame];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        NSData *data = UIImagePNGRepresentation(image);
+        [data writeToFile:imagePath atomically:YES];
+    }
+}
+
+- (void)writeTouches:(NSArray<LPViewTouch *> *)touches {
+    if (!self.withTouchesLogging) {
+        return;
+    }
+    dispatch_async(writeTouchesQueue, ^{
+        NSString *screensFolderPath = [self.folder stringByAppendingPathComponent:@"screens"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:screensFolderPath] || !self.currentScreenTouchesLog) {
+            return;
+        }
+        
+        [self copyScreenShotForCurrentScreenIfNeeded];
+        
+        for (LPViewTouch *touch in touches) {
+            [self.currentScreenTouchesLog appendFormat:@"TOUCH:%f;%f;%f;%f\n", floor(touch.location.x/self.downscale), floor(touch.location.y/self.downscale), floor(touch.radius/self.downscale), touch.alpha];
+        }
+    });
+}
+
+- (void)stopWritingTouchesLog {
+    if (!self.withTouchesLogging) {
+        return;
+    }
+    
+    dispatch_async(writeTouchesQueue, ^{
+        NSString *screensFolderPath = [self.folder stringByAppendingPathComponent:@"screens"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:screensFolderPath]) {
+            return;
+        }
+        
+        [self copyScreenShotForCurrentScreenIfNeeded];
+        
+        if (self.currentScreenTouchesLog && self.currentScreenName) {
+            NSString *name = [NSString stringWithFormat:@"%@.touches", self.currentScreenName];
+            NSString *path = [screensFolderPath stringByAppendingPathComponent:name];
+            NSError *error;
+            [self.currentScreenTouchesLog writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+            if (error) {
+                DDLogError(@"Writing touches log to file: %@", error);
+            }
+            
+            [self.recordedScreenNames appendFormat:@"%@\n", self.currentScreenName];
+            NSString *recordedScreenNamesListFilePath = [screensFolderPath stringByAppendingPathComponent:@"recorded_screens.txt"];
+            error = nil;
+            [self.recordedScreenNames writeToFile:recordedScreenNamesListFilePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+            if (error) {
+                DDLogError(@"Writing touches log to file: %@", error);
+            }
+        }
+        
+        self.currentScreenName = nil;
+        self.currentScreenTouchesLog = nil;
+    });
 }
 
 @end

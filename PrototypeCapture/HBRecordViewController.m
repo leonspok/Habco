@@ -60,6 +60,7 @@ static NSString *const kSliderCell = @"kSliderCell";
 @property (nonatomic) BOOL withFrontCamera;
 @property (nonatomic) NSUInteger maxFPS;
 @property (nonatomic) float downscale;
+@property (nonatomic) BOOL withTouchesLogging;
 
 @end
 
@@ -84,6 +85,7 @@ static NSString *const kSliderCell = @"kSliderCell";
 
 - (void)dealloc {
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [self.webView removeObserver:self forKeyPath:@"URL"];
     [self.recorder removeObserver:self forKeyPath:@"status"];
 }
 
@@ -107,7 +109,8 @@ static NSString *const kSliderCell = @"kSliderCell";
     [self.webView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [self.recordingWrapper insertSubview:self.webView atIndex:0];
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:&kHBRecordViewControllerKVOContext];
-    
+    [self.webView addObserver:self forKeyPath:@"URL" options:NSKeyValueObservingOptionNew context:&kHBRecordViewControllerKVOContext];
+
     self.openControlsGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(openControlsGesture:)];
     self.openControlsGestureRecognizer.delegate = self;
     [self.webView addGestureRecognizer:self.openControlsGestureRecognizer];
@@ -122,6 +125,7 @@ static NSString *const kSliderCell = @"kSliderCell";
     self.withFrontCamera = [self.user.prototype.recordingSettings.withFrontCamera boolValue];
     self.maxFPS = [self.user.prototype.recordingSettings.maxFPS unsignedIntegerValue];
     self.downscale = [self.user.prototype.recordingSettings.downscale floatValue];
+    self.withTouchesLogging = [self.user.prototype.recordingSettings.withTouchesLogging boolValue];
     
     [self.recordPreviewImage.layer setCornerRadius:5.0f];
     [self.recordPreviewImage.layer setMasksToBounds:YES];
@@ -173,6 +177,8 @@ static NSString *const kSliderCell = @"kSliderCell";
             if (self.webViewLoadingProgress.progress == 1) {
                 [self.webViewLoadingProgress setProgress:0 animated:NO];
             }
+        } else if (object == self.webView && [keyPath isEqualToString:@"URL"]) {
+            [self screenChanged];
         } else if (object == self.recorder && [keyPath isEqualToString:@"status"]) {
             BOOL hasError = NO;
             if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecordingError) {
@@ -250,7 +256,8 @@ static NSString *const kSliderCell = @"kSliderCell";
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if (gestureRecognizer == self.openControlsGestureRecognizer) {
         CGPoint location = [self.openControlsGestureRecognizer locationInView:self.view];
-        if (location.x <= 20.0f) {
+        CGPoint translation = [self.openControlsGestureRecognizer translationInView:self.view];
+        if (location.x <= 20.0f && translation.x > 0) {
             [self openControlsGesture:self.openControlsGestureRecognizer];
         }
     }
@@ -263,6 +270,25 @@ static NSString *const kSliderCell = @"kSliderCell";
 
 - (IBAction)closeControlsGesture:(UITapGestureRecognizer *)sender {
     [self setControlsPresented:NO animated:YES];
+}
+
+#pragma mark Touches
+
+- (void)screenChanged {
+    NSString *urlString = [[self.webView URL] absoluteString];
+    NSUInteger slashLocation = [urlString rangeOfString:@"/" options:NSBackwardsSearch].location;
+    while (slashLocation == urlString.length-1 && urlString.length > 0) {
+        urlString = [urlString substringToIndex:slashLocation];
+        slashLocation = [urlString rangeOfString:@"/" options:NSBackwardsSearch].location;
+    }
+    if (slashLocation == NSNotFound || urlString.length == 0) {
+        return;
+    }
+    NSString *name = [urlString substringFromIndex:slashLocation+1];
+    DDLogVerbose(@"Opened screen: %@", name);
+    if (name && self.recorder.status == LPPrototypeCaptureRecorderStatusRecording) {
+        [self.recorder screenChangedTo:name];
+    }
 }
 
 #pragma mark Transformations
@@ -337,6 +363,7 @@ static NSString *const kSliderCell = @"kSliderCell";
     self.user.prototype.recordingSettings.withFrontCamera = @(self.withFrontCamera);
     self.user.prototype.recordingSettings.maxFPS = @(self.maxFPS);
     self.user.prototype.recordingSettings.downscale = @(self.downscale);
+    self.user.prototype.recordingSettings.withTouchesLogging = @(self.withTouchesLogging);
     [[HBPrototypesManager sharedManager] saveChangesInPrototype:self.user.prototype];
     
     [self.recordingDurationLabel setText:@"0:00"];
@@ -363,6 +390,7 @@ static NSString *const kSliderCell = @"kSliderCell";
         [self.recorder setWithFrontCamera:self.withFrontCamera];
         [self.recorder setFps:self.maxFPS];
         [self.recorder setDownscale:self.downscale];
+        [self.recorder setWithTouchesLogging:self.withTouchesLogging];
         
         [self.recorder prepareForRecording];
         [self.toggleRecordingButton setEnabled:YES];
@@ -395,6 +423,7 @@ static NSString *const kSliderCell = @"kSliderCell";
         [self.recorder startRecording];
         [self setControlsPresented:NO animated:YES];
         [self.toggleRecordingButton setSelected:YES];
+        [self screenChanged];
     } else {
         if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecording) {
             [self.recorder stopRecording];
@@ -496,11 +525,24 @@ static NSString *const kSliderCell = @"kSliderCell";
 - (IBAction)toggleTouches:(UIButton *)sw {
     self.withTouches = !self.withTouches;
     [sw setSelected:self.withTouches];
+    if (!self.withTouches && self.withTouchesLogging) {
+        self.withTouchesLogging = NO;
+        [self.settingsTableView reloadData];
+    }
 }
 
 - (IBAction)toggleFrontCamera:(UIButton *)sw {
     self.withFrontCamera = !self.withFrontCamera;
     [sw setSelected:self.withFrontCamera];
+}
+
+- (IBAction)toggleTouchesLogging:(UIButton *)sw {
+    self.withTouchesLogging = !self.withTouchesLogging;
+    [sw setSelected:self.withTouchesLogging];
+    if (self.withTouchesLogging && !self.withTouches) {
+        self.withTouches = YES;
+        [self.settingsTableView reloadData];
+    }
 }
 
 - (IBAction)playVideo:(id)sender {
@@ -517,13 +559,13 @@ static NSString *const kSliderCell = @"kSliderCell";
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < 2) {
+    if (indexPath.row < 3) {
         return 50.0f;
-    } else if (indexPath.row < 4) {
+    } else if (indexPath.row < 5) {
         return 100.0f;
     }
     return 0.0f;
@@ -542,6 +584,15 @@ static NSString *const kSliderCell = @"kSliderCell";
             break;
         case 1: {
             HBSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSwitchCell forIndexPath:indexPath];
+            [cell.titleLabel setText:NSLocalizedString(@"Log touches", nil)];
+            [cell.switchButton setSelected:self.withTouchesLogging];
+            [cell.switchButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+            [cell.switchButton addTarget:self action:@selector(toggleTouchesLogging:) forControlEvents:UIControlEventTouchUpInside];
+            return cell;
+        }
+            break;
+        case 2: {
+            HBSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSwitchCell forIndexPath:indexPath];
             [cell.titleLabel setText:NSLocalizedString(@"Front camera", nil)];
             [cell.switchButton setSelected:self.withFrontCamera];
             [cell.switchButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
@@ -549,7 +600,7 @@ static NSString *const kSliderCell = @"kSliderCell";
             return cell;
         }
             break;
-        case 2: {
+        case 3: {
             HBSliderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSliderCell forIndexPath:indexPath];
             [cell.titleLabel setText:NSLocalizedString(@"Max FPS", nil)];
             [cell.valueLabel setText:[NSString stringWithFormat:@"%ld", (long)self.maxFPS]];
@@ -561,7 +612,7 @@ static NSString *const kSliderCell = @"kSliderCell";
             return cell;
         }
             break;
-        case 3: {
+        case 4: {
             HBSliderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSliderCell forIndexPath:indexPath];
             [cell.titleLabel setText:NSLocalizedString(@"Screen capture downscale", nil)];
             [cell.valueLabel setText:[NSString stringWithFormat:@"%.1f", self.downscale]];
