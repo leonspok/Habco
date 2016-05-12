@@ -24,12 +24,18 @@
 @property (nonatomic, readonly) float totalRenderingHeatmapProgress;
 @property (nonatomic, readonly) BOOL rendering;
 
+@property (nonatomic, strong, readonly) NSString *pathToHeatmapsFolder;
+
 @property (nonatomic, strong) void (^progressBlock)(float progress, HBHeatmap *heatmap);
 @property (nonatomic, strong) void (^completionBlock)(NSArray<HBHeatmap *> *heatmaps);
 
 - (id)initWithPrototype:(HBCPrototype *)prototype;
 - (id)initWithPrototypeUser:(HBCPrototypeUser *)prototypeUser;
-- (id)initWIthPrototypeRecord:(HBCPrototypeRecord *)prototypeRecord;
+- (id)initWithPrototypeRecord:(HBCPrototypeRecord *)prototypeRecord;
+
++ (NSString *)pathToHeatmapsFolderForPrototype:(HBCPrototype *)prototype;
++ (NSString *)pathToHeatmapsFolderForPrototypeUser:(HBCPrototypeUser *)prototypeUser;
++ (NSString *)pathToHeatmapsFolderForPrototypeRecord:(HBCPrototypeRecord *)prototypeRecord;
 
 - (void)startHeatmapsRendering;
 - (void)stopHeatmapsRendering;

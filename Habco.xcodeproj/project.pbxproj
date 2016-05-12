@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		60114A3BD8FAC4F8FE34E666 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 316C8A9B61515478B6594A2C /* libPods.a */; };
+		B584EA1917AA52F9D69E5D75 /* libPods-Habco.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4968AC1EA83666DAE69AD714 /* libPods-Habco.a */; };
 		E30E65351C83360D001E431B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65341C83360D001E431B /* main.m */; };
 		E30E65381C83360D001E431B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E65371C83360D001E431B /* AppDelegate.m */; };
 		E30E65401C83360E001E431B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E30E653F1C83360E001E431B /* Assets.xcassets */; };
@@ -73,9 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		316C8A9B61515478B6594A2C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		A55CDA3274954E512FF8430F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		B488E9044A4AF78C8FA418A6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4968AC1EA83666DAE69AD714 /* libPods-Habco.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Habco.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E020037691273759889D3B7E /* Pods-Habco.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habco.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Habco/Pods-Habco.debug.xcconfig"; sourceTree = "<group>"; };
 		E30E65301C83360D001E431B /* Habco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E30E65341C83360D001E431B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E30E65361C83360D001E431B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -185,6 +184,7 @@
 		E3F1E6301CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCRecordingSettings+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E3F1E6311CE33BDE00475709 /* HBCRecordingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCRecordingSettings.h; sourceTree = "<group>"; };
 		E3F1E6321CE33BDE00475709 /* HBCRecordingSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCRecordingSettings.m; sourceTree = "<group>"; };
+		FDAAA2872BD12AB3B67A9DCA /* Pods-Habco.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habco.release.xcconfig"; path = "Pods/Target Support Files/Pods-Habco/Pods-Habco.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,28 +192,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60114A3BD8FAC4F8FE34E666 /* libPods.a in Frameworks */,
+				B584EA1917AA52F9D69E5D75 /* libPods-Habco.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9C3E97AE35B63AD6B64D0316 /* Pods */ = {
+		0649ADCEDB11A3A870513D35 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A55CDA3274954E512FF8430F /* Pods.debug.xcconfig */,
-				B488E9044A4AF78C8FA418A6 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		B3993DDC24B722C1B03A7AFA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				316C8A9B61515478B6594A2C /* libPods.a */,
+				4968AC1EA83666DAE69AD714 /* libPods-Habco.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B5513E8431E92DCEE52FB064 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E020037691273759889D3B7E /* Pods-Habco.debug.xcconfig */,
+				FDAAA2872BD12AB3B67A9DCA /* Pods-Habco.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		E30E65271C83360D001E431B = {
@@ -221,8 +221,8 @@
 			children = (
 				E30E65321C83360D001E431B /* PrototypeCapture */,
 				E30E65311C83360D001E431B /* Products */,
-				9C3E97AE35B63AD6B64D0316 /* Pods */,
-				B3993DDC24B722C1B03A7AFA /* Frameworks */,
+				B5513E8431E92DCEE52FB064 /* Pods */,
+				0649ADCEDB11A3A870513D35 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -452,12 +452,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E30E65471C83360E001E431B /* Build configuration list for PBXNativeTarget "Habco" */;
 			buildPhases = (
-				F5197DE2C9393046D0632895 /* Check Pods Manifest.lock */,
+				0AF4181E04553B436E62BE2F /* 📦 Check Pods Manifest.lock */,
 				E30E652C1C83360D001E431B /* Sources */,
 				E30E652D1C83360D001E431B /* Frameworks */,
 				E30E652E1C83360D001E431B /* Resources */,
-				F032F80237A938081EA5B514 /* Embed Pods Frameworks */,
-				574493EF270D8E532351A70A /* Copy Pods Resources */,
+				8660128DEFCECCF3F55A990A /* 📦 Embed Pods Frameworks */,
+				CE18E89546629FCA5BAB8DB9 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -528,49 +528,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		574493EF270D8E532351A70A /* Copy Pods Resources */ = {
+		0AF4181E04553B436E62BE2F /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F032F80237A938081EA5B514 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F5197DE2C9393046D0632895 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8660128DEFCECCF3F55A990A /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Habco/Pods-Habco-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE18E89546629FCA5BAB8DB9 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Habco/Pods-Habco-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -727,7 +727,7 @@
 		};
 		E30E65481C83360E001E431B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A55CDA3274954E512FF8430F /* Pods.debug.xcconfig */;
+			baseConfigurationReference = E020037691273759889D3B7E /* Pods-Habco.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -742,7 +742,7 @@
 		};
 		E30E65491C83360E001E431B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B488E9044A4AF78C8FA418A6 /* Pods.release.xcconfig */;
+			baseConfigurationReference = FDAAA2872BD12AB3B67A9DCA /* Pods-Habco.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

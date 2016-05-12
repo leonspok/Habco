@@ -21,6 +21,8 @@
 #import "HBNavigationController.h"
 #import "HBUserDetailsViewController.h"
 
+#import "HBHeatmapRenderer.h"
+
 static NSString *const kUserCell = @"kUserCell";
 
 @interface HBPrototypeDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -71,6 +73,12 @@ static NSString *const kUserCell = @"kUserCell";
     [self.urlButton setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.05f] forState:UIControlStateSelected];
     
     self.users = [NSMutableArray array];
+    
+    HBHeatmapRenderer *renderer = [[HBHeatmapRenderer alloc] initWithPrototype:self.prototype];
+    [renderer setProgressBlock:^(float progress, HBHeatmap *heatmap) {
+        DDLogVerbose(@"%@: %f", heatmap.name, progress);
+    }];
+    [renderer startHeatmapsRendering];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -54,4 +54,9 @@ typedef enum {
 
 - (void)screenChangedTo:(NSString *)screenName;
 
++ (NSString *)pathToScreensFolderFromFolder:(NSString *)folder;
++ (NSString *)pathToRecordedScreensFileFromFolder:(NSString *)folder;
++ (NSString *)pathToTouchesLogForScreen:(NSString *)screen andFolder:(NSString *)folder;
++ (NSString *)pathToScreenshotForScreen:(NSString *)screen andFolder:(NSString *)folder;
+
 @end

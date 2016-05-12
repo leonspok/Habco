@@ -23,6 +23,18 @@
     return self;
 }
 
+- (void)setHash:(NSString *)hash {
+    NSError *error;
+    [hash writeToFile:self.pathToHashFile atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if (error) {
+        DDLogError(@"Save hash file: %@", error);
+    }
+}
+
+- (NSString *)hash {
+    return [NSString stringWithContentsOfFile:self.pathToHashFile encoding:NSUTF8StringEncoding error:nil];
+}
+
 - (NSString *)pathToHashFile {
     return [self.baseFolder stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.hash", self.name]];
 }

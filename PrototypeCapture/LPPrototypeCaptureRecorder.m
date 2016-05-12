@@ -573,13 +573,33 @@
 
 #pragma mark Heatmap
 
++ (NSString *)pathToScreensFolderFromFolder:(NSString *)folder {
+    return [folder stringByAppendingPathComponent:@"screens"];
+}
+
++ (NSString *)pathToRecordedScreensFileFromFolder:(NSString *)folder {
+    return [[self pathToScreensFolderFromFolder:folder] stringByAppendingPathComponent:@"recorded_screens.txt"];
+}
+
++ (NSString *)pathToTouchesLogForScreen:(NSString *)screen andFolder:(NSString *)folder {
+    NSString *name = [NSString stringWithFormat:@"%@.touches", screen];
+    NSString *path = [[self pathToScreensFolderFromFolder:folder] stringByAppendingPathComponent:name];
+    return path;
+}
+
++ (NSString *)pathToScreenshotForScreen:(NSString *)screen andFolder:(NSString *)folder {
+    NSString *imageName = [NSString stringWithFormat:@"%@_screenshot.png", screen];
+    NSString *imagePath = [[self pathToScreensFolderFromFolder:folder] stringByAppendingPathComponent:imageName];
+    return imagePath;
+}
+
 - (void)screenChangedTo:(NSString *)screenName {
     if (screenName.length == 0 || !self.withTouchesLogging) {
         return;
     }
     
     dispatch_async(writeTouchesQueue, ^{
-        NSString *screensFolderPath = [self.folder stringByAppendingPathComponent:@"screens"];
+        NSString *screensFolderPath = [LPPrototypeCaptureRecorder pathToScreensFolderFromFolder:self.folder];
         if (![[NSFileManager defaultManager] fileExistsAtPath:screensFolderPath]) {
             NSError *error;
             [[NSFileManager defaultManager] createDirectoryAtPath:screensFolderPath withIntermediateDirectories:YES attributes:nil error:&error];
@@ -593,8 +613,7 @@
                 [self.recordedScreenNames appendFormat:@"%@\n", self.currentScreenName];
             }
             
-            NSString *name = [NSString stringWithFormat:@"%@.touches", self.currentScreenName];
-            NSString *path = [screensFolderPath stringByAppendingPathComponent:name];
+            NSString *path = [LPPrototypeCaptureRecorder pathToTouchesLogForScreen:self.currentScreenName andFolder:self.folder];
             NSError *error;
             [self.currentScreenTouchesLog writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
             if (error) {
@@ -604,8 +623,7 @@
         
         self.currentScreenName = screenName;
         
-        NSString *name = [NSString stringWithFormat:@"%@.touches", self.currentScreenName];
-        NSString *path = [screensFolderPath stringByAppendingPathComponent:name];
+        NSString *path = [LPPrototypeCaptureRecorder pathToTouchesLogForScreen:self.currentScreenName andFolder:self.folder];
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
             NSError *error;
             self.currentScreenTouchesLog = [[NSMutableString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
@@ -625,13 +643,12 @@
 }
 
 - (void)copyScreenShotForCurrentScreenIfNeeded {
-    NSString *screensFolderPath = [self.folder stringByAppendingPathComponent:@"screens"];
+    NSString *screensFolderPath = [LPPrototypeCaptureRecorder pathToScreensFolderFromFolder:self.folder];
     if (![[NSFileManager defaultManager] fileExistsAtPath:screensFolderPath] || !self.currentScreenTouchesLog) {
         return;
     }
     
-    NSString *imageName = [NSString stringWithFormat:@"%@_screenshot.png", self.currentScreenName];
-    NSString *imagePath = [screensFolderPath stringByAppendingPathComponent:imageName];
+    NSString *imagePath = [LPPrototypeCaptureRecorder pathToScreenshotForScreen:self.currentScreenName andFolder:self.folder];
     if (self.targetViewCleanSnapshot && ![[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
         UIGraphicsBeginImageContextWithOptions(capturingFrame.size, YES, 1.0f);
         CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, capturingFrame.size.height);
@@ -646,11 +663,11 @@
 }
 
 - (void)writeTouches:(NSArray<LPViewTouch *> *)touches {
-    if (!self.withTouchesLogging) {
+    if (!self.withTouchesLogging || touches.count == 0) {
         return;
     }
     dispatch_async(writeTouchesQueue, ^{
-        NSString *screensFolderPath = [self.folder stringByAppendingPathComponent:@"screens"];
+        NSString *screensFolderPath = [LPPrototypeCaptureRecorder pathToScreensFolderFromFolder:self.folder];
         if (![[NSFileManager defaultManager] fileExistsAtPath:screensFolderPath] || !self.currentScreenTouchesLog) {
             return;
         }
@@ -669,7 +686,7 @@
     }
     
     dispatch_async(writeTouchesQueue, ^{
-        NSString *screensFolderPath = [self.folder stringByAppendingPathComponent:@"screens"];
+        NSString *screensFolderPath = [LPPrototypeCaptureRecorder pathToScreensFolderFromFolder:self.folder];
         if (![[NSFileManager defaultManager] fileExistsAtPath:screensFolderPath]) {
             return;
         }
@@ -677,8 +694,7 @@
         [self copyScreenShotForCurrentScreenIfNeeded];
         
         if (self.currentScreenTouchesLog && self.currentScreenName) {
-            NSString *name = [NSString stringWithFormat:@"%@.touches", self.currentScreenName];
-            NSString *path = [screensFolderPath stringByAppendingPathComponent:name];
+            NSString *path = [LPPrototypeCaptureRecorder pathToTouchesLogForScreen:self.currentScreenName andFolder:self.folder];
             NSError *error;
             [self.currentScreenTouchesLog writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
             if (error) {
@@ -686,7 +702,7 @@
             }
             
             [self.recordedScreenNames appendFormat:@"%@\n", self.currentScreenName];
-            NSString *recordedScreenNamesListFilePath = [screensFolderPath stringByAppendingPathComponent:@"recorded_screens.txt"];
+            NSString *recordedScreenNamesListFilePath = [LPPrototypeCaptureRecorder pathToRecordedScreensFileFromFolder:self.folder];
             error = nil;
             [self.recordedScreenNames writeToFile:recordedScreenNamesListFilePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
             if (error) {
