@@ -9,7 +9,10 @@
             <connections>
                 <outlet property="closeControlsGestureRecognizer" destination="bBq-N2-H16" id="HRP-2P-GsF"/>
                 <outlet property="playButton" destination="TrK-8l-9JP" id="XuU-Pi-4eP"/>
+                <outlet property="recordDateLabel" destination="5V2-PW-lmg" id="QUi-Jc-J92"/>
                 <outlet property="recordPreviewImage" destination="v3A-Dy-7d3" id="bF6-gC-JuL"/>
+                <outlet property="recordTimeLabel" destination="rfK-qj-xrR" id="Ee1-me-JFf"/>
+                <outlet property="recordTitleView" destination="sSV-iX-1mO" id="3gF-NS-AYC"/>
                 <outlet property="recordView" destination="prE-KT-73Y" id="GDe-ca-9ot"/>
                 <outlet property="recordingControlsView" destination="tgT-sU-HtO" id="CGO-a3-ssc"/>
                 <outlet property="recordingControlsViewLeftConstraint" destination="OdA-J1-jhi" id="MjB-vO-1sW"/>
@@ -45,7 +48,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tgT-sU-HtO">
                             <rect key="frame" x="0.0" y="0.0" width="75" height="568"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDf-xu-jUN">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDf-xu-jUN">
                                     <rect key="frame" x="7" y="254" width="60" height="60"/>
                                     <state key="normal" image="startRecordingButton"/>
                                     <state key="selected" image="stopRecordingButton"/>
@@ -53,7 +56,7 @@
                                         <action selector="startRecordingButtonPressed:" destination="-1" eventType="touchUpInside" id="jWz-rD-cFu"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InZ-ac-wQg">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InZ-ac-wQg">
                                     <rect key="frame" x="23" y="324" width="29" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -188,6 +191,36 @@
                 <action selector="closeControlsGesture:" destination="-1" id="oQb-x8-1Ws"/>
             </connections>
         </tapGestureRecognizer>
+        <view contentMode="scaleToFill" id="sSV-iX-1mO">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16 January 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5V2-PW-lmg">
+                    <rect key="frame" x="10" y="7" width="140" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfK-qj-xrR">
+                    <rect key="frame" x="10" y="23" width="140" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="5V2-PW-lmg" firstAttribute="top" secondItem="sSV-iX-1mO" secondAttribute="top" constant="7" id="KpH-OX-e4m"/>
+                <constraint firstItem="rfK-qj-xrR" firstAttribute="trailing" secondItem="5V2-PW-lmg" secondAttribute="trailing" id="gXv-6d-cMx"/>
+                <constraint firstItem="5V2-PW-lmg" firstAttribute="leading" secondItem="sSV-iX-1mO" secondAttribute="leading" constant="10" id="sZ6-wV-h48"/>
+                <constraint firstItem="rfK-qj-xrR" firstAttribute="top" secondItem="5V2-PW-lmg" secondAttribute="bottom" id="uy8-bN-LJO"/>
+                <constraint firstAttribute="trailing" secondItem="5V2-PW-lmg" secondAttribute="trailing" constant="10" id="wLw-3S-inU"/>
+                <constraint firstItem="rfK-qj-xrR" firstAttribute="leading" secondItem="5V2-PW-lmg" secondAttribute="leading" id="yPK-jb-BBl"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="692" y="186"/>
+        </view>
     </objects>
     <resources>
         <image name="playButton" width="30" height="39"/>

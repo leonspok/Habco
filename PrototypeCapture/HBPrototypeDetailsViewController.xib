@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HBPrototypeDetailsViewController">
@@ -9,6 +10,7 @@
                 <outlet property="dateLabel" destination="ssn-5k-FJg" id="tmQ-qE-Naa"/>
                 <outlet property="descriptionTextView" destination="Heh-vh-t0v" id="4zE-NO-hXE"/>
                 <outlet property="descriptionTextViewHeightConstraint" destination="4oL-8j-hxc" id="52h-QQ-fER"/>
+                <outlet property="heatmapButton" destination="46Y-Mg-1G0" id="fGI-FW-DkI"/>
                 <outlet property="prototypeIcon" destination="im1-Y8-LRg" id="bsR-Ng-xHM"/>
                 <outlet property="subtitleLabel" destination="r11-RC-neP" id="F6m-T5-i5R"/>
                 <outlet property="tableHeader" destination="QsB-it-pYB" id="S9K-sf-tKf"/>
@@ -34,19 +36,19 @@
                                 <rect key="frame" x="10" y="14" width="60" height="61"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSN-s8-82L">
-                                <rect key="frame" x="85" y="11" width="220" height="22"/>
+                                <rect key="frame" x="85" y="11" width="175" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r11-RC-neP">
-                                <rect key="frame" x="85" y="35" width="220" height="17"/>
+                                <rect key="frame" x="85" y="35" width="175" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.66666666669999997" green="0.67843137249999996" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssn-5k-FJg">
-                                <rect key="frame" x="85" y="64" width="220" height="14"/>
+                                <rect key="frame" x="85" y="64" width="175" height="14"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                 <color key="textColor" red="0.66666666669999997" green="0.67843137249999996" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -93,16 +95,28 @@
                                     <constraint firstAttribute="height" constant="1" id="66W-vT-jO8"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46Y-Mg-1G0">
+                                <rect key="frame" x="275" y="27" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Ns3-Bi-xhf"/>
+                                    <constraint firstAttribute="width" secondItem="46Y-Mg-1G0" secondAttribute="height" multiplier="1:1" id="oYu-6i-SGd"/>
+                                </constraints>
+                                <state key="normal" image="heatmapIcon"/>
+                                <connections>
+                                    <action selector="openHeatmaps:" destination="-1" eventType="touchUpInside" id="lsI-J8-f2z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="r11-RC-neP" firstAttribute="trailing" secondItem="uSN-s8-82L" secondAttribute="trailing" id="5wH-YD-Ozl"/>
+                            <constraint firstItem="46Y-Mg-1G0" firstAttribute="centerY" secondItem="im1-Y8-LRg" secondAttribute="centerY" id="5zb-7j-vOV"/>
                             <constraint firstItem="uSN-s8-82L" firstAttribute="top" secondItem="QsB-it-pYB" secondAttribute="top" constant="11" id="6D6-SB-Tls"/>
                             <constraint firstAttribute="bottom" secondItem="Dw4-6H-kaX" secondAttribute="bottom" id="6ek-mW-zhm"/>
                             <constraint firstItem="Dw4-6H-kaX" firstAttribute="leading" secondItem="QsB-it-pYB" secondAttribute="leading" id="6sR-BS-REk"/>
                             <constraint firstAttribute="trailing" secondItem="Heh-vh-t0v" secondAttribute="trailing" constant="5" id="ADs-cq-XSe"/>
                             <constraint firstItem="r11-RC-neP" firstAttribute="top" secondItem="uSN-s8-82L" secondAttribute="bottom" constant="2" id="AyJ-qk-3wy"/>
-                            <constraint firstAttribute="trailing" secondItem="uSN-s8-82L" secondAttribute="trailing" constant="15" id="BLE-4Q-nfF"/>
+                            <constraint firstAttribute="trailing" secondItem="uSN-s8-82L" secondAttribute="trailing" constant="60" id="BLE-4Q-nfF"/>
                             <constraint firstItem="Heh-vh-t0v" firstAttribute="top" secondItem="tHE-G3-0Iy" secondAttribute="bottom" constant="6" id="DB0-YD-5LI"/>
                             <constraint firstItem="r11-RC-neP" firstAttribute="leading" secondItem="uSN-s8-82L" secondAttribute="leading" id="Qh0-L2-DOd"/>
                             <constraint firstItem="im1-Y8-LRg" firstAttribute="top" secondItem="QsB-it-pYB" secondAttribute="top" constant="14" id="UdR-mV-BnG"/>
@@ -113,6 +127,7 @@
                             <constraint firstItem="Heh-vh-t0v" firstAttribute="leading" secondItem="QsB-it-pYB" secondAttribute="leading" constant="5" id="hae-fk-La3"/>
                             <constraint firstItem="uSN-s8-82L" firstAttribute="leading" secondItem="im1-Y8-LRg" secondAttribute="trailing" constant="15" id="mlD-PH-GRD"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tHE-G3-0Iy" secondAttribute="trailing" constant="10" id="pnt-x8-hZR"/>
+                            <constraint firstAttribute="trailing" secondItem="46Y-Mg-1G0" secondAttribute="trailing" constant="10" id="ssh-Wx-WM8"/>
                             <constraint firstItem="tHE-G3-0Iy" firstAttribute="leading" secondItem="QsB-it-pYB" secondAttribute="leading" constant="10" id="tDb-0B-0BF"/>
                             <constraint firstItem="ssn-5k-FJg" firstAttribute="leading" secondItem="r11-RC-neP" secondAttribute="leading" id="tZ1-Cv-gsH"/>
                             <constraint firstItem="ssn-5k-FJg" firstAttribute="top" secondItem="r11-RC-neP" secondAttribute="bottom" constant="12" id="wCe-TP-08n"/>
@@ -136,5 +151,6 @@
     </objects>
     <resources>
         <image name="defaultPrototypeIcon" width="60" height="61"/>
+        <image name="heatmapIcon" width="50" height="50"/>
     </resources>
 </document>

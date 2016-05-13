@@ -17,6 +17,7 @@
 #import "HBRecordViewController.h"
 #import "HBNavigationController.h"
 #import "HBHeatmapsViewController.h"
+#import "LPPrototypeCaptureRecorder.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -30,6 +31,7 @@ static NSString *const kRecordCell = @"kRecordCell";
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *heatmapButton;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionTextViewHeightConstraint;
@@ -124,6 +126,21 @@ static NSString *const kRecordCell = @"kRecordCell";
     }
     [self.tableHeader setFrame:frame];
     [self.tableView setTableHeaderView:self.tableHeader];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        BOOL hasTouchLogs = NO;
+        for (HBCPrototypeRecord *record in self.user.records) {
+            NSString *path = [LPPrototypeCaptureRecorder pathToRecordedScreensFileFromFolder:[[HBPrototypesManager sharedManager] pathToFolderForRecord:record]];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                hasTouchLogs = YES;
+                break;
+            }
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.heatmapButton setHidden:!hasTouchLogs];
+        });
+    });
 }
 
 - (void)reloadUserRecords {
@@ -156,10 +173,6 @@ static NSString *const kRecordCell = @"kRecordCell";
         }];
         [self presentViewController:[[HBNavigationController alloc] initWithRootViewController:evc] animated:YES completion:nil];
     }]];
-    [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Show Heat Maps", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        HBHeatmapsViewController *hvc = [[HBHeatmapsViewController alloc] initWithPrototypeUser:self.user];
-        [self.navigationController pushViewController:hvc animated:YES];
-    }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[HBPrototypesManager sharedManager] removeUser:self.user];
         [self.navigationController popViewControllerAnimated:YES];
@@ -184,6 +197,11 @@ static NSString *const kRecordCell = @"kRecordCell";
     [self presentViewController:playerVC animated:YES completion:^{
         [playerVC.player play];
     }];
+}
+
+- (IBAction)openHeatmaps:(id)sender {
+    HBHeatmapsViewController *hvc = [[HBHeatmapsViewController alloc] initWithPrototypeUser:self.user];
+    [self.navigationController pushViewController:hvc animated:YES];
 }
 
 #pragma UITableViewDataSource

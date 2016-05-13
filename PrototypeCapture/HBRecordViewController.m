@@ -50,6 +50,12 @@ static NSString *const kSliderCell = @"kSliderCell";
 @property (weak, nonatomic) IBOutlet UIView *renderingProgressView;
 @property (weak, nonatomic) IBOutlet UILabel *renderingProgressLabel;
 
+@property (strong, nonatomic) IBOutlet UIView *recordTitleView;
+@property (weak, nonatomic) IBOutlet UILabel *recordDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *recordTimeLabel;
+@property (nonatomic, strong) UIBarButtonItem *optionsItem;
+@property (nonatomic, strong) UIBarButtonItem *heatmapItem;
+
 @property (nonatomic, strong, readwrite) HBCPrototypeRecord *record;
 @property (nonatomic, strong, readwrite) HBCPrototypeUser *user;
 
@@ -133,22 +139,36 @@ static NSString *const kSliderCell = @"kSliderCell";
     [self.playButton.layer setCornerRadius:5.0f];
     [self.playButton.layer setMasksToBounds:YES];
     
+    self.optionsItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"optionsButton"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions:)];
+    self.heatmapItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"heatmapBarItemIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(openHeatmaps:)];
+    
     if (!self.record) {
         self.title = NSLocalizedString(@"New record", nil);
+        self.navigationItem.titleView = nil;
         [self.settingsTableView setHidden:NO];
         [self.recordView setHidden:YES];
         [self setRecordingWrapperPresented:NO];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Record", nil) style:UIBarButtonItemStylePlain target:self action:@selector(initRecording:)];
     } else {
+        self.navigationItem.titleView = self.recordTitleView;
+        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd MMM yyyy HH:mm"];
-        self.title = [dateFormatter stringFromDate:self.record.date];
+        [dateFormatter setDateFormat:@"dd MMM yyyy"];
+        [self.recordDateLabel setText:[dateFormatter stringFromDate:self.record.date]];
+        [dateFormatter setDateFormat:@"HH:mm"];
+        [self.recordTimeLabel setText:[dateFormatter stringFromDate:self.record.date]];
+        
         [self setRecordingWrapperPresented:NO];
         [self.settingsTableView setHidden:YES];
         [self.recordView setHidden:NO];
         [self.renderingProgressView setHidden:YES];
         [self setThumbnailImage];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"optionsButton"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions:)];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[LPPrototypeCaptureRecorder pathToRecordedScreensFileFromFolder:[[HBPrototypesManager sharedManager] pathToFolderForRecord:self.record]]]) {
+            self.navigationItem.rightBarButtonItems = @[self.optionsItem, self.heatmapItem];
+        } else {
+            self.navigationItem.rightBarButtonItems = @[self.optionsItem];
+        }
     }
 }
 
@@ -398,6 +418,11 @@ static NSString *const kSliderCell = @"kSliderCell";
     });
 }
 
+- (IBAction)openHeatmaps:(id)sender {
+    HBHeatmapsViewController *hvc = [[HBHeatmapsViewController alloc] initWithPrototypeRecord:self.record];
+    [self.navigationController pushViewController:hvc animated:YES];
+}
+
 - (IBAction)showOptions:(id)sender {
     if (!self.record) {
         return;
@@ -408,10 +433,6 @@ static NSString *const kSliderCell = @"kSliderCell";
         NSArray *itemsToShare = @[[NSURL fileURLWithPath:[[[HBPrototypesManager sharedManager] pathToFolder] stringByAppendingString:self.record.pathToVideo]]];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
         [self presentViewController:activityViewController animated:YES completion:nil];
-    }]];
-    [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Show Heat Maps", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        HBHeatmapsViewController *hvc = [[HBHeatmapsViewController alloc] initWithPrototypeRecord:self.record];
-        [self.navigationController pushViewController:hvc animated:YES];
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[HBPrototypesManager sharedManager] removeRecord:self.record];
@@ -444,12 +465,18 @@ static NSString *const kSliderCell = @"kSliderCell";
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.settingsTableView setHidden:YES];
                 [self.recordView setHidden:NO];
-                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"optionsButton"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions:)];
+                
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[LPPrototypeCaptureRecorder pathToRecordedScreensFileFromFolder:[[HBPrototypesManager sharedManager] pathToFolderForRecord:self.record]]]) {
+                    self.navigationItem.rightBarButtonItems = @[self.optionsItem, self.heatmapItem];
+                } else {
+                    self.navigationItem.rightBarButtonItems = @[self.optionsItem];
+                }
                 
                 if (self.recorder.status == LPPrototypeCaptureRecorderStatusReadyToRender) {
                     [self.renderingProgressView setHidden:NO];
                     [self.playButton setEnabled:NO];
-                    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+                    [self.optionsItem setEnabled:NO];
+                    [self.heatmapItem setEnabled:NO];
                 } else {
                     [self.renderingProgressView setHidden:YES];
                     
@@ -457,8 +484,11 @@ static NSString *const kSliderCell = @"kSliderCell";
                     self.record.pathToVideo = [self.recorder.pathToResultVideo stringByReplacingOccurrencesOfString:[[HBPrototypesManager sharedManager] pathToFolder] withString:@""];
                     
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                    [dateFormatter setDateFormat:@"dd MMM yyyy HH:mm"];
-                    self.title = [dateFormatter stringFromDate:self.record.date];
+                    [dateFormatter setDateFormat:@"dd MMM yyyy"];
+                    [self.recordDateLabel setText:[dateFormatter stringFromDate:self.record.date]];
+                    [dateFormatter setDateFormat:@"HH:mm"];
+                    [self.recordTimeLabel setText:[dateFormatter stringFromDate:self.record.date]];
+                    self.navigationItem.titleView = self.recordTitleView;
                     
                     [[HBPrototypesManager sharedManager] saveChangesInRecord:self.record];
                     [self setThumbnailImage];
@@ -484,7 +514,8 @@ static NSString *const kSliderCell = @"kSliderCell";
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [weakSelf.renderingProgressView setHidden:YES];
                                 [weakSelf.playButton setEnabled:YES];
-                                [weakSelf.navigationItem.rightBarButtonItem setEnabled:YES];
+                                [weakSelf.optionsItem setEnabled:YES];
+                                [weakSelf.heatmapItem setEnabled:YES];
                                 
                                 weakSelf.record.date = [NSDate date];
                                 weakSelf.record.pathToVideo = [weakSelf.recorder.pathToResultVideo stringByReplacingOccurrencesOfString:[[HBPrototypesManager sharedManager] pathToFolder] withString:@""];
@@ -500,8 +531,11 @@ static NSString *const kSliderCell = @"kSliderCell";
                                 [[NSFileManager defaultManager] removeItemAtPath:weakSelf.recorder.pathToScreenCaptureVideo error:nil];
                                 
                                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                                [dateFormatter setDateFormat:@"dd MMM yyyy HH:mm"];
-                                weakSelf.title = [dateFormatter stringFromDate:weakSelf.record.date];
+                                [dateFormatter setDateFormat:@"dd MMM yyyy"];
+                                [weakSelf.recordDateLabel setText:[dateFormatter stringFromDate:weakSelf.record.date]];
+                                [dateFormatter setDateFormat:@"HH:mm"];
+                                [weakSelf.recordTimeLabel setText:[dateFormatter stringFromDate:weakSelf.record.date]];
+                                weakSelf.navigationItem.titleView = self.recordTitleView;
                                 
                                 [weakSelf setThumbnailImage];
                             });
