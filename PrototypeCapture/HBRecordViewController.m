@@ -15,6 +15,7 @@
 #import "HBCRecordingSettings.h"
 #import "HBPrototypesManager.h"
 #import "LPPrototypeCaptureRecorder.h"
+#import "HBHeatmapsViewController.h"
 
 @import WebKit;
 @import AVFoundation;
@@ -407,6 +408,10 @@ static NSString *const kSliderCell = @"kSliderCell";
         NSArray *itemsToShare = @[[NSURL fileURLWithPath:[[[HBPrototypesManager sharedManager] pathToFolder] stringByAppendingString:self.record.pathToVideo]]];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
         [self presentViewController:activityViewController animated:YES completion:nil];
+    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Show Heat Maps", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        HBHeatmapsViewController *hvc = [[HBHeatmapsViewController alloc] initWithPrototypeRecord:self.record];
+        [self.navigationController pushViewController:hvc animated:YES];
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[HBPrototypesManager sharedManager] removeRecord:self.record];

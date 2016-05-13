@@ -299,6 +299,10 @@
         self.finishedHeatmaps = finished;
         self.totalRenderingHeatmapProgress = COLLECT_SCREENS_PROGRESS;
         if (self.cancelled) {
+            self.rendering = NO;
+            if (self.completionBlock) {
+                self.completionBlock(self.allHeatmaps);
+            }
             return;
         }
         
@@ -312,7 +316,7 @@
             
             NSString *logs = [self fullLogsForScreenWithName:heatmap.name];
             NSString *md5 = [logs MD5String];
-            if ([heatmap.hash isEqualToString:md5]) {
+            if ([heatmap.hashString isEqualToString:md5]) {
                 self.currentRenderingHeatmapProgress = 1.0f;
                 if (self.progressBlock) {
                     self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
@@ -342,28 +346,33 @@
                 self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
             }
             if (self.cancelled) {
-                return;
+                break;
             }
             
             UIImage *heatmapImage = [self renderImageFor:heatmap fromTouchLogs:logs];
             if (self.cancelled) {
-                return;
+                break;
             }
             
             NSData *data = UIImagePNGRepresentation(heatmapImage);
             [data writeToFile:heatmap.pathToHeatmap atomically:YES];
-            [heatmap setHash:md5];
+            [heatmap setHashString:md5];
             [finished addObject:heatmap];
             if (self.cancelled) {
-                return;
+                break;
             }
             
             self.currentRenderingHeatmapProgress = 1.0f;
             if (self.progressBlock) {
                 self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
             }
+            
+            if (self.heatmapRenderingCompletionBlock) {
+                self.heatmapRenderingCompletionBlock(self.currentRenderingHeatmap);
+            }
         }
         
+        self.rendering = NO;
         if (self.completionBlock) {
             self.completionBlock(self.allHeatmaps);
         }
@@ -376,16 +385,13 @@
         return nil;
     }
     
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    
     NSString *firstLine = [lines firstObject];
     if (![firstLine hasPrefix:@"SIZE:"]) {
         return nil;
     }
     NSString *sizePart = [firstLine stringByReplacingOccurrencesOfString:@"SIZE:" withString:@""];
-    NSArray<NSNumber *> *numbers = [[sizePart componentsSeparatedByString:@";"] mapWithBlock:^id(id obj) {
-        return [numberFormatter numberFromString:obj];
+    NSArray<NSNumber *> *numbers = [[sizePart componentsSeparatedByString:@";"] mapWithBlock:^id(NSString *obj) {
+        return @([obj floatValue]);
     }];
     
     NSUInteger width = [[numbers firstObject] unsignedIntegerValue];
@@ -408,8 +414,8 @@
             continue;
         }
         NSString *touchPart = [line stringByReplacingOccurrencesOfString:@"TOUCH:" withString:@""];
-        NSArray<NSNumber *> *numbers = [[touchPart componentsSeparatedByString:@";"] mapWithBlock:^id(id obj) {
-            return [numberFormatter numberFromString:obj];
+        NSArray<NSNumber *> *numbers = [[touchPart componentsSeparatedByString:@";"] mapWithBlock:^id(NSString *obj) {
+            return @([obj floatValue]);
         }];
         NSUInteger jx = [[numbers objectAtIndex:0] unsignedIntegerValue];
         NSUInteger ix = [[numbers objectAtIndex:1] unsignedIntegerValue];
@@ -484,12 +490,12 @@
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(nil, width, height, 8, width * (CGColorSpaceGetNumberOfComponents(colorSpace) + 1), colorSpace, kCGImageAlphaPremultipliedLast);
-    //CGContextDrawImage(context, CGRectMake(0, 0, width, height), [UIImage imageWithContentsOfFile:[heatmap pathToScreenshot]].CGImage);
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), [UIImage imageWithContentsOfFile:[heatmap pathToScreenshot]].CGImage);
     for (NSUInteger i = 0; i < height; i++) {
         for (NSUInteger j = 0; j < width; j++) {
             NSUInteger index = getIndex(i, j, width);
             float val = MAX(0.0f, 1.0f-matrix[index])*240.0f/360.0f;
-            UIColor *color = [UIColor colorWithHue:val saturation:1.0f lightness:0.5f alpha:1.0f];
+            UIColor *color = [UIColor colorWithHue:val saturation:1.0f lightness:0.5f alpha:0.3f];
             CGContextSetFillColorWithColor(context, color.CGColor);
             CGContextFillRect(context, CGRectMake(j, (height-1)-i, 1, 1));
             

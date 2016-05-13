@@ -16,6 +16,7 @@
 #import "HBEditPrototypeViewController.h"
 #import "HBRecordViewController.h"
 #import "HBNavigationController.h"
+#import "HBHeatmapsViewController.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -154,6 +155,10 @@ static NSString *const kRecordCell = @"kRecordCell";
             [self dismissViewControllerAnimated:YES completion:nil];
         }];
         [self presentViewController:[[HBNavigationController alloc] initWithRootViewController:evc] animated:YES completion:nil];
+    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Show Heat Maps", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        HBHeatmapsViewController *hvc = [[HBHeatmapsViewController alloc] initWithPrototypeUser:self.user];
+        [self.navigationController pushViewController:hvc animated:YES];
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[HBPrototypesManager sharedManager] removeUser:self.user];

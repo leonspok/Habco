@@ -5,4 +5,5 @@ target "Habco" do
 	pod "MagicalRecord", "~> 2.3"
 	pod "CocoaLumberjack"
 	pod "EDColor"
+    pod "NYTPhotoViewer"
 end

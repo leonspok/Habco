@@ -20,8 +20,7 @@
 #import "LPRoundRectButton.h"
 #import "HBNavigationController.h"
 #import "HBUserDetailsViewController.h"
-
-#import "HBHeatmapRenderer.h"
+#import "HBHeatmapsViewController.h"
 
 static NSString *const kUserCell = @"kUserCell";
 
@@ -73,12 +72,6 @@ static NSString *const kUserCell = @"kUserCell";
     [self.urlButton setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.05f] forState:UIControlStateSelected];
     
     self.users = [NSMutableArray array];
-    
-    HBHeatmapRenderer *renderer = [[HBHeatmapRenderer alloc] initWithPrototype:self.prototype];
-    [renderer setProgressBlock:^(float progress, HBHeatmap *heatmap) {
-        DDLogVerbose(@"%@: %f", heatmap.name, progress);
-    }];
-    [renderer startHeatmapsRendering];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -225,6 +218,10 @@ static NSString *const kUserCell = @"kUserCell";
             [self dismissViewControllerAnimated:YES completion:nil];
         }];
         [self presentViewController:[[HBNavigationController alloc] initWithRootViewController:evc] animated:YES completion:nil];
+    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Show Heat Maps", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        HBHeatmapsViewController *hvc = [[HBHeatmapsViewController alloc] initWithPrototype:self.prototype];
+        [self.navigationController pushViewController:hvc animated:YES];
     }]];
     [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[HBPrototypesManager sharedManager] removePrototype:self.prototype];

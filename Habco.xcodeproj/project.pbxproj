@@ -50,6 +50,10 @@
 		E386EC861CB7EEC10002F186 /* HBUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC841CB7EEC10002F186 /* HBUserTableViewCell.m */; };
 		E386EC871CB7EEC10002F186 /* HBUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E386EC851CB7EEC10002F186 /* HBUserTableViewCell.xib */; };
 		E386EC8A1CB7F7FE0002F186 /* HBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E386EC891CB7F7FE0002F186 /* HBNavigationController.m */; };
+		E38B94911CE616D1003C47D9 /* HBHeatmapsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E38B948F1CE616D1003C47D9 /* HBHeatmapsViewController.m */; };
+		E38B94921CE616D1003C47D9 /* HBHeatmapsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E38B94901CE616D1003C47D9 /* HBHeatmapsViewController.xib */; };
+		E38B94961CE61760003C47D9 /* HBHeatmapCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E38B94941CE61760003C47D9 /* HBHeatmapCollectionViewCell.m */; };
+		E38B94971CE61760003C47D9 /* HBHeatmapCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E38B94951CE61760003C47D9 /* HBHeatmapCollectionViewCell.xib */; };
 		E393A3ED1CB663E9003CCD46 /* HBEditPrototypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E393A3EB1CB663E9003CCD46 /* HBEditPrototypeViewController.m */; };
 		E393A3EE1CB663E9003CCD46 /* HBEditPrototypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E393A3EC1CB663E9003CCD46 /* HBEditPrototypeViewController.xib */; };
 		E393A3F91CB66560003CCD46 /* LPResizingLayersView.m in Sources */ = {isa = PBXBuildFile; fileRef = E393A3F41CB66560003CCD46 /* LPResizingLayersView.m */; };
@@ -151,6 +155,12 @@
 		E386EC851CB7EEC10002F186 /* HBUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBUserTableViewCell.xib; sourceTree = "<group>"; };
 		E386EC881CB7F7FE0002F186 /* HBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBNavigationController.h; sourceTree = "<group>"; };
 		E386EC891CB7F7FE0002F186 /* HBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBNavigationController.m; sourceTree = "<group>"; };
+		E38B948E1CE616D1003C47D9 /* HBHeatmapsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBHeatmapsViewController.h; sourceTree = "<group>"; };
+		E38B948F1CE616D1003C47D9 /* HBHeatmapsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBHeatmapsViewController.m; sourceTree = "<group>"; };
+		E38B94901CE616D1003C47D9 /* HBHeatmapsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBHeatmapsViewController.xib; sourceTree = "<group>"; };
+		E38B94931CE61760003C47D9 /* HBHeatmapCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBHeatmapCollectionViewCell.h; sourceTree = "<group>"; };
+		E38B94941CE61760003C47D9 /* HBHeatmapCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBHeatmapCollectionViewCell.m; sourceTree = "<group>"; };
+		E38B94951CE61760003C47D9 /* HBHeatmapCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBHeatmapCollectionViewCell.xib; sourceTree = "<group>"; };
 		E393A3EA1CB663E9003CCD46 /* HBEditPrototypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBEditPrototypeViewController.h; sourceTree = "<group>"; };
 		E393A3EB1CB663E9003CCD46 /* HBEditPrototypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBEditPrototypeViewController.m; sourceTree = "<group>"; };
 		E393A3EC1CB663E9003CCD46 /* HBEditPrototypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBEditPrototypeViewController.xib; sourceTree = "<group>"; };
@@ -369,6 +379,9 @@
 				E3EE94611CBABC1800396A06 /* HBRecordTableViewCell.h */,
 				E3EE94621CBABC1800396A06 /* HBRecordTableViewCell.m */,
 				E3EE94631CBABC1800396A06 /* HBRecordTableViewCell.xib */,
+				E38B94931CE61760003C47D9 /* HBHeatmapCollectionViewCell.h */,
+				E38B94941CE61760003C47D9 /* HBHeatmapCollectionViewCell.m */,
+				E38B94951CE61760003C47D9 /* HBHeatmapCollectionViewCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -421,6 +434,9 @@
 				E3EE945C1CBABC0400396A06 /* HBUserDetailsViewController.h */,
 				E3EE945D1CBABC0400396A06 /* HBUserDetailsViewController.m */,
 				E3EE945E1CBABC0400396A06 /* HBUserDetailsViewController.xib */,
+				E38B948E1CE616D1003C47D9 /* HBHeatmapsViewController.h */,
+				E38B948F1CE616D1003C47D9 /* HBHeatmapsViewController.m */,
+				E38B94901CE616D1003C47D9 /* HBHeatmapsViewController.xib */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -511,7 +527,9 @@
 				E3716C6F1CB7029000AF553C /* HBPrototypesListViewController.xib in Resources */,
 				E386EC7C1CB7EB050002F186 /* HBUsersListViewController.xib in Resources */,
 				E3EE94601CBABC0400396A06 /* HBUserDetailsViewController.xib in Resources */,
+				E38B94971CE61760003C47D9 /* HBHeatmapCollectionViewCell.xib in Resources */,
 				E3716C751CB702BA00AF553C /* HBPrototypeTableViewCell.xib in Resources */,
+				E38B94921CE616D1003C47D9 /* HBHeatmapsViewController.xib in Resources */,
 				E3EE94651CBABC1800396A06 /* HBRecordTableViewCell.xib in Resources */,
 				E386EC771CB7C7000002F186 /* HBEditUserViewController.xib in Resources */,
 				E3E59D421CB9605800D5FFCF /* HBSwitchTableViewCell.xib in Resources */,
@@ -599,6 +617,7 @@
 				E393A3ED1CB663E9003CCD46 /* HBEditPrototypeViewController.m in Sources */,
 				E3F1E6341CE33BDE00475709 /* HBCRecordingSettings.m in Sources */,
 				E3F1E6331CE33BDE00475709 /* HBCRecordingSettings+CoreDataProperties.m in Sources */,
+				E38B94911CE616D1003C47D9 /* HBHeatmapsViewController.m in Sources */,
 				E386EC821CB7EBC00002F186 /* HBSearchBar.m in Sources */,
 				E393A3F91CB66560003CCD46 /* LPResizingLayersView.m in Sources */,
 				E3716C741CB702BA00AF553C /* HBPrototypeTableViewCell.m in Sources */,
@@ -620,6 +639,7 @@
 				E30E65511C8336C3001E431B /* LPPrototypeCaptureRecorder.m in Sources */,
 				E30E94D71CB462C4000DBE35 /* Habco.xcdatamodeld in Sources */,
 				E386EC861CB7EEC10002F186 /* HBUserTableViewCell.m in Sources */,
+				E38B94961CE61760003C47D9 /* HBHeatmapCollectionViewCell.m in Sources */,
 				E30E95541CB51DF0000DBE35 /* HBCPrototypeUser.m in Sources */,
 				E30E94F31CB46598000DBE35 /* HBCPrototypeRecord+CoreDataProperties.m in Sources */,
 				E30E954A1CB518E2000DBE35 /* HBPrototypesManager.m in Sources */,

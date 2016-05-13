@@ -27,6 +27,7 @@
 @property (nonatomic, strong, readonly) NSString *pathToHeatmapsFolder;
 
 @property (nonatomic, strong) void (^progressBlock)(float progress, HBHeatmap *heatmap);
+@property (nonatomic, strong) void (^heatmapRenderingCompletionBlock)(HBHeatmap *heatmap);
 @property (nonatomic, strong) void (^completionBlock)(NSArray<HBHeatmap *> *heatmaps);
 
 - (id)initWithPrototype:(HBCPrototype *)prototype;

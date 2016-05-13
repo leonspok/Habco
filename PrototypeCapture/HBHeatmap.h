@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *baseFolder;
-@property (nonatomic, strong) NSString *hash;
+@property (nonatomic, strong) NSString *hashString;
 
 @property (nonatomic, strong, readonly) NSString *pathToScreenshot;
 @property (nonatomic, strong, readonly) NSString *pathToHeatmap;

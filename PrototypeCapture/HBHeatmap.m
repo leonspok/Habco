@@ -23,15 +23,15 @@
     return self;
 }
 
-- (void)setHash:(NSString *)hash {
+- (void)setHashString:(NSString *)hashString {
     NSError *error;
-    [hash writeToFile:self.pathToHashFile atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    [hashString writeToFile:self.pathToHashFile atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error) {
         DDLogError(@"Save hash file: %@", error);
     }
 }
 
-- (NSString *)hash {
+- (NSString *)hashString {
     return [NSString stringWithContentsOfFile:self.pathToHashFile encoding:NSUTF8StringEncoding error:nil];
 }
 
@@ -45,6 +45,24 @@
 
 - (NSString *)pathToHeatmap {
     return [self.baseFolder stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_heatmap.png", self.name]];
+}
+
+- (NSUInteger)hash {
+    return [[self.name stringByAppendingString:self.baseFolder] hash];
+}
+
+- (BOOL)isEqual:(id)object {
+    if (!object) {
+        return NO;
+    }
+    if (object == self) {
+        return YES;
+    }
+    if ([object class] == self.class) {
+        HBHeatmap *heatmap = (HBHeatmap *)object;
+        return [heatmap.name isEqual:self.name] && [heatmap.baseFolder isEqual:self.baseFolder];
+    }
+    return NO;
 }
 
 @end

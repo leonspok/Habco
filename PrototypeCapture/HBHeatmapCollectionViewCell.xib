@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HBHeatmapCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="156" height="214"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="156" height="214"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvS-QP-VAd">
+                        <rect key="frame" x="0.0" y="0.0" width="156" height="214"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hoY-Ia-30Z">
+                                <rect key="frame" x="0.0" y="0.0" width="156" height="214"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zfs-qw-iBn">
+                                <rect key="frame" x="0.0" y="0.0" width="156" height="214"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vtQ-7n-iaZ">
+                                <rect key="frame" x="0.0" y="0.0" width="156" height="214"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="nQ8-7V-OuN">
+                                        <rect key="frame" x="68" y="97" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="nQ8-7V-OuN" firstAttribute="centerY" secondItem="vtQ-7n-iaZ" secondAttribute="centerY" id="vHz-ff-KeE"/>
+                                    <constraint firstItem="nQ8-7V-OuN" firstAttribute="centerX" secondItem="vtQ-7n-iaZ" secondAttribute="centerX" id="vYL-JE-EBt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Zfs-qw-iBn" firstAttribute="leading" secondItem="fvS-QP-VAd" secondAttribute="leading" id="1AI-J9-rVE"/>
+                            <constraint firstAttribute="bottom" secondItem="hoY-Ia-30Z" secondAttribute="bottom" id="BC5-4z-QCG"/>
+                            <constraint firstItem="hoY-Ia-30Z" firstAttribute="top" secondItem="fvS-QP-VAd" secondAttribute="top" id="DcT-7h-jrd"/>
+                            <constraint firstAttribute="bottom" secondItem="Zfs-qw-iBn" secondAttribute="bottom" id="EJS-L2-EP1"/>
+                            <constraint firstAttribute="trailing" secondItem="hoY-Ia-30Z" secondAttribute="trailing" id="Edg-lf-EFG"/>
+                            <constraint firstItem="vtQ-7n-iaZ" firstAttribute="leading" secondItem="fvS-QP-VAd" secondAttribute="leading" id="FV2-rT-bxx"/>
+                            <constraint firstItem="Zfs-qw-iBn" firstAttribute="top" secondItem="fvS-QP-VAd" secondAttribute="top" id="Pff-P8-IDU"/>
+                            <constraint firstAttribute="bottom" secondItem="vtQ-7n-iaZ" secondAttribute="bottom" id="Su6-t0-esc"/>
+                            <constraint firstItem="hoY-Ia-30Z" firstAttribute="leading" secondItem="fvS-QP-VAd" secondAttribute="leading" id="ftL-rV-8Y7"/>
+                            <constraint firstAttribute="trailing" secondItem="vtQ-7n-iaZ" secondAttribute="trailing" id="ipG-qo-IAU"/>
+                            <constraint firstItem="vtQ-7n-iaZ" firstAttribute="top" secondItem="fvS-QP-VAd" secondAttribute="top" id="mQ3-Vi-1jU"/>
+                            <constraint firstAttribute="trailing" secondItem="Zfs-qw-iBn" secondAttribute="trailing" id="quO-VP-VUg"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="fvS-QP-VAd" secondAttribute="trailing" id="SrS-uQ-f7o"/>
+                <constraint firstItem="fvS-QP-VAd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="aqR-E4-F1t"/>
+                <constraint firstItem="fvS-QP-VAd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="jvK-Cb-5pv"/>
+                <constraint firstAttribute="bottom" secondItem="fvS-QP-VAd" secondAttribute="bottom" id="tB2-zc-8ug"/>
+            </constraints>
+            <size key="customSize" width="156" height="214"/>
+            <connections>
+                <outlet property="heatmapImageView" destination="Zfs-qw-iBn" id="vrL-24-vUx"/>
+                <outlet property="loadingView" destination="vtQ-7n-iaZ" id="DGc-EG-wrC"/>
+                <outlet property="screenshotImageView" destination="hoY-Ia-30Z" id="LJG-UR-fRL"/>
+                <outlet property="wrapper" destination="fvS-QP-VAd" id="2Y8-aY-ULz"/>
+            </connections>
+            <point key="canvasLocation" x="610" y="446"/>
+        </collectionViewCell>
+    </objects>
+</document>
