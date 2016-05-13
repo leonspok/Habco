@@ -17,14 +17,14 @@
 #import "NSString+MD5.h"
 #import "EDColor.h"
 
-#define COLLECT_SCREENS_PROGRESS 0.1f
-#define RENDERING_PROGRESS 0.9f
+#define COLLECT_SCREENS_PROGRESS 0.05f
+#define RENDERING_PROGRESS 0.95f
 
-#define COPY_SCREENSHOT_PROGRESS 0.2f
-#define CALCULATE_RAW_MATRIX_PROGRESS 0.3f
-#define NORMALIZE_MATRIX_PROGRESS 0.1f
-#define DRAW_HEATMAP_IMAGE_PROGRESS 0.2f
-#define SAVE_HEATMAP_IMAGE_PROGRESS 0.2f
+#define COPY_SCREENSHOT_PROGRESS 0.03f
+#define CALCULATE_RAW_MATRIX_PROGRESS 0.04f
+#define NORMALIZE_MATRIX_PROGRESS 0.03f
+#define DRAW_HEATMAP_IMAGE_PROGRESS 0.85f
+#define SAVE_HEATMAP_IMAGE_PROGRESS 0.05f
 
 @interface HBHeatmapRenderer()
 @property (nonatomic, strong, readwrite) HBCPrototype *prototype;
@@ -86,14 +86,18 @@
 - (void)setProgressBlock:(void (^)(float, HBHeatmap *))progressBlock {
     typeof(self) __weak weakSelf = self;
     _progressBlock = ^(float progress, HBHeatmap *heatmap) {
-        if (weakSelf.allHeatmaps.count > 0) {
-            NSUInteger index = [weakSelf.allHeatmaps indexOfObject:heatmap];
-            CGFloat totalProgress = (double)index/(double)weakSelf.allHeatmaps.count+progress/weakSelf.allHeatmaps.count;
-            weakSelf.totalRenderingHeatmapProgress = COLLECT_SCREENS_PROGRESS+totalProgress*RENDERING_PROGRESS;
-        }
-        if (progressBlock) {
-            progressBlock(progress, heatmap);
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if (weakSelf.allHeatmaps.count > 0) {
+                NSUInteger index = [weakSelf.allHeatmaps indexOfObject:heatmap];
+                CGFloat totalProgress = (double)index/(double)weakSelf.allHeatmaps.count+progress/weakSelf.allHeatmaps.count;
+                weakSelf.totalRenderingHeatmapProgress = COLLECT_SCREENS_PROGRESS+totalProgress*RENDERING_PROGRESS;
+            }
+            if (progressBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    progressBlock(progress, heatmap);
+                });
+            }
+        });
     };
 }
 
@@ -171,13 +175,19 @@
     NSMutableString *logs = [NSMutableString string];
     BOOL first = YES;
     for (HBCPrototypeUser *user in prototype.users) {
-        if (first) {
-            first = NO;
+        NSString *l = [self fullLogsForPrototypeUser:user name:name];
+        if (l.length == 0) {
+            continue;
         }
+        
         if (!first) {
             [logs appendString:@"\n"];
         }
-        [logs appendString:[self fullLogsForPrototypeUser:user name:name]];
+        [logs appendString:l];
+        
+        if (first) {
+            first = NO;
+        }
     }
     NSArray *lines = [[logs componentsSeparatedByString:@"\n"] sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
         return [obj1 compare:obj2];
@@ -189,13 +199,19 @@
     NSMutableString *logs = [NSMutableString string];
     BOOL first = YES;
     for (HBCPrototypeRecord *record in prototypeUser.records) {
-        if (first) {
-            first = NO;
+        NSString *l = [self fullLogsForPrototypeRecord:record name:name];
+        if (l.length == 0) {
+            continue;
         }
+        
         if (!first) {
             [logs appendString:@"\n"];
         }
-        [logs appendString:[self fullLogsForPrototypeRecord:record name:name]];
+        [logs appendString:l];
+        
+        if (first) {
+            first = NO;
+        }
     }
     NSArray *lines = [[logs componentsSeparatedByString:@"\n"] sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
         return [obj1 compare:obj2];
@@ -204,10 +220,18 @@
 }
 
 - (NSString *)fullLogsForPrototypeRecord:(HBCPrototypeRecord *)prototypeRecord name:(NSString *)name {
-    NSString *logs = [NSString stringWithContentsOfFile:[LPPrototypeCaptureRecorder pathToRecordedScreensFileFromFolder:[[HBPrototypesManager sharedManager] pathToFolderForRecord:prototypeRecord]] encoding:NSUTF8StringEncoding error:nil];
-    NSArray *lines = [[logs componentsSeparatedByString:@"\n"] sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
+    NSString *logs = [NSString stringWithContentsOfFile:[LPPrototypeCaptureRecorder pathToTouchesLogForScreen:name andFolder:[[HBPrototypesManager sharedManager] pathToFolderForRecord:prototypeRecord]] encoding:NSUTF8StringEncoding error:nil];
+    if (logs.length == 0) {
+        return @"";
+    }
+    NSArray *lines = [[[logs componentsSeparatedByString:@"\n"] sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
         return [obj1 compare:obj2];
+    }] filterWithBlock:^BOOL(NSString *obj) {
+        return obj.length > 0;
     }];
+    if (lines.count == 0) {
+        return @"";
+    }
     return [lines componentsJoinedByString:@"\n"];
 }
 
@@ -262,7 +286,7 @@
     self.currentRenderingHeatmapProgress = 0.0f;
     
     dispatch_async(self.renderingQueue, ^{
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[self pathToHeatmapsFolder]]) {
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[self pathToHeatmapsFolder]]) {
             NSError *error;
             [[NSFileManager defaultManager] createDirectoryAtPath:[self pathToHeatmapsFolder] withIntermediateDirectories:YES attributes:nil error:&error];
             if (error) {
@@ -335,6 +359,9 @@
             }
             
             self.currentRenderingHeatmapProgress = 1.0f;
+            if (self.progressBlock) {
+                self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
+            }
         }
         
         if (self.completionBlock) {
@@ -386,14 +413,21 @@
         }];
         NSUInteger jx = [[numbers objectAtIndex:0] unsignedIntegerValue];
         NSUInteger ix = [[numbers objectAtIndex:1] unsignedIntegerValue];
-        NSUInteger radius = [[numbers objectAtIndex:2] unsignedIntegerValue];
+        NSUInteger radius = MAX(10.0f, [[numbers objectAtIndex:2] unsignedIntegerValue]);
         float alpha = [[numbers objectAtIndex:3] floatValue];
-        for (NSUInteger i = MAX(0, ix-radius); i < MIN(height, ix+radius); i++) {
-            for (NSUInteger j = MAX(0, jx-radius); j < MIN(width, jx+radius); j++) {
-                matrix[getIndex(i, j, width)] += 1.0f;
+        for (NSUInteger i = MAX(0, ix-radius); i <= MIN(height, ix+radius); i++) {
+            for (NSUInteger j = MAX(0, jx-radius); j <= MIN(width, jx+radius); j++) {
+                CGFloat deltaI = (CGFloat)i-(CGFloat)ix;
+                CGFloat deltaJ = (CGFloat)j-(CGFloat)jx;
+                CGFloat distance = sqrtf(powf(deltaI, 2)+powf(deltaJ, 2));
+                if (distance > radius) {
+                    continue;
+                }
+                matrix[getIndex(i, j, width)] += (1-distance/radius);
             }
         }
         float progress = (float)lineIndex/(float)lines.count;
+        lineIndex++;
         self.currentRenderingHeatmapProgress = COPY_SCREENSHOT_PROGRESS+progress*CALCULATE_RAW_MATRIX_PROGRESS;
         if (self.progressBlock) {
             self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
@@ -409,14 +443,8 @@
     for (NSUInteger i = 0; i < height; i++) {
         for (NSUInteger j = 0; j < width; j++) {
             NSUInteger index = getIndex(i, j, width);
-            NSUInteger totalIndex = width*height;
             if (matrix[index] > maxValue) {
                 maxValue = matrix[index];
-            }
-            float progress = (float)(index+1)/(float)totalIndex;
-            self.currentRenderingHeatmapProgress = COPY_SCREENSHOT_PROGRESS+CALCULATE_RAW_MATRIX_PROGRESS+progress*NORMALIZE_MATRIX_PROGRESS/2.0f;
-            if (self.progressBlock) {
-                self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
             }
             
             if (self.cancelled) {
@@ -424,41 +452,46 @@
                 return nil;
             }
         }
+        NSUInteger index = getIndex(i, width-1, width);
+        NSUInteger totalIndex = width*height;
+        float progress = (float)(index+1)/(float)totalIndex;
+        self.currentRenderingHeatmapProgress = COPY_SCREENSHOT_PROGRESS+CALCULATE_RAW_MATRIX_PROGRESS+progress*NORMALIZE_MATRIX_PROGRESS/2.0f;
+        if (self.progressBlock) {
+            self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
+        }
     }
     
-    for (NSUInteger i = 0; i < height; i++) {
-        for (NSUInteger j = 0; j < width; j++) {
-            NSUInteger index = getIndex(i, j, width);
+    if (maxValue > 0) {
+        for (NSUInteger i = 0; i < height; i++) {
+            for (NSUInteger j = 0; j < width; j++) {
+                NSUInteger index = getIndex(i, j, width);
+                matrix[index] = matrix[index]/maxValue;
+                
+                if (self.cancelled) {
+                    free(matrix);
+                    return nil;
+                }
+            }
+            NSUInteger index = getIndex(i, width-1, width);
             NSUInteger totalIndex = width*height;
-            matrix[index] = matrix[index]/maxValue;
             float progress = (float)(index+1)/(float)totalIndex;
             self.currentRenderingHeatmapProgress = COPY_SCREENSHOT_PROGRESS+CALCULATE_RAW_MATRIX_PROGRESS+NORMALIZE_MATRIX_PROGRESS/2.0f*(1+progress);
             if (self.progressBlock) {
                 self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
-            }
-            
-            if (self.cancelled) {
-                free(matrix);
-                return nil;
             }
         }
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(nil, width, height, 8, width * (CGColorSpaceGetNumberOfComponents(colorSpace) + 1), colorSpace, kCGImageAlphaPremultipliedLast);
+    //CGContextDrawImage(context, CGRectMake(0, 0, width, height), [UIImage imageWithContentsOfFile:[heatmap pathToScreenshot]].CGImage);
     for (NSUInteger i = 0; i < height; i++) {
         for (NSUInteger j = 0; j < width; j++) {
             NSUInteger index = getIndex(i, j, width);
-            NSUInteger totalIndex = width*height;
-            float val = matrix[index];
+            float val = MAX(0.0f, 1.0f-matrix[index])*240.0f/360.0f;
             UIColor *color = [UIColor colorWithHue:val saturation:1.0f lightness:0.5f alpha:1.0f];
             CGContextSetFillColorWithColor(context, color.CGColor);
-            CGContextFillRect(context, CGRectMake(i, j, width, height));
-            float progress = (float)(index+1)/(float)totalIndex;
-            self.currentRenderingHeatmapProgress = COPY_SCREENSHOT_PROGRESS+CALCULATE_RAW_MATRIX_PROGRESS+NORMALIZE_MATRIX_PROGRESS+progress*DRAW_HEATMAP_IMAGE_PROGRESS;
-            if (self.progressBlock) {
-                self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
-            }
+            CGContextFillRect(context, CGRectMake(j, (height-1)-i, 1, 1));
             
             if (self.cancelled) {
                 CGContextRelease(context);
@@ -466,6 +499,13 @@
                 free(matrix);
                 return nil;
             }
+        }
+        NSUInteger index = getIndex(i, width-1, width);
+        NSUInteger totalIndex = width*height;
+        float progress = (float)(index+1)/(float)totalIndex;
+        self.currentRenderingHeatmapProgress = COPY_SCREENSHOT_PROGRESS+CALCULATE_RAW_MATRIX_PROGRESS+NORMALIZE_MATRIX_PROGRESS+progress*DRAW_HEATMAP_IMAGE_PROGRESS;
+        if (self.progressBlock) {
+            self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
         }
     }
     CGImageRef cgImage = CGBitmapContextCreateImage(context);

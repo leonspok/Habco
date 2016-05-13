@@ -509,14 +509,14 @@ static NSString *const kSliderCell = @"kSliderCell";
 }
 
 - (IBAction)maxFPSChanged:(UISlider *)slider {
-    HBSliderTableViewCell *cell = [self.settingsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    HBSliderTableViewCell *cell = [self.settingsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     NSUInteger value = roundf(slider.value);
     [cell.valueLabel setText:[NSString stringWithFormat:@"%ld", (long)value]];
     self.maxFPS = value;
 }
 
 - (IBAction)downscaleChanged:(UISlider *)slider {
-    HBSliderTableViewCell *cell = [self.settingsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    HBSliderTableViewCell *cell = [self.settingsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
     CGFloat value = slider.value;
     [cell.valueLabel setText:[NSString stringWithFormat:@"%.1f", value]];
     self.downscale = value;

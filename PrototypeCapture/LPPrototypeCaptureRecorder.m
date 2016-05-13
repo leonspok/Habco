@@ -637,8 +637,6 @@
         if (self.recordedScreenNames.length == 0) {
             self.recordedScreenNames = [NSMutableString string];
         }
-        
-        [self copyScreenShotForCurrentScreenIfNeeded];
     });
 }
 
