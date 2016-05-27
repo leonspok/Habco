@@ -149,7 +149,6 @@
         CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, capturingFrame.size.height);
         CGContextConcatCTM(UIGraphicsGetCurrentContext(), flipVertical);
     }
-    
     [self.targetView drawViewHierarchyInRect:capturingFrame afterScreenUpdates:NO];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -361,7 +360,9 @@
     NSAssert(self.status == LPPrototypeCaptureRecorderStatusReadyToRecord, @"Can't start recording. Status should be LPPrototypeCaptureRecorderStatusReadyToRecord");
     
     self.captureTargetViewTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f/self.fps target:self selector:@selector(captureFrame) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.captureTargetViewTimer forMode:NSRunLoopCommonModes];
     self.recordVideoTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f/self.fps target:self selector:@selector(recordFrame) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.recordVideoTimer forMode:NSRunLoopCommonModes];
     
     self.currentRecordStartTime = [NSDate date];
     
@@ -631,7 +632,7 @@
                 DDLogError(@"Read previous log: %@", error);
             }
         } else {
-            self.currentScreenTouchesLog = [NSMutableString stringWithFormat:@"SIZE:%f;%f\n", capturingFrame.size.width, capturingFrame.size.height];
+            self.currentScreenTouchesLog = [NSMutableString stringWithFormat:@"SIZE:%d;%d\n", (int)capturingFrame.size.width, (int)capturingFrame.size.height];
         }
         
         if (self.recordedScreenNames.length == 0) {
@@ -673,7 +674,7 @@
         [self copyScreenShotForCurrentScreenIfNeeded];
         
         for (LPViewTouch *touch in touches) {
-            [self.currentScreenTouchesLog appendFormat:@"TOUCH:%f;%f;%f;%f\n", floor(touch.location.x/self.downscale), floor(touch.location.y/self.downscale), floor(touch.radius/self.downscale), touch.alpha];
+            [self.currentScreenTouchesLog appendFormat:@"TOUCH:%d;%d;%d;%d;%f\n", (int)floor(touch.location.x/self.downscale), (int)floor(touch.location.y/self.downscale), (int)floor(touch.radius/self.downscale), (int)floor(touch.shadowRadius/self.downscale), touch.alpha];
         }
     });
 }

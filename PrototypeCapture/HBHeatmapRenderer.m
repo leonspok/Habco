@@ -420,16 +420,20 @@
         NSUInteger jx = [[numbers objectAtIndex:0] unsignedIntegerValue];
         NSUInteger ix = [[numbers objectAtIndex:1] unsignedIntegerValue];
         NSUInteger radius = MAX(10.0f, [[numbers objectAtIndex:2] unsignedIntegerValue]);
-        float alpha = [[numbers objectAtIndex:3] floatValue];
-        for (NSUInteger i = MAX(0, ix-radius); i <= MIN(height, ix+radius); i++) {
-            for (NSUInteger j = MAX(0, jx-radius); j <= MIN(width, jx+radius); j++) {
+        NSUInteger shadowRadius = [[numbers objectAtIndex:3] unsignedIntegerValue];
+        float alpha = [[numbers objectAtIndex:4] floatValue];
+        for (NSUInteger i = MAX(0, ix-(radius+shadowRadius)); i <= MIN(height, ix+(radius+shadowRadius)); i++) {
+            for (NSUInteger j = MAX(0, jx-(radius+shadowRadius)); j <= MIN(width, jx+(radius+shadowRadius)); j++) {
                 CGFloat deltaI = (CGFloat)i-(CGFloat)ix;
                 CGFloat deltaJ = (CGFloat)j-(CGFloat)jx;
                 CGFloat distance = sqrtf(powf(deltaI, 2)+powf(deltaJ, 2));
-                if (distance > radius) {
+                if (distance > radius+shadowRadius) {
                     continue;
+                } else if (distance >= radius) {
+                    matrix[getIndex(i, j, width)] += (1-(distance-radius)/shadowRadius)*0.6f;
+                } else {
+                    matrix[getIndex(i, j, width)] += (1-(distance-radius)/shadowRadius)*0.4f+0.6f;
                 }
-                matrix[getIndex(i, j, width)] += (1-distance/radius);
             }
         }
         float progress = (float)lineIndex/(float)lines.count;
