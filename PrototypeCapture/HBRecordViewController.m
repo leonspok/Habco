@@ -107,6 +107,8 @@ static NSString *const kSliderCell = @"kSliderCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.recordTitleView setBackgroundColor:[UIColor clearColor]];
+    
     WKWebViewConfiguration *conf = [[WKWebViewConfiguration alloc] init];
     conf.allowsInlineMediaPlayback = YES;
     conf.allowsAirPlayForMediaPlayback = NO;

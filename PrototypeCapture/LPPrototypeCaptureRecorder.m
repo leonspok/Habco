@@ -52,7 +52,7 @@
         self.fps = 12;
         self.downscale = 2.0f;
         
-        writeQueue = dispatch_queue_create("Recording Queue", DISPATCH_QUEUE_CONCURRENT);
+        writeQueue = dispatch_queue_create("Recording Queue", DISPATCH_QUEUE_SERIAL);
         snapshotQueue = dispatch_queue_create("Snapshot Queue", DISPATCH_QUEUE_CONCURRENT);
         writeTouchesQueue = dispatch_queue_create("Writing touches log Queue", DISPATCH_QUEUE_SERIAL);
         
@@ -158,6 +158,9 @@
         NSArray<LPViewTouch *> *touches = [self.touchesRecognizer currentTouches];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             if (self.status != LPPrototypeCaptureRecorderStatusRecording || touchesDrawingContext == NULL) {
+                if (completion) {
+                    completion(nil, nil);
+                }
                 return;
             }
             
@@ -241,7 +244,9 @@
         CVPixelBufferRef pixelBuffer = [self pixelBufferFromCGImage:snapshot.CGImage];
         BOOL appended = YES;
         if (pixelBuffer != NULL) {
-            appended = [self.pixelBufferAdaptor appendPixelBuffer:pixelBuffer withPresentationTime:CMTimeMake((int64_t)frameCounter, (int32_t)self.fps)];
+            CMTime time = CMTimeMake(timestamp*1000, 1000);
+            //CMTime time = CMTimeMake((int64_t)frameCounter, (int32_t)self.fps);
+            appended = [self.pixelBufferAdaptor appendPixelBuffer:pixelBuffer withPresentationTime:time];
             DDLogVerbose(@"%@", [NSString stringWithFormat:@"Frame #%ld %@", (long)frameCounter, appended? @"appended" : @"not appended"]);
             CVPixelBufferRelease(pixelBuffer);
             if (appended) {
@@ -261,6 +266,8 @@
             self.targetViewSnapshot = processedImage;
             self.targetViewCleanSnapshot = cleanImage;
         }];
+    } else {
+        DDLogVerbose(@"Skipped capturing frame");
     }
 }
 

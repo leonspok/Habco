@@ -174,7 +174,8 @@
 - (NSString *)fullLogsForPrototype:(HBCPrototype *)prototype name:(NSString *)name {
     NSMutableString *logs = [NSMutableString string];
     BOOL first = YES;
-    for (HBCPrototypeUser *user in prototype.users) {
+    NSArray *users = [prototype.users sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"uid" ascending:YES]]];
+    for (HBCPrototypeUser *user in users) {
         NSString *l = [self fullLogsForPrototypeUser:user name:name];
         if (l.length == 0) {
             continue;
@@ -189,16 +190,14 @@
             first = NO;
         }
     }
-    NSArray *lines = [[logs componentsSeparatedByString:@"\n"] sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
-        return [obj1 compare:obj2];
-    }];
-    return [lines componentsJoinedByString:@"\n"];
+    return logs;
 }
 
 - (NSString *)fullLogsForPrototypeUser:(HBCPrototypeUser *)prototypeUser name:(NSString *)name {
     NSMutableString *logs = [NSMutableString string];
     BOOL first = YES;
-    for (HBCPrototypeRecord *record in prototypeUser.records) {
+    NSArray *records = [prototypeUser.records sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"uid" ascending:YES]]];
+    for (HBCPrototypeRecord *record in records) {
         NSString *l = [self fullLogsForPrototypeRecord:record name:name];
         if (l.length == 0) {
             continue;
@@ -213,10 +212,7 @@
             first = NO;
         }
     }
-    NSArray *lines = [[logs componentsSeparatedByString:@"\n"] sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
-        return [obj1 compare:obj2];
-    }];
-    return [lines componentsJoinedByString:@"\n"];
+    return logs;
 }
 
 - (NSString *)fullLogsForPrototypeRecord:(HBCPrototypeRecord *)prototypeRecord name:(NSString *)name {
@@ -224,9 +220,7 @@
     if (logs.length == 0) {
         return @"";
     }
-    NSArray *lines = [[[logs componentsSeparatedByString:@"\n"] sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
-        return [obj1 compare:obj2];
-    }] filterWithBlock:^BOOL(NSString *obj) {
+    NSArray *lines = [[logs componentsSeparatedByString:@"\n"] filterWithBlock:^BOOL(NSString *obj) {
         return obj.length > 0;
     }];
     if (lines.count == 0) {
@@ -396,6 +390,7 @@
     
     NSUInteger width = [[numbers firstObject] unsignedIntegerValue];
     NSUInteger height = [[numbers lastObject] unsignedIntegerValue];
+    CGSize currentSize = CGSizeMake(width, height);
     
     NSUInteger (^getIndex)(NSUInteger i, NSUInteger j, NSUInteger mWidth) = ^NSUInteger (NSUInteger i, NSUInteger j, NSUInteger mWidth) {
         return i*mWidth+j;
@@ -411,17 +406,28 @@
     NSUInteger lineIndex = 0;
     for (NSString *line in lines) {
         if (![line hasPrefix:@"TOUCH:"]) {
+            if ([line hasPrefix:@"SIZE:"]) {
+                NSString *sizePart = [line stringByReplacingOccurrencesOfString:@"SIZE:" withString:@""];
+                NSArray<NSNumber *> *numbers = [[sizePart componentsSeparatedByString:@";"] mapWithBlock:^id(NSString *obj) {
+                    return @([obj floatValue]);
+                }];
+                
+                NSUInteger width = [[numbers firstObject] unsignedIntegerValue];
+                NSUInteger height = [[numbers lastObject] unsignedIntegerValue];
+                currentSize = CGSizeMake(width, height);
+            }
             continue;
         }
+        CGFloat scale = MIN(width/currentSize.width, height/currentSize.height);
+        
         NSString *touchPart = [line stringByReplacingOccurrencesOfString:@"TOUCH:" withString:@""];
         NSArray<NSNumber *> *numbers = [[touchPart componentsSeparatedByString:@";"] mapWithBlock:^id(NSString *obj) {
             return @([obj floatValue]);
         }];
-        NSUInteger jx = [[numbers objectAtIndex:0] unsignedIntegerValue];
-        NSUInteger ix = [[numbers objectAtIndex:1] unsignedIntegerValue];
-        NSUInteger radius = MAX(10.0f, [[numbers objectAtIndex:2] unsignedIntegerValue]);
-        NSUInteger shadowRadius = [[numbers objectAtIndex:3] unsignedIntegerValue];
-        float alpha = [[numbers objectAtIndex:4] floatValue];
+        NSInteger jx = (NSInteger)floorf([[numbers objectAtIndex:0] floatValue]*scale);
+        NSInteger ix = (NSInteger)floorf([[numbers objectAtIndex:2] floatValue]*scale);
+        NSInteger radius = MAX(10.0f, [[numbers objectAtIndex:2] floatValue]*scale);
+        NSInteger shadowRadius = (NSInteger)floorf([[numbers objectAtIndex:3] floatValue]*scale);
         for (NSUInteger i = MAX(0, ix-(radius+shadowRadius)); i <= MIN(height, ix+(radius+shadowRadius)); i++) {
             for (NSUInteger j = MAX(0, jx-(radius+shadowRadius)); j <= MIN(width, jx+(radius+shadowRadius)); j++) {
                 CGFloat deltaI = (CGFloat)i-(CGFloat)ix;
