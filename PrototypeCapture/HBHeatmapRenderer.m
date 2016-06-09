@@ -288,7 +288,9 @@
             }
         }
         
-        self.allHeatmaps = [self getAllHeatmaps];
+        self.allHeatmaps = [[self getAllHeatmaps] filterWithBlock:^BOOL(HBHeatmap *heatmap) {
+            return [self pathToImageForScreenWithName:heatmap.name].length != 0;
+        }];
         NSMutableArray *finished = [NSMutableArray array];
         self.finishedHeatmaps = finished;
         self.totalRenderingHeatmapProgress = COLLECT_SCREENS_PROGRESS;
@@ -315,6 +317,9 @@
                 if (self.progressBlock) {
                     self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
                 }
+                if (self.heatmapRenderingCompletionBlock) {
+                    self.heatmapRenderingCompletionBlock(self.currentRenderingHeatmap);
+                }
                 continue;
             }
             
@@ -323,6 +328,9 @@
                 self.currentRenderingHeatmapProgress = 1.0f;
                 if (self.progressBlock) {
                     self.progressBlock(self.currentRenderingHeatmapProgress, self.currentRenderingHeatmap);
+                }
+                if (self.heatmapRenderingCompletionBlock) {
+                    self.heatmapRenderingCompletionBlock(self.currentRenderingHeatmap);
                 }
                 continue;
             }
@@ -425,7 +433,7 @@
             return @([obj floatValue]);
         }];
         NSInteger jx = (NSInteger)floorf([[numbers objectAtIndex:0] floatValue]*scale);
-        NSInteger ix = (NSInteger)floorf([[numbers objectAtIndex:2] floatValue]*scale);
+        NSInteger ix = (NSInteger)floorf([[numbers objectAtIndex:1] floatValue]*scale);
         NSInteger radius = MAX(10.0f, [[numbers objectAtIndex:2] floatValue]*scale);
         NSInteger shadowRadius = (NSInteger)floorf([[numbers objectAtIndex:3] floatValue]*scale);
         for (NSUInteger i = MAX(0, ix-(radius+shadowRadius)); i <= MIN(height, ix+(radius+shadowRadius)); i++) {

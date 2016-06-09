@@ -131,10 +131,16 @@ static NSString *const kSliderCell = @"kSliderCell";
     [self.settingsTableView registerNib:sliderCellNib forCellReuseIdentifier:kSliderCell];
     
     self.withTouches = [self.user.prototype.recordingSettings.withTouches boolValue];
-    self.withFrontCamera = [self.user.prototype.recordingSettings.withFrontCamera boolValue];
     self.maxFPS = [self.user.prototype.recordingSettings.maxFPS unsignedIntegerValue];
     self.downscale = [self.user.prototype.recordingSettings.downscale floatValue];
     self.withTouchesLogging = [self.user.prototype.recordingSettings.withTouchesLogging boolValue];
+    
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if(authStatus == AVAuthorizationStatusAuthorized) {
+        self.withFrontCamera = YES && [self.user.prototype.recordingSettings.withFrontCamera boolValue];
+    } else {
+        self.withFrontCamera = NO;
+    }
     
     [self.recordPreviewImage.layer setCornerRadius:5.0f];
     [self.recordPreviewImage.layer setMasksToBounds:YES];
@@ -573,7 +579,19 @@ static NSString *const kSliderCell = @"kSliderCell";
 }
 
 - (IBAction)toggleFrontCamera:(UIButton *)sw {
-    self.withFrontCamera = !self.withFrontCamera;
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if(authStatus == AVAuthorizationStatusAuthorized) {
+        self.withFrontCamera = !self.withFrontCamera;
+    } else if(authStatus == AVAuthorizationStatusNotDetermined && !self.withFrontCamera) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            if(granted){
+                self.withFrontCamera = !self.withFrontCamera;
+                [sw setSelected:self.withFrontCamera];
+            }
+        }];
+    } else {
+        self.withFrontCamera = NO;
+    }
     [sw setSelected:self.withFrontCamera];
 }
 
@@ -635,9 +653,15 @@ static NSString *const kSliderCell = @"kSliderCell";
         case 2: {
             HBSwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSwitchCell forIndexPath:indexPath];
             [cell.titleLabel setText:NSLocalizedString(@"Front camera", nil)];
-            [cell.switchButton setSelected:self.withFrontCamera];
             [cell.switchButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
             [cell.switchButton addTarget:self action:@selector(toggleFrontCamera:) forControlEvents:UIControlEventTouchUpInside];
+            
+            AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            if(authStatus != AVAuthorizationStatusAuthorized) {
+                self.withFrontCamera = NO;
+            }
+            [cell.switchButton setSelected:self.withFrontCamera];
+            
             return cell;
         }
             break;
