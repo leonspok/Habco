@@ -36,6 +36,7 @@ static NSString *const kUserCell = @"kUserCell";
 @property (weak, nonatomic) IBOutlet LPRoundRectButton *urlButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionTextViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *emptyView;
 
 @property (nonatomic, strong, readwrite) HBCPrototype *prototype;
 
@@ -180,6 +181,8 @@ static NSString *const kUserCell = @"kUserCell";
     [self.users removeAllObjects];
     [self.users addObjectsFromArray:users];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView setScrollEnabled:(self.users.count > 0)];
+    [self.emptyView setHidden:(self.users.count > 0)];
 }
 
 #pragma mark UIActions
@@ -251,6 +254,17 @@ static NSString *const kUserCell = @"kUserCell";
 - (IBAction)openHeatmaps:(id)sender {
     HBHeatmapsViewController *hvc = [[HBHeatmapsViewController alloc] initWithPrototype:self.prototype];
     [self.navigationController pushViewController:hvc animated:YES];
+}
+
+- (IBAction)addUser:(id)sender {
+    HBEditUserViewController *evc = [[HBEditUserViewController alloc] initWithPrototype:self.prototype title:NSLocalizedString(@"Add user", nil) saveButtonTitle:NSLocalizedString(@"Save", nil)];
+    [evc setSaveBlock:^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [evc setCancelBlock:^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [self presentViewController:[[HBNavigationController alloc] initWithRootViewController:evc] animated:YES completion:nil];
 }
 
 #pragma mark UITableViewDataSource

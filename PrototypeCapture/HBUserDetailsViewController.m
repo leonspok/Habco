@@ -35,6 +35,7 @@ static NSString *const kRecordCell = @"kRecordCell";
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionTextViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *emptyView;
 
 @property (nonatomic, strong, readwrite) HBCPrototypeUser *user;
 
@@ -148,6 +149,8 @@ static NSString *const kRecordCell = @"kRecordCell";
     [self.records removeAllObjects];
     [self.records addObjectsFromArray:records];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView setScrollEnabled:(self.records.count > 0)];
+    [self.emptyView setHidden:(self.records.count > 0)];
 }
 
 #pragma mark UIActions

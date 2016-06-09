@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -17,6 +18,7 @@
                 <outlet property="recordingControlsView" destination="tgT-sU-HtO" id="CGO-a3-ssc"/>
                 <outlet property="recordingControlsViewLeftConstraint" destination="OdA-J1-jhi" id="MjB-vO-1sW"/>
                 <outlet property="recordingDurationLabel" destination="InZ-ac-wQg" id="q2Z-EG-1Wm"/>
+                <outlet property="recordingIndicator" destination="lnT-lE-nhs" id="1Cu-1R-SZD"/>
                 <outlet property="recordingWrapper" destination="cfu-k0-tha" id="67P-gU-uuJ"/>
                 <outlet property="renderingProgressLabel" destination="znZ-gt-gWt" id="YRE-ag-QN1"/>
                 <outlet property="renderingProgressView" destination="kQd-Ov-4rc" id="fuf-3v-TUI"/>
@@ -30,7 +32,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -62,20 +64,32 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvR-we-xJN">
+                                    <rect key="frame" x="18" y="350" width="39" height="39"/>
+                                    <state key="normal" image="cancelRecordingButton"/>
+                                    <connections>
+                                        <action selector="cancelRecording:" destination="-1" eventType="touchUpInside" id="7dT-n1-OF6"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="tDf-xu-jUN" firstAttribute="centerY" secondItem="tgT-sU-HtO" secondAttribute="centerY" id="51z-dW-VH6"/>
+                                <constraint firstItem="CvR-we-xJN" firstAttribute="centerX" secondItem="tgT-sU-HtO" secondAttribute="centerX" id="AsS-Fw-3SB"/>
                                 <constraint firstItem="InZ-ac-wQg" firstAttribute="top" secondItem="tDf-xu-jUN" secondAttribute="bottom" constant="10" id="CZB-UR-ECo"/>
                                 <constraint firstItem="InZ-ac-wQg" firstAttribute="centerX" secondItem="tDf-xu-jUN" secondAttribute="centerX" id="Dg4-Y4-rj4"/>
                                 <constraint firstAttribute="width" constant="75" id="Fzl-L4-8o8"/>
                                 <constraint firstItem="tDf-xu-jUN" firstAttribute="centerX" secondItem="tgT-sU-HtO" secondAttribute="centerX" id="K5L-3j-DdX"/>
+                                <constraint firstItem="CvR-we-xJN" firstAttribute="top" secondItem="InZ-ac-wQg" secondAttribute="bottom" constant="10" id="pQR-dW-XhY"/>
                             </constraints>
                         </view>
                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0xO-f2-t4L">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
                             <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </progressView>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recordingIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="lnT-lE-nhs">
+                            <rect key="frame" x="250" y="529" width="60" height="29"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -86,6 +100,8 @@
                         <constraint firstItem="tgT-sU-HtO" firstAttribute="leading" secondItem="cfu-k0-tha" secondAttribute="leading" id="OdA-J1-jhi"/>
                         <constraint firstItem="aPY-Lc-Mn1" firstAttribute="leading" secondItem="cfu-k0-tha" secondAttribute="leading" id="Qsp-zk-GZx"/>
                         <constraint firstItem="tgT-sU-HtO" firstAttribute="top" secondItem="cfu-k0-tha" secondAttribute="top" id="Zou-g1-w89"/>
+                        <constraint firstAttribute="trailing" secondItem="lnT-lE-nhs" secondAttribute="trailing" constant="10" id="ab6-Ik-8pv"/>
+                        <constraint firstAttribute="bottom" secondItem="lnT-lE-nhs" secondAttribute="bottom" constant="10" id="pmd-gL-Ebz"/>
                         <constraint firstItem="aPY-Lc-Mn1" firstAttribute="top" secondItem="cfu-k0-tha" secondAttribute="top" id="qhP-Z4-7De"/>
                         <constraint firstItem="0xO-f2-t4L" firstAttribute="top" secondItem="cfu-k0-tha" secondAttribute="top" id="zBX-rz-k3g"/>
                         <constraint firstAttribute="trailing" secondItem="0xO-f2-t4L" secondAttribute="trailing" id="zbg-iH-Cba"/>
@@ -223,7 +239,9 @@
         </view>
     </objects>
     <resources>
+        <image name="cancelRecordingButton" width="39" height="39"/>
         <image name="playButton" width="30" height="39"/>
+        <image name="recordingIndicator" width="60" height="29"/>
         <image name="startRecordingButton" width="60" height="60"/>
         <image name="stopRecordingButton" width="60" height="60"/>
     </resources>

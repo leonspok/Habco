@@ -15,6 +15,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 
 @import SafariServices;
+@import AVKit;
 
 @interface AppDelegate ()
 @property (nonatomic, strong) SFSafariViewController *safariViewController;
@@ -84,6 +85,13 @@
         });
     }
     return YES;
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if ([self.window.rootViewController.presentedViewController isKindOfClass:[AVPlayerViewController class]]) {
+        return UIInterfaceOrientationMaskAll;
+    }
+    else return UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSString *customUserAgent;
 @property (nonatomic, readonly) BOOL shouldRequestCustomUserAgent;
 
+- (void)removeUnfinishedRecords;
+
 - (NSArray<HBCPrototype *> *)allPrototypes;
 - (NSArray<HBCPrototypeRecord *> *)allRecordsFor:(HBCPrototype *)prototype;
 

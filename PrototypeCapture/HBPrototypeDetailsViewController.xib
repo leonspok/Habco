@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -10,6 +11,7 @@
                 <outlet property="dateLabel" destination="ssn-5k-FJg" id="tmQ-qE-Naa"/>
                 <outlet property="descriptionTextView" destination="Heh-vh-t0v" id="4zE-NO-hXE"/>
                 <outlet property="descriptionTextViewHeightConstraint" destination="4oL-8j-hxc" id="52h-QQ-fER"/>
+                <outlet property="emptyView" destination="yTK-si-hJc" id="Sgt-0s-tow"/>
                 <outlet property="heatmapButton" destination="46Y-Mg-1G0" id="fGI-FW-DkI"/>
                 <outlet property="prototypeIcon" destination="im1-Y8-LRg" id="bsR-Ng-xHM"/>
                 <outlet property="subtitleLabel" destination="r11-RC-neP" id="F6m-T5-i5R"/>
@@ -138,13 +140,61 @@
                         <outlet property="delegate" destination="-1" id="p8O-4Z-xOR"/>
                     </connections>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTK-si-hJc">
+                    <rect key="frame" x="0.0" y="166" width="320" height="402"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You didn't add any users yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aeh-6k-0hw">
+                            <rect key="frame" x="50" y="91" width="220" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="220" id="ItH-W9-IUx"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="639-hs-3EO" customClass="LPRoundRectButton">
+                            <rect key="frame" x="121" y="131" width="78" height="27"/>
+                            <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                            <state key="normal" title="Add user">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="13.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBorderColor">
+                                    <color key="value" white="1" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="addUser:" destination="-1" eventType="touchUpInside" id="YTE-bx-byO"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="Aeh-6k-0hw" firstAttribute="centerY" secondItem="yTK-si-hJc" secondAttribute="centerY" constant="-100" id="4OE-xH-yad"/>
+                        <constraint firstItem="Aeh-6k-0hw" firstAttribute="centerX" secondItem="yTK-si-hJc" secondAttribute="centerX" id="g19-7N-ksf"/>
+                        <constraint firstItem="639-hs-3EO" firstAttribute="top" secondItem="Aeh-6k-0hw" secondAttribute="bottom" constant="19" id="jpS-Tx-luN"/>
+                        <constraint firstItem="639-hs-3EO" firstAttribute="centerX" secondItem="Aeh-6k-0hw" secondAttribute="centerX" id="rez-ya-7Yl"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="vIG-VR-Gi5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8sv-cX-QiD"/>
+                <constraint firstAttribute="bottom" secondItem="yTK-si-hJc" secondAttribute="bottom" id="QxT-LZ-pqk"/>
+                <constraint firstItem="yTK-si-hJc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="T76-Yo-TcP"/>
                 <constraint firstAttribute="bottom" secondItem="vIG-VR-Gi5" secondAttribute="bottom" id="jyo-UG-dwD"/>
+                <constraint firstAttribute="trailing" secondItem="yTK-si-hJc" secondAttribute="trailing" id="sQm-pK-yRX"/>
                 <constraint firstAttribute="trailing" secondItem="vIG-VR-Gi5" secondAttribute="trailing" id="wCT-WV-Tdu"/>
                 <constraint firstItem="vIG-VR-Gi5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="y11-oG-6bM"/>
+                <constraint firstItem="yTK-si-hJc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="166" id="yRG-oP-oQf"/>
             </constraints>
             <point key="canvasLocation" x="222" y="352"/>
         </view>

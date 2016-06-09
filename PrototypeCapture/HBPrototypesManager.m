@@ -38,15 +38,19 @@ static NSString *const kShouldRequestUserAgentAfterKey = @"ShouldRequestUserAgen
         self.pathToFolder = [paths firstObject];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
-                NSArray *emptyPrototypes = [HBCPrototypeRecord MR_findByAttribute:@"pathToVideo" withValue:[NSNull null] inContext:localContext];
-                for (HBCPrototypeRecord *record in emptyPrototypes) {
-                    [self removeRecord:record];
-                }
-            }];
+            [self removeUnfinishedRecords];
         });
     }
     return self;
+}
+
+- (void)removeUnfinishedRecords {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext * _Nonnull localContext) {
+        NSArray *emptyPrototypes = [HBCPrototypeRecord MR_findByAttribute:@"pathToVideo" withValue:[NSNull null] inContext:localContext];
+        for (HBCPrototypeRecord *record in emptyPrototypes) {
+            [self removeRecord:record];
+        }
+    }];
 }
 
 - (NSString *)customUserAgent {
@@ -276,7 +280,6 @@ static NSString *const kShouldRequestUserAgentAfterKey = @"ShouldRequestUserAgen
 }
 
 - (void)removeRecord:(HBCPrototypeRecord *)record {
-    
     NSString *pathToRecord = [self pathToFolderForRecord:record];
     if ([[NSFileManager defaultManager] fileExistsAtPath:pathToRecord]) {
         [[NSFileManager defaultManager] removeItemAtPath:pathToRecord error:nil];

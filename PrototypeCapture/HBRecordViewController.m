@@ -41,6 +41,7 @@ static NSString *const kSliderCell = @"kSliderCell";
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *recordingControlsViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *toggleRecordingButton;
 @property (weak, nonatomic) IBOutlet UILabel *recordingDurationLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *recordingIndicator;
 @property (nonatomic, strong) NSTimer *recordingDurationChangeTimer;
 @property (nonatomic, strong) LPPrototypeCaptureRecorder *recorder;
 
@@ -191,6 +192,11 @@ static NSString *const kSliderCell = @"kSliderCell";
         [self setRecordingWrapperPresented:NO];
         [self startRecordingButtonPressed:self.toggleRecordingButton];
     }
+    [[HBPrototypesManager sharedManager] removeUnfinishedRecords];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -224,17 +230,8 @@ static NSString *const kSliderCell = @"kSliderCell";
                         return;
                     }
                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Something went wrong while recording. It might be because of low performance on your device. Try to lower settings.", nil) preferredStyle:UIAlertControllerStyleAlert];
-                    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                        if (self.record) {
-                            [[HBPrototypesManager sharedManager] removeRecord:self.record];
-                        }
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }]];
-                    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Try again", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        if (self.record) {
-                            [[HBPrototypesManager sharedManager] removeRecord:self.record];
-                        }
-                        [self initRecording:nil];
+                    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [self cancelRecording:self];
                     }]];
                     [self presentViewController:alertController animated:YES completion:nil];
                 });
@@ -452,13 +449,40 @@ static NSString *const kSliderCell = @"kSliderCell";
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
+- (IBAction)cancelRecording:(id)sender {
+    if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecording) {
+        [self.recorder stopRecording];
+    }
+    if (self.record) {
+        [[HBPrototypesManager sharedManager] removeRecord:self.record];
+    }
+    [self setRecordingWrapperPresented:NO animated:YES];
+    return;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Stop Recoding?", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Stop", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self startRecordingButtonPressed:nil];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
 - (IBAction)startRecordingButtonPressed:(id)sender {
     if (self.recorder.status == LPPrototypeCaptureRecorderStatusReadyToRecord) {
+        [self.recordingIndicator setHidden:NO];
         [self.recorder startRecording];
         [self setControlsPresented:NO animated:YES];
         [self.toggleRecordingButton setSelected:YES];
         [self screenChanged];
+        [self becomeFirstResponder];
     } else {
+        [self resignFirstResponder];
+
+        [self.recordingIndicator setHidden:YES];
         if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecording) {
             [self.recorder stopRecording];
         }

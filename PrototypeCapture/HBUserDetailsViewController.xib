@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -10,6 +11,7 @@
                 <outlet property="dateLabel" destination="ls8-Tp-4bF" id="9ZL-Ay-air"/>
                 <outlet property="descriptionTextView" destination="rTc-hR-gwy" id="Tnl-Va-Y2V"/>
                 <outlet property="descriptionTextViewHeightConstraint" destination="aFN-Nw-CVa" id="WQ0-bl-oup"/>
+                <outlet property="emptyView" destination="0aR-8i-Klr" id="wfH-ci-kAI"/>
                 <outlet property="heatmapButton" destination="49Q-Uw-sZn" id="iKu-Gb-jLx"/>
                 <outlet property="subtitleLabel" destination="TnF-Tq-r8r" id="A6M-5u-AL4"/>
                 <outlet property="tableHeader" destination="1Tq-AR-Fkr" id="m0e-mg-eA9"/>
@@ -112,13 +114,61 @@
                         <outlet property="delegate" destination="-1" id="Nw8-8s-Xji"/>
                     </connections>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0aR-8i-Klr">
+                    <rect key="frame" x="0.0" y="139" width="320" height="429"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You didn't record anything yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84Y-BT-WbR">
+                            <rect key="frame" x="60" y="94" width="200" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="lzh-fF-FAW"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="os4-3k-1de" customClass="LPRoundRectButton">
+                            <rect key="frame" x="114" y="154" width="92" height="27"/>
+                            <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                            <state key="normal" title="Add record">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="13.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBorderColor">
+                                    <color key="value" white="1" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="addNewRecord:" destination="-1" eventType="touchUpInside" id="3XY-tg-3qP"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="os4-3k-1de" firstAttribute="centerX" secondItem="84Y-BT-WbR" secondAttribute="centerX" id="1vu-fD-qLO"/>
+                        <constraint firstItem="os4-3k-1de" firstAttribute="top" secondItem="84Y-BT-WbR" secondAttribute="bottom" constant="19" id="4Qe-BL-fo8"/>
+                        <constraint firstItem="84Y-BT-WbR" firstAttribute="centerY" secondItem="0aR-8i-Klr" secondAttribute="centerY" constant="-100" id="Kby-Mf-2c2"/>
+                        <constraint firstItem="84Y-BT-WbR" firstAttribute="centerX" secondItem="0aR-8i-Klr" secondAttribute="centerX" id="q7g-QP-kg4"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="0aR-8i-Klr" secondAttribute="trailing" id="2xo-c0-Zy7"/>
                 <constraint firstAttribute="bottom" secondItem="BoR-xf-Cwf" secondAttribute="bottom" id="7iT-QZ-O2T"/>
+                <constraint firstItem="0aR-8i-Klr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ATF-XT-xiQ"/>
                 <constraint firstItem="BoR-xf-Cwf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ClJ-SO-86V"/>
                 <constraint firstItem="BoR-xf-Cwf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JF6-E3-xDO"/>
                 <constraint firstAttribute="trailing" secondItem="BoR-xf-Cwf" secondAttribute="trailing" id="RmH-GK-e1v"/>
+                <constraint firstAttribute="bottom" secondItem="0aR-8i-Klr" secondAttribute="bottom" id="d3j-Mk-nnm"/>
+                <constraint firstItem="0aR-8i-Klr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="139" id="sV1-Pv-vff"/>
             </constraints>
             <point key="canvasLocation" x="151" y="366"/>
         </view>

@@ -42,6 +42,7 @@
     CGRect capturingFrame;
     CGContextRef touchesDrawingContext;
     NSUInteger frameCounter;
+    NSTimeInterval previousRecordedTimestamp;
 }
 
 - (id)initWithTargetView:(UIView *)view folder:(NSString *)folder {
@@ -233,7 +234,7 @@
 
 - (void)recordSnapshot:(UIImage *)snapshot timestamp:(NSTimeInterval)timestamp {
     dispatch_async(writeQueue, ^{
-        if (!self.shouldWriteFrame || !snapshot || self.status != LPPrototypeCaptureRecorderStatusRecording) {
+        if (!self.shouldWriteFrame || !snapshot || self.status != LPPrototypeCaptureRecorderStatusRecording || (timestamp-previousRecordedTimestamp) < 1.0f/self.fps) {
             return;
         }
         while(!self.pixelBufferAdaptor.assetWriterInput.readyForMoreMediaData) {}
@@ -247,13 +248,15 @@
             CMTime time = CMTimeMake(timestamp*1000, 1000);
             //CMTime time = CMTimeMake((int64_t)frameCounter, (int32_t)self.fps);
             appended = [self.pixelBufferAdaptor appendPixelBuffer:pixelBuffer withPresentationTime:time];
-            DDLogVerbose(@"%@", [NSString stringWithFormat:@"Frame #%ld %@", (long)frameCounter, appended? @"appended" : @"not appended"]);
+            DDLogVerbose(@"%@", [NSString stringWithFormat:@"Frame #%ld %@ at %f", (long)frameCounter, appended? @"appended" : @"not appended", timestamp]);
+            previousRecordedTimestamp = timestamp;
             CVPixelBufferRelease(pixelBuffer);
             if (appended) {
                 frameCounter++;
             } else {
                 self.status = LPPrototypeCaptureRecorderStatusRecordingError;
                 _recordingError = [NSError errorWithDomain:NSStringFromClass(self.class) code:1 userInfo:@{@"message":@"Can't append frame"}];
+                [self stopRecording];
             }
         }
     });
@@ -372,6 +375,7 @@
     [[NSRunLoop currentRunLoop] addTimer:self.recordVideoTimer forMode:NSRunLoopCommonModes];
     
     self.currentRecordStartTime = [NSDate date];
+    previousRecordedTimestamp = 0.0f;
     
     [self.videoWriter startWriting];
     [self.videoWriter startSessionAtSourceTime:kCMTimeZero];
@@ -393,7 +397,7 @@
 }
 
 - (void)stopRecording {
-    NSAssert(self.status == LPPrototypeCaptureRecorderStatusRecording, @"Can't stop recording. Status should be LPPrototypeCaptureRecorderStatusRecording");
+    NSAssert((self.status == LPPrototypeCaptureRecorderStatusRecording || self.status == LPPrototypeCaptureRecorderStatusRecordingError), @"Can't stop recording. Status should be LPPrototypeCaptureRecorderStatusRecording");
     
     [self.captureTargetViewTimer invalidate];
     self.captureTargetViewTimer = nil;
@@ -445,7 +449,7 @@
 }
 
 - (void)render {
-    NSAssert(self.status == LPPrototypeCaptureRecorderStatusReadyToRender || self.status == LPPrototypeCaptureRecorderStatusRenderingError, @"Can't start rendering. Status should be LPPrototypeCaptureRecorderStatusRecorded");
+    NSAssert(self.status == LPPrototypeCaptureRecorderStatusReadyToRender || self.status == LPPrototypeCaptureRecorderStatusRenderingError || self.status == LPPrototypeCaptureRecorderStatusRecordingError, @"Can't start rendering. Status should be LPPrototypeCaptureRecorderStatusRecorded");
     self.status = LPPrototypeCaptureRecorderStatusRendering;
     _renderingError = nil;
     
@@ -655,16 +659,18 @@
     }
     
     NSString *imagePath = [LPPrototypeCaptureRecorder pathToScreenshotForScreen:self.currentScreenName andFolder:self.folder];
-    if (self.targetViewCleanSnapshot && ![[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
-        UIGraphicsBeginImageContextWithOptions(capturingFrame.size, YES, 1.0f);
-        CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, capturingFrame.size.height);
-        CGContextConcatCTM(UIGraphicsGetCurrentContext(), flipVertical);
-        [self.targetViewCleanSnapshot drawInRect:capturingFrame];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        NSData *data = UIImagePNGRepresentation(image);
-        [data writeToFile:imagePath atomically:YES];
+    @synchronized (self.targetViewCleanSnapshot) {
+        if (self.targetViewCleanSnapshot && ![[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+            UIGraphicsBeginImageContextWithOptions(capturingFrame.size, YES, 1.0f);
+            CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, capturingFrame.size.height);
+            CGContextConcatCTM(UIGraphicsGetCurrentContext(), flipVertical);
+            [self.targetViewCleanSnapshot drawInRect:capturingFrame];
+            UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            NSData *data = UIImagePNGRepresentation(image);
+            [data writeToFile:imagePath atomically:YES];
+        }
     }
 }
 
