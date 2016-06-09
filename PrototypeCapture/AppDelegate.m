@@ -13,6 +13,7 @@
 #import "PCWebViewWrapperViewController.h"
 #import "NSDictionary+NSURL.h"
 #import <MagicalRecord/MagicalRecord.h>
+#import <Google/Analytics.h>
 
 @import SafariServices;
 @import AVKit;
@@ -28,6 +29,13 @@
     
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [DDLog addLogger:[DDASLLogger sharedInstance]];
+    
+    NSError *configureError;
+    [[GGLContext sharedInstance] configureWithError:&configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    GAI *gai = [GAI sharedInstance];
+    gai.trackUncaughtExceptions = YES;
+    gai.logger.logLevel = kGAILogLevelError;
     
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Habco"];
     [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelError];

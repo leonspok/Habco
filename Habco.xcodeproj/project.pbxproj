@@ -32,6 +32,7 @@
 		E30E95561CB51DF0000DBE35 /* HBCPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95521CB51DF0000DBE35 /* HBCPrototype.m */; };
 		E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */; };
 		E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FF1C8634A20015CA23 /* LPViewTouch.m */; };
+		E33997FD1D09B4AD0023FEE5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E33997FC1D09B4AD0023FEE5 /* GoogleService-Info.plist */; };
 		E35498E81CE365EC0099A382 /* HBHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = E35498E71CE365EC0099A382 /* HBHeatmap.m */; };
 		E35498EC1CE366280099A382 /* HBHeatmapRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = E35498EB1CE366280099A382 /* HBHeatmapRenderer.m */; };
 		E3716C6E1CB7029000AF553C /* HBPrototypesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3716C6C1CB7029000AF553C /* HBPrototypesListViewController.m */; };
@@ -125,6 +126,7 @@
 		E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouchesRecognizer.m; sourceTree = "<group>"; };
 		E33878FE1C8634A20015CA23 /* LPViewTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouch.h; sourceTree = "<group>"; };
 		E33878FF1C8634A20015CA23 /* LPViewTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouch.m; sourceTree = "<group>"; };
+		E33997FC1D09B4AD0023FEE5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E35498E61CE365EC0099A382 /* HBHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBHeatmap.h; sourceTree = "<group>"; };
 		E35498E71CE365EC0099A382 /* HBHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBHeatmap.m; sourceTree = "<group>"; };
 		E35498EA1CE366280099A382 /* HBHeatmapRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBHeatmapRenderer.h; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 		E3716C761CB7031400AF553C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E33997FC1D09B4AD0023FEE5 /* GoogleService-Info.plist */,
 				E30E653F1C83360E001E431B /* Assets.xcassets */,
 			);
 			name = Resources;
@@ -533,6 +536,7 @@
 				E3EE94651CBABC1800396A06 /* HBRecordTableViewCell.xib in Resources */,
 				E386EC771CB7C7000002F186 /* HBEditUserViewController.xib in Resources */,
 				E3E59D421CB9605800D5FFCF /* HBSwitchTableViewCell.xib in Resources */,
+				E33997FD1D09B4AD0023FEE5 /* GoogleService-Info.plist in Resources */,
 				E393A3EE1CB663E9003CCD46 /* HBEditPrototypeViewController.xib in Resources */,
 				E3E59D4C1CB9B87800D5FFCF /* HBPrototypeDetailsViewController.xib in Resources */,
 				E3E59D3D1CB959DA00D5FFCF /* HBRecordViewController.xib in Resources */,

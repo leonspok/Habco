@@ -6,4 +6,5 @@ target "Habco" do
 	pod "CocoaLumberjack"
 	pod "EDColor"
     pod "NYTPhotoViewer"
+    pod "Google/Analytics"
 end

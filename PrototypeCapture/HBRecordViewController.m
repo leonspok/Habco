@@ -215,26 +215,28 @@ static NSString *const kSliderCell = @"kSliderCell";
         } else if (object == self.webView && [keyPath isEqualToString:@"URL"]) {
             [self screenChanged];
         } else if (object == self.recorder && [keyPath isEqualToString:@"status"]) {
-            BOOL hasError = NO;
             if (self.recorder.status == LPPrototypeCaptureRecorderStatusRecordingError) {
                 DDLogError(@"%@", self.recorder.recordingError);
-                hasError = YES;
+                [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"Recording" action:@"Error" label:@"Recording error" value:nil] build]];
+                if (self.presentedViewController) {
+                    return;
+                }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Something went wrong while recording. It might be because of low performance on your device. Try to lower settings.", nil) preferredStyle:UIAlertControllerStyleAlert];
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self cancelRecording:self];
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             } else if (self.recorder.status == LPPrototypeCaptureRecorderStatusRenderingError) {
                 DDLogError(@"%@", self.recorder.renderingError);
-                hasError = YES;
-            }
-            
-            if (hasError) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (self.presentedViewController) {
-                        return;
-                    }
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Something went wrong while recording. It might be because of low performance on your device. Try to lower settings.", nil) preferredStyle:UIAlertControllerStyleAlert];
-                    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [self cancelRecording:self];
-                    }]];
-                    [self presentViewController:alertController animated:YES completion:nil];
-                });
+                [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"Recording" action:@"Error" label:@"Rendering error" value:nil] build]];
+                if (self.presentedViewController) {
+                    return;
+                }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Something went wrong while rendering.", nil) preferredStyle:UIAlertControllerStyleAlert];
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             }
         }
     } else {
