@@ -30,6 +30,9 @@
 		E30E95541CB51DF0000DBE35 /* HBCPrototypeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E954E1CB51DF0000DBE35 /* HBCPrototypeUser.m */; };
 		E30E95551CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95501CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m */; };
 		E30E95561CB51DF0000DBE35 /* HBCPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = E30E95521CB51DF0000DBE35 /* HBCPrototype.m */; };
+		E32328EC1D0CCD0600FAF9D2 /* IBOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E32328EA1D0CCD0600FAF9D2 /* IBOnboardingViewController.m */; };
+		E32328ED1D0CCD0600FAF9D2 /* IBOnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32328EB1D0CCD0600FAF9D2 /* IBOnboardingViewController.xib */; };
+		E32328EF1D0CFC4800FAF9D2 /* onboarding.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E32328EE1D0CD49900FAF9D2 /* onboarding.mp4 */; };
 		E33878FD1C8630C90015CA23 /* LPViewTouchesRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */; };
 		E33879001C8634A20015CA23 /* LPViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = E33878FF1C8634A20015CA23 /* LPViewTouch.m */; };
 		E33997FD1D09B4AD0023FEE5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E33997FC1D09B4AD0023FEE5 /* GoogleService-Info.plist */; };
@@ -122,6 +125,10 @@
 		E30E95501CB51DF0000DBE35 /* HBCPrototype+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBCPrototype+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E30E95511CB51DF0000DBE35 /* HBCPrototype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCPrototype.h; sourceTree = "<group>"; };
 		E30E95521CB51DF0000DBE35 /* HBCPrototype.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCPrototype.m; sourceTree = "<group>"; };
+		E32328E91D0CCD0600FAF9D2 /* IBOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBOnboardingViewController.h; sourceTree = "<group>"; };
+		E32328EA1D0CCD0600FAF9D2 /* IBOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBOnboardingViewController.m; sourceTree = "<group>"; };
+		E32328EB1D0CCD0600FAF9D2 /* IBOnboardingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBOnboardingViewController.xib; sourceTree = "<group>"; };
+		E32328EE1D0CD49900FAF9D2 /* onboarding.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = onboarding.mp4; sourceTree = "<group>"; };
 		E33878FB1C8630C90015CA23 /* LPViewTouchesRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouchesRecognizer.h; sourceTree = "<group>"; };
 		E33878FC1C8630C90015CA23 /* LPViewTouchesRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPViewTouchesRecognizer.m; sourceTree = "<group>"; };
 		E33878FE1C8634A20015CA23 /* LPViewTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPViewTouch.h; sourceTree = "<group>"; };
@@ -391,6 +398,7 @@
 		E3716C761CB7031400AF553C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E32328EE1D0CD49900FAF9D2 /* onboarding.mp4 */,
 				E33997FC1D09B4AD0023FEE5 /* GoogleService-Info.plist */,
 				E30E653F1C83360E001E431B /* Assets.xcassets */,
 			);
@@ -440,6 +448,9 @@
 				E38B948E1CE616D1003C47D9 /* HBHeatmapsViewController.h */,
 				E38B948F1CE616D1003C47D9 /* HBHeatmapsViewController.m */,
 				E38B94901CE616D1003C47D9 /* HBHeatmapsViewController.xib */,
+				E32328E91D0CCD0600FAF9D2 /* IBOnboardingViewController.h */,
+				E32328EA1D0CCD0600FAF9D2 /* IBOnboardingViewController.m */,
+				E32328EB1D0CCD0600FAF9D2 /* IBOnboardingViewController.xib */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -525,9 +536,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E32328ED1D0CCD0600FAF9D2 /* IBOnboardingViewController.xib in Resources */,
 				E3E59D471CB968A200D5FFCF /* HBSliderTableViewCell.xib in Resources */,
 				E30E65431C83360E001E431B /* LaunchScreen.storyboard in Resources */,
 				E3716C6F1CB7029000AF553C /* HBPrototypesListViewController.xib in Resources */,
+				E32328EF1D0CFC4800FAF9D2 /* onboarding.mp4 in Resources */,
 				E386EC7C1CB7EB050002F186 /* HBUsersListViewController.xib in Resources */,
 				E3EE94601CBABC0400396A06 /* HBUserDetailsViewController.xib in Resources */,
 				E38B94971CE61760003C47D9 /* HBHeatmapCollectionViewCell.xib in Resources */,
@@ -627,6 +640,7 @@
 				E3716C741CB702BA00AF553C /* HBPrototypeTableViewCell.m in Sources */,
 				E30E95361CB510A5000DBE35 /* NSString+MD5.m in Sources */,
 				E3EE945F1CBABC0400396A06 /* HBUserDetailsViewController.m in Sources */,
+				E32328EC1D0CCD0600FAF9D2 /* IBOnboardingViewController.m in Sources */,
 				E3E59D3C1CB959DA00D5FFCF /* HBRecordViewController.m in Sources */,
 				E3716C791CB79DF000AF553C /* UIColor+Pallete.m in Sources */,
 				E3E59D461CB968A200D5FFCF /* HBSliderTableViewCell.m in Sources */,
@@ -761,7 +775,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leonspok.ios.habco;
 				PRODUCT_NAME = Habco;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -777,7 +791,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.leonspok.ios.habco;
 				PRODUCT_NAME = Habco;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -464,12 +464,13 @@ static NSString *const kSliderCell = @"kSliderCell";
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Stop Recoding?", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Stop", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self startRecordingButtonPressed:nil];
-        }]];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self setControlsPresented:!self.controlsPresented animated:YES];
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Stop Recoding?", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+//        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Stop", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            [self startRecordingButtonPressed:nil];
+//        }]];
+//        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleDefault handler:nil]];
+//        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 

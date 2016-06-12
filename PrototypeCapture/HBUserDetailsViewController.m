@@ -36,6 +36,7 @@ static NSString *const kRecordCell = @"kRecordCell";
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionTextViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIView *emptyView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emptyViewTopConstraint;
 
 @property (nonatomic, strong, readwrite) HBCPrototypeUser *user;
 
@@ -112,21 +113,33 @@ static NSString *const kRecordCell = @"kRecordCell";
         [self.dateLabel setText:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Added", nil), [dateFormatter stringFromDate:self.user.dateAdded]]];
     }
     
-    NSString *desc = self.user.bio? : @"";
-    [self.descriptionTextView setText:desc];
-    CGSize descriptionSize = [self.descriptionTextView sizeThatFits:CGSizeMake(self.descriptionTextView.frame.size.width, HUGE_VALF)];
+    CGSize descriptionSize;
+    if (self.user.bio.length > 0) {
+        NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+        ps.alignment = NSTextAlignmentLeft;
+        ps.lineSpacing = 3.0f;
+        NSAttributedString *desc = [[NSAttributedString alloc] initWithString:self.user.bio attributes:@{NSFontAttributeName: self.descriptionTextView.font, NSForegroundColorAttributeName: self.descriptionTextView.textColor, NSParagraphStyleAttributeName: ps}];
+        [self.descriptionTextView setAttributedText:desc];
+        descriptionSize = [desc boundingRectWithSize:CGSizeMake(self.descriptionTextView.frame.size.width, HUGE_VALF) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    } else {
+        [self.descriptionTextView setText:@""];
+        descriptionSize = CGSizeZero;
+    }
+    
     self.descriptionTextViewHeightConstraint.constant = descriptionSize.height;
     [self.descriptionTextView setNeedsLayout];
     [self.descriptionTextView layoutIfNeeded];
     
     CGRect frame = self.tableHeader.frame;
-    if (desc.length > 0) {
+    if (self.user.bio.length > 0) {
         frame.size.height = 91.0f+10.0f+self.descriptionTextViewHeightConstraint.constant;
     } else {
         frame.size.height = 90.0f;
     }
     [self.tableHeader setFrame:frame];
     [self.tableView setTableHeaderView:self.tableHeader];
+    
+    self.emptyViewTopConstraint.constant = frame.size.height;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         BOOL hasTouchLogs = NO;

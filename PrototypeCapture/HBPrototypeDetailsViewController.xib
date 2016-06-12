@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HBPrototypeDetailsViewController">
@@ -12,6 +13,7 @@
                 <outlet property="descriptionTextView" destination="Heh-vh-t0v" id="4zE-NO-hXE"/>
                 <outlet property="descriptionTextViewHeightConstraint" destination="4oL-8j-hxc" id="52h-QQ-fER"/>
                 <outlet property="emptyView" destination="yTK-si-hJc" id="Sgt-0s-tow"/>
+                <outlet property="emptyViewTopConstraint" destination="yRG-oP-oQf" id="qs7-3q-jpg"/>
                 <outlet property="heatmapButton" destination="46Y-Mg-1G0" id="fGI-FW-DkI"/>
                 <outlet property="prototypeIcon" destination="im1-Y8-LRg" id="bsR-Ng-xHM"/>
                 <outlet property="subtitleLabel" destination="r11-RC-neP" id="F6m-T5-i5R"/>
@@ -81,6 +83,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="500" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Heh-vh-t0v">
                                 <rect key="frame" x="5" y="122" width="310" height="28"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="4oL-8j-hxc"/>
                                 </constraints>
@@ -144,7 +147,7 @@
                     <rect key="frame" x="0.0" y="166" width="320" height="402"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You didn't add any users yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aeh-6k-0hw">
-                            <rect key="frame" x="50" y="91" width="220" height="21"/>
+                            <rect key="frame" x="50" y="120" width="220" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="220" id="ItH-W9-IUx"/>
                             </constraints>
@@ -153,7 +156,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="639-hs-3EO" customClass="LPRoundRectButton">
-                            <rect key="frame" x="121" y="131" width="78" height="27"/>
+                            <rect key="frame" x="121" y="160" width="78" height="27"/>
                             <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
@@ -178,7 +181,7 @@
                     </subviews>
                     <color key="backgroundColor" red="0.17254901959999999" green="0.20392156859999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="Aeh-6k-0hw" firstAttribute="centerY" secondItem="yTK-si-hJc" secondAttribute="centerY" constant="-100" id="4OE-xH-yad"/>
+                        <constraint firstItem="Aeh-6k-0hw" firstAttribute="centerY" secondItem="yTK-si-hJc" secondAttribute="centerY" multiplier="0.65" id="4OE-xH-yad"/>
                         <constraint firstItem="Aeh-6k-0hw" firstAttribute="centerX" secondItem="yTK-si-hJc" secondAttribute="centerX" id="g19-7N-ksf"/>
                         <constraint firstItem="639-hs-3EO" firstAttribute="top" secondItem="Aeh-6k-0hw" secondAttribute="bottom" constant="19" id="jpS-Tx-luN"/>
                         <constraint firstItem="639-hs-3EO" firstAttribute="centerX" secondItem="Aeh-6k-0hw" secondAttribute="centerX" id="rez-ya-7Yl"/>

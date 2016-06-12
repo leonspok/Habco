@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HBUserDetailsViewController">
@@ -12,6 +13,7 @@
                 <outlet property="descriptionTextView" destination="rTc-hR-gwy" id="Tnl-Va-Y2V"/>
                 <outlet property="descriptionTextViewHeightConstraint" destination="aFN-Nw-CVa" id="WQ0-bl-oup"/>
                 <outlet property="emptyView" destination="0aR-8i-Klr" id="wfH-ci-kAI"/>
+                <outlet property="emptyViewTopConstraint" destination="sV1-Pv-vff" id="3IQ-S1-E0l"/>
                 <outlet property="heatmapButton" destination="49Q-Uw-sZn" id="iKu-Gb-jLx"/>
                 <outlet property="subtitleLabel" destination="TnF-Tq-r8r" id="A6M-5u-AL4"/>
                 <outlet property="tableHeader" destination="1Tq-AR-Fkr" id="m0e-mg-eA9"/>
@@ -68,6 +70,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="500" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rTc-hR-gwy">
                                 <rect key="frame" x="5" y="91" width="310" height="28"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="aFN-Nw-CVa"/>
                                 </constraints>
@@ -118,7 +121,7 @@
                     <rect key="frame" x="0.0" y="139" width="320" height="429"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You didn't record anything yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84Y-BT-WbR">
-                            <rect key="frame" x="60" y="94" width="200" height="41"/>
+                            <rect key="frame" x="60" y="119" width="200" height="41"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="lzh-fF-FAW"/>
                             </constraints>
@@ -127,7 +130,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="os4-3k-1de" customClass="LPRoundRectButton">
-                            <rect key="frame" x="114" y="154" width="92" height="27"/>
+                            <rect key="frame" x="114" y="179" width="92" height="27"/>
                             <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
@@ -154,7 +157,7 @@
                     <constraints>
                         <constraint firstItem="os4-3k-1de" firstAttribute="centerX" secondItem="84Y-BT-WbR" secondAttribute="centerX" id="1vu-fD-qLO"/>
                         <constraint firstItem="os4-3k-1de" firstAttribute="top" secondItem="84Y-BT-WbR" secondAttribute="bottom" constant="19" id="4Qe-BL-fo8"/>
-                        <constraint firstItem="84Y-BT-WbR" firstAttribute="centerY" secondItem="0aR-8i-Klr" secondAttribute="centerY" constant="-100" id="Kby-Mf-2c2"/>
+                        <constraint firstItem="84Y-BT-WbR" firstAttribute="centerY" secondItem="0aR-8i-Klr" secondAttribute="centerY" multiplier="0.65" id="Kby-Mf-2c2"/>
                         <constraint firstItem="84Y-BT-WbR" firstAttribute="centerX" secondItem="0aR-8i-Klr" secondAttribute="centerX" id="q7g-QP-kg4"/>
                     </constraints>
                 </view>

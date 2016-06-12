@@ -276,6 +276,8 @@ static NSString *const kShouldRequestUserAgentAfterKey = @"ShouldRequestUserAgen
         HBCPrototypeRecord *localRecord = [record MR_inContext:localContext];
         localRecord.date = record.date;
         localRecord.pathToVideo = record.pathToVideo;
+        localRecord.user.lastRecordingDate = record.date;
+        localRecord.user.prototype.lastRecordingDate = record.date;
     }];
 }
 

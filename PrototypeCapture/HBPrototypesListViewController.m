@@ -13,11 +13,7 @@
 #import "HBPrototypesManager.h"
 #import "HBCPrototype.h"
 #import "HBPrototypeDetailsViewController.h"
-
-//TODO: remove
-#import "HBEditUserViewController.h"
-#import "HBUsersListViewController.h"
-#import "HBRecordViewController.h"
+#import "IBOnboardingViewController.h"
 
 static NSString *const kPrototypeCell = @"kPrototypeCell";
 
@@ -61,6 +57,18 @@ static NSString *const kPrototypeCell = @"kPrototypeCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self reloadPrototypes];
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding_shown"]) {
+        IBOnboardingViewController *onboarding = [[IBOnboardingViewController alloc] initWithNibName:NSStringFromClass(IBOnboardingViewController.class) bundle:nil];
+        [self presentViewController:onboarding animated:NO completion:^{
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"onboarding_shown"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

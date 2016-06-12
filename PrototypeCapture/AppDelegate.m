@@ -47,7 +47,7 @@
     windowFrame.origin.x = (screenBounds.size.width-windowFrame.size.width)/2.0f;
     windowFrame.origin.y = (screenBounds.size.height-windowFrame.size.height)/2.0f;
     
-    self.window = [[UIWindow alloc] initWithFrame:screenBounds];
+    self.window = [[UIWindow alloc] initWithFrame:windowFrame];
     self.window.rootViewController = nc;
     [self.window makeKeyAndVisible];
     
