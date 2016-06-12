@@ -31,6 +31,10 @@ static NSString *kStopKey = @"stop";
 
 @implementation IBOnboardingViewController
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -50,7 +54,7 @@ static NSString *kStopKey = @"stop";
                       kStopKey: @13},
                     @{kTitleKey: NSLocalizedString(@"Setup recording", nil),
                       kStartKey: @13,
-                      kStopKey: @16},
+                      kStopKey: @16.5},
                     @{kTitleKey: NSLocalizedString(@"Give your device to user and start recording", nil),
                       kStartKey: @16,
                       kStopKey: @24},
@@ -99,7 +103,7 @@ static NSString *kStopKey = @"stop";
         [self.welcomeView setTransform:CGAffineTransformIdentity];
     } completion:nil];
     [self.player play];
-    [UIView animateWithDuration:0.8f delay:1.5f usingSpringWithDamping:1 initialSpringVelocity:0.1f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+    [UIView animateWithDuration:0.8f delay:3.0f usingSpringWithDamping:1 initialSpringVelocity:0.1f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
         [self.welcomeView setAlpha:0.0f];
         [self.welcomeView setTransform:CGAffineTransformMakeTranslation(0, -20.0f)];
         [self.titleLabel setAlpha:1];

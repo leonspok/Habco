@@ -139,15 +139,13 @@ static NSString *const kUserCell = @"kUserCell";
         ps.lineSpacing = 3.0f;
         NSAttributedString *desc = [[NSAttributedString alloc] initWithString:self.prototype.prototypeDescription attributes:@{NSFontAttributeName: self.descriptionTextView.font, NSForegroundColorAttributeName: self.descriptionTextView.textColor, NSParagraphStyleAttributeName: ps}];
         [self.descriptionTextView setAttributedText:desc];
-        descriptionSize = [desc boundingRectWithSize:CGSizeMake(self.descriptionTextView.frame.size.width, HUGE_VALF) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        descriptionSize = [self.descriptionTextView sizeThatFits:CGSizeMake(self.descriptionTextView.frame.size.width, HUGE_VALF)];
     } else {
         [self.descriptionTextView setText:@""];
         descriptionSize = CGSizeZero;
     }
 
     self.descriptionTextViewHeightConstraint.constant = descriptionSize.height;
-    [self.descriptionTextView setNeedsLayout];
-    [self.descriptionTextView layoutIfNeeded];
     
     CGRect frame = self.tableHeader.frame;
     if (self.prototype.prototypeDescription.length > 0) {
