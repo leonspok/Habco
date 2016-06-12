@@ -35,29 +35,38 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1g-BY-iDe">
-                    <rect key="frame" x="30" y="225" width="260" height="119"/>
+                    <rect key="frame" x="30" y="180" width="260" height="209"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Habco" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPs-Nq-WyK">
-                            <rect key="frame" x="96" y="20" width="68" height="27"/>
+                            <rect key="frame" x="96" y="110" width="68" height="27"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lets you to record interaction with prototypes." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jF6-zA-PCV">
-                            <rect key="frame" x="0.0" y="51" width="260" height="48"/>
+                            <rect key="frame" x="0.0" y="141" width="260" height="48"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboardingAppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-0Z-B6Y">
+                            <rect key="frame" x="80" y="0.0" width="100" height="100"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="otE-WE-lP8"/>
+                                <constraint firstAttribute="height" constant="100" id="umX-Ql-PBI"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="jF6-zA-PCV" secondAttribute="bottom" constant="20" id="D09-Wn-bbh"/>
                         <constraint firstItem="jF6-zA-PCV" firstAttribute="top" secondItem="oPs-Nq-WyK" secondAttribute="bottom" constant="4" id="HFz-4i-lNq"/>
+                        <constraint firstItem="RWs-0Z-B6Y" firstAttribute="top" secondItem="d1g-BY-iDe" secondAttribute="top" id="Voh-dX-F96"/>
                         <constraint firstAttribute="trailing" secondItem="jF6-zA-PCV" secondAttribute="trailing" id="YVa-bQ-9Vw"/>
                         <constraint firstItem="jF6-zA-PCV" firstAttribute="leading" secondItem="d1g-BY-iDe" secondAttribute="leading" id="hHw-QV-YGQ"/>
                         <constraint firstItem="oPs-Nq-WyK" firstAttribute="centerX" secondItem="d1g-BY-iDe" secondAttribute="centerX" id="n7q-Ga-44V"/>
-                        <constraint firstItem="oPs-Nq-WyK" firstAttribute="top" secondItem="d1g-BY-iDe" secondAttribute="top" constant="20" id="pEx-hh-ILi"/>
+                        <constraint firstItem="RWs-0Z-B6Y" firstAttribute="centerX" secondItem="d1g-BY-iDe" secondAttribute="centerX" id="pa4-dq-LvT"/>
+                        <constraint firstItem="oPs-Nq-WyK" firstAttribute="top" secondItem="RWs-0Z-B6Y" secondAttribute="bottom" constant="10" id="q6P-QL-M1Y"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="251" text="recorded with Habco" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIk-Fb-ahc">
@@ -110,4 +119,7 @@
             <point key="canvasLocation" x="169" y="149"/>
         </view>
     </objects>
+    <resources>
+        <image name="onboardingAppIcon" width="180" height="180"/>
+    </resources>
 </document>
