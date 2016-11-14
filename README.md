@@ -14,7 +14,7 @@ Habco lets you to record interaction with prototypes on your iPhone. If you have
 
 As the result you will get a video similar to the following.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/t_zw9FiKGaQ" frameborder="0" allowfullscreen></iframe>
+[Youtube link](https://youtu.be/t_zw9FiKGaQ)
 
 And also heat maps for screens in your prototype:
 
