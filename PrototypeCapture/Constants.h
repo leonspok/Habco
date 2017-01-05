@@ -1,7 +1,3 @@
-// Notifications
-#define UserDidAuthenticateNotification @"UserDidAuthenticateNotification"
-#define UserDidRegisterNotification @"UserDidRegisterNotification"
-#define CentralPanelWasOpenedNotification @"CentralPanelWasOpenedNotification"
 
 // Shortcuts
 #define APP ((AppDelegate *)[[UIApplication sharedApplication] delegate])
@@ -27,24 +23,12 @@
 #endif
 
 // API
-#define API_KEY @"jN0twn8oYI3Qc2qY70GJ"
-#define API_SALT @"CDp1h8d14rUDvdhidjt5"
 #define API_BASE_URL [[[NSBundle mainBundle] infoDictionary] valueForKey:@"API_BASE_URL"]
-//#define API_BASE_URL @"https://premiumparking-api.herokuapp.com/"
-//#define API_BASE_URL @"https://premiumparking-api-staging.herokuapp.com/"
-//#define API_BASE_URL @"http://192.168.1.5:5000/"
 
 // Colors
 #define RGB(r, g, b) [UIColor colorWithRed:r/256.0 green:g/256.0 blue:b/256.0 alpha:1]
 #define RGBA(r, g, b, a) [UIColor colorWithRed:r/256.0 green:g/256.0 blue:b/256.0 alpha:a]
 #define PPRED [UIColor colorWithRed:211.0/256.0 green:21.0/256.0 blue:13.0/256.0 alpha:1];
-
-// Map
-#define MAP_ID @"nthompson.map-1byd4h92"
-#define MAP_PAY_NOW_SPEED_LIMIT 8.0
-
-// Places
-#define GOOGLE_API_KEY @"AIzaSyC74ntA4im_9tDBefNa268AwnQGd6nZyZU"
 
 // Contacts
 #define CONTACT_PHONE @""
